@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>439712533808-pjvlk4k8g95fdht6m7190a1ahdpo8h5h.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.439712533808-pjvlk4k8g95fdht6m7190a1ahdpo8h5h</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>439712533808-s7bjfkl815rdn4iffbk7f3vd563o10p4.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCFDIpRfL6zGqMZA2__0GT9bGhr8tduXiI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>439712533808</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.OctariuMobile</string>
+	<key>PROJECT_ID</key>
+	<string>octariu-mobile</string>
+	<key>STORAGE_BUCKET</key>
+	<string>octariu-mobile.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:439712533808:ios:71137c026371631bcb4cf5</string>
+</dict>
+</plist>
