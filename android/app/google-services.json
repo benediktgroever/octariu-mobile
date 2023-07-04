@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "439712533808",
+    "project_id": "octariu-mobile",
+    "storage_bucket": "octariu-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439712533808:android:c6baa40f0d46c525cb4cf5",
+        "android_client_info": {
+          "package_name": "com.octariumobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439712533808-s7bjfkl815rdn4iffbk7f3vd563o10p4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.octariumobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "439712533808-umu271ki2qpp9mtur4l0em1jk9laganc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAdRnstE_WPyLiOFmU-Q2W3XCFDc6jmVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439712533808-umu271ki2qpp9mtur4l0em1jk9laganc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "439712533808-bsm00hhd87pks10neglcp6nppopdsepr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anonymous.octariu-mobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
