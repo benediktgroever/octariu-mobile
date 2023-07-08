@@ -1,3 +1,5 @@
+import { Provider } from 'react-redux';
+import { store } from './store';
 import React, { useState, useEffect } from 'react';
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import {
@@ -35,9 +37,11 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Provider store={store}>
         {
           user ? <AuthStack/> : <NonAuthStack/>
         }
+      </Provider>
     </SafeAreaView>
   );
 }
