@@ -16,6 +16,10 @@ type createWorkoutParams = {
     startTime: number
 }
 
+type listWorkoutParams = {
+    workoutId?: string,
+}
+
 type updateWorkoutParams = {
     workoutId: string,
     name?: string,
@@ -33,9 +37,7 @@ const workoutsApi = createApi({
         baseUrl: `${PROTOCOL}://${OSUBMIT}/workouts`,
         prepareHeaders: async (headers) => {
             const token = await auth().currentUser?.getIdToken();
-            const user = auth().currentUser?.uid;
             headers.set('X-ACCESS-TOKEN', token ? token : '')
-            headers.set('X-USER', user ? user : '')
             headers.set('Access-Control-Allow-Origin', '*')
             return headers
         }
@@ -65,10 +67,11 @@ const workoutsApi = createApi({
             }),
             listWorkouts: builder.query({
                 providesTags: ['Workouts'],
-                query: () => {
+                query: (params: listWorkoutParams) => {
                     return {
                         url: '/list',
                         method: 'GET',
+                        params
                     }
                 }
             }),

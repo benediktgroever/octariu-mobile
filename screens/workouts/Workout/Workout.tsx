@@ -6,6 +6,7 @@ import { ExercisePickerModal } from './ExercisePickerModal';
 import {
     useListExercisesQuery,
     useListSetsQuery,
+    useListWorkoutsQuery,
 } from '../../../store';
 import {
   SetType,
@@ -24,11 +25,12 @@ type WorkoutProps = {
 
 const Workout = (props: WorkoutProps) => {
 
+    const workoutQuery = useListWorkoutsQuery({workoutId: props.workout.workoutId})
     const listSetsQuery = useListSetsQuery({workoutId: props.workout.workoutId});
-    const listExercisesQuery = useListExercisesQuery({hidden: true});
+    const listExercisesQuery = useListExercisesQuery({});
     const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
     const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
-    const isLoading = listExercisesQuery.isLoading || listSetsQuery.isLoading;
+    const isLoading = workoutQuery.isLoading || listExercisesQuery.isLoading || listSetsQuery.isLoading;
     const error = listExercisesQuery.error || listSetsQuery.error;
 
     let sets: SetType[] = [];
@@ -47,6 +49,10 @@ const Workout = (props: WorkoutProps) => {
       });
     }
 
+    let workout: WorkoutType | undefined = undefined;
+    if (workoutQuery.data){
+      workout = workoutQuery.data.data[0];
+    }
 
     const renderExercises = () => {
 
@@ -79,7 +85,7 @@ const Workout = (props: WorkoutProps) => {
     return (
       <React.Fragment>
         <WorkoutHeader 
-          workout={props.workout} 
+          workout={ workout !== undefined  ? workout : props.workout} 
           navigation={props.navigation} 
           onLoadingFromHeader={changeLoadingFromHeader} 
         />

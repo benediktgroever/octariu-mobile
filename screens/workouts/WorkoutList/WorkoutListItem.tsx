@@ -10,9 +10,10 @@ import {
     ExerciseType,
 } from '../../../common/types';
 import { LargestSetItem } from "./LargestSetItem";
+import { NavigationProp } from "@react-navigation/native";
 
 type WorkoutListItemProps = {
-    navigation: any,
+    navigation: NavigationProp<any, any>,
     workout: WorkoutType,
 }
 
@@ -23,7 +24,7 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
     const previous = !props.workout.template && props.workout.endTime !==0;
 
     const listSetsQuery = useListSetsQuery({workoutId: props.workout.workoutId});
-    const listExercisesQuery = useListExercisesQuery({hidden: false});
+    const listExercisesQuery = useListExercisesQuery({});
     const isLoading = listExercisesQuery.isLoading || listSetsQuery.isLoading;
     const error = listExercisesQuery.error || listSetsQuery.error;
 
@@ -83,7 +84,7 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
         weekday: 'short',
         year: undefined, 
         month: 'short', 
-        day: 'numeric'
+        day: '2-digit'
       };
       const date = new Date(props.workout.startTime);
       return (

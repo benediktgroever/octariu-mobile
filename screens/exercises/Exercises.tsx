@@ -21,7 +21,7 @@ type ExercisesScreenProps = {
 
 const ExercisesScreen = (props: ExercisesScreenProps) => {
 
-    const { data } = useListExercisesQuery({hidden: false});
+    const { data } = useListExercisesQuery({});
     const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false)
 
     let exercises: ExerciseType[] | undefined = undefined;

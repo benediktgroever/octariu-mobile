@@ -18,7 +18,7 @@ type ExercisePickerModalProps = {
 
 const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 
-    const { data } = useListExercisesQuery({hidden: false});
+    const { data } = useListExercisesQuery({});
     const [createSet] = useCreateSetMutation();
 
     let exercises: ExerciseType[] | undefined = undefined;
@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     button: {
-      borderRadius: 5,
-      padding: 10,
-      width: '100%'
+        borderRadius: 5,
+        padding: 10,
+        width: '100%'
     },
     buttonClose: {
-      backgroundColor: 'lightgrey',
-      marginVertical: 3,
+        backgroundColor: 'lightgrey',
+        marginVertical: 3,
     },
     textStyle: {
-      color: 'black',
-      textAlign: 'center',
+        color: 'black',
+        textAlign: 'center',
     },
     flatlist: {
         height: '80%'

@@ -42,9 +42,7 @@ const setsApi = createApi({
         baseUrl: `${PROTOCOL}://${OSUBMIT}/sets`,
         prepareHeaders: async (headers) => {
             const token = await auth().currentUser?.getIdToken();
-            const user = auth().currentUser?.uid;
             headers.set('X-ACCESS-TOKEN', token ? token : '')
-            headers.set('X-USER', user ? user : '')
             headers.set('Access-Control-Allow-Origin', '*')
             return headers
         }

@@ -22,6 +22,7 @@ import {
     DeleteWorkoutModal 
 } from './DeleteWorkoutModal';
 import { NavigationProp } from '@react-navigation/native';
+import { EditWorkoutDateTimeModal } from './EditWorkoutDateTimeModal';
 
 type WorkoutHeaderProps = {
     workout: WorkoutType,
@@ -37,6 +38,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
 
     const [name, onChangeName] = useState(props.workout.name);
     const [showDeleteWorkoutModal, changeShowDeleteWorkoutModal] = useState(false);
+    const [showEditWorkoutDateTimeModal, changeShowEditWorkoutDateTimeModal] = useState(false);
 
     const [createWorkout, createWorkoutMutation] = useCreateWorkoutMutation();
     const [updateWorkout, updateWorkoutMutation] = useUpdateWorkoutMutation();
@@ -89,6 +91,13 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
         updateWorkout({workoutId: props.workout.workoutId, name: name})
     }
 
+    const optionsDate: Intl.DateTimeFormatOptions = { 
+        weekday: 'short',
+        year: undefined, 
+        month: 'short', 
+        day: '2-digit',
+    };
+
     const options: Intl.DateTimeFormatOptions = { 
         weekday: undefined,
         year: undefined, 
@@ -130,13 +139,18 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                     </View> : <View style={styles.container}>
                         <Pressable
                             style={[styles.button]}
-                            onPress={ () => console.log('here') }>
-                            <Text> { "start: " + new Date(props.workout.startTime ).toLocaleTimeString('en-US', options) }</Text>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.button]}
-                            onPress={ () => console.log('here') }>
-                            <Text> { "end: " + new Date(props.workout.endTime ).toLocaleTimeString('en-US', options) }</Text>
+                            onPress={ () => changeShowEditWorkoutDateTimeModal(true) }>
+                            <Text> 
+                                {
+                                    new Date(props.workout.startTime).toLocaleDateString('en-US', optionsDate)
+                                }
+                            </Text>
+                            <Text> 
+                                {
+                                    new Date(props.workout.startTime).toLocaleTimeString('en-US', options)
+                                    + '  -  ' + new Date(props.workout.endTime).toLocaleTimeString('en-US', options)
+                                }
+                            </Text>
                         </Pressable>
                     </View>
                 }
@@ -155,6 +169,15 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                         }}
                     />
                 }
+                {
+                    showEditWorkoutDateTimeModal && <EditWorkoutDateTimeModal
+                        navigation={props.navigation} 
+                        workout={props.workout} 
+                        onExit={() => {
+                            changeShowEditWorkoutDateTimeModal(false)
+                        }}
+                    />
+                }
             </View>
         </View>
     );
@@ -163,7 +186,9 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
 const styles = StyleSheet.create({
     input: {
         paddingVertical: 5, 
-        textAlign: 'center',       
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: 'bold',     
     },
     container: {
         display: 'flex',

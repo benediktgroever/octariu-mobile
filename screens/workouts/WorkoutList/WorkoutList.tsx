@@ -20,7 +20,7 @@ type WorkoutListProps = {
 
 const WorkoutList = (props: WorkoutListProps) => {
 
-    const {data, error, isLoading } = useListWorkoutsQuery({hidden: false});
+    const {data, error, isLoading } = useListWorkoutsQuery({});
 
     const [showAddWorkoutModal, changeShowAddWorkoutModal] = useState(false);
 
