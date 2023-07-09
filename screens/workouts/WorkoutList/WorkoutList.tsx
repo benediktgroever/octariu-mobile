@@ -12,9 +12,10 @@ import {
 import {
     WorkoutType
 } from '../../../common/types';
+import { NavigationProp } from '@react-navigation/native';
 
 type WorkoutListProps = {
-    navigation: any;
+    navigation: NavigationProp<any, any>;
 }
 
 const WorkoutList = (props: WorkoutListProps) => {

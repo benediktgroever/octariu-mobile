@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 import {
     View,
     StyleSheet,
-    SafeAreaView,
     Pressable,
     Image,
     Text
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         display: 'flex',
+        backgroundColor: 'white',
     },
     navBar: {
         display: 'flex',

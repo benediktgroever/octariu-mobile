@@ -1,90 +1,91 @@
-import {View, Text, Modal, Pressable, StyleSheet} from 'react-native';
+import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import {
     useListExercisesQuery,
+    useCreateSetMutation
 } from '../../../store';
 import {
-    ExerciseType
+    ExerciseType, WorkoutType
 } from '../../../common/types';
+import {
+    ModalTemplate,
+} from '../../../common';
 
 type ExercisePickerModalProps = {
-    onClickCreateExercise: Function;
+    onExit: Function
+    workout: WorkoutType
+    newWorkoutRank: number
 }
 
 const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 
-    const {data, isLoading } = useListExercisesQuery({hidden: false});
+    const { data } = useListExercisesQuery({hidden: false});
+    const [createSet] = useCreateSetMutation();
 
     let exercises: ExerciseType[] | undefined = undefined;
     if(data){
         exercises = data.data
     }
 
-    const renderedExercises = () => {
-        return exercises && exercises.map(({name, exerciseId}: ExerciseType) => {
-            return (
-                <Pressable
-                        key={exerciseId}
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => props.onClickCreateExercise(exerciseId)}>
-                    <Text style={styles.textStyle}>{name}</Text>
-                </Pressable>
-            )
+    const onClickCreateExercise = (exerciseId: string) => {
+        createSet({
+          exerciseId,
+          workoutId: props.workout.workoutId,
+          exerciseRank: 0,
+          workoutRank: props.newWorkoutRank,
+          reps: 8,
+          weight: 12,
+          template: props.workout.template
         })
+        props.onExit()
+      }
+
+    const renderExerciseSelector = ({item}: {item: ExerciseType}) => {
+        const {exerciseId, name} = item;
+        return (
+            <Pressable
+                    key={exerciseId}
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => onClickCreateExercise(exerciseId)}>
+                <Text style={styles.textStyle}>{name}</Text>
+            </Pressable>
+        )
     }
 
     return (
-        <Modal
-                transparent={true}
-                visible={true}
-            >
-            <View style={styles.centeredView}>
-                {
-                    isLoading ? <View style={styles.modalView}>
-                        <Text>Loading</Text>
-                    </View> : <View style={styles.modalView}>
-                        <Text>Which exercise do you want to add?</Text>
-                        { renderedExercises() }
-                    </View>
-                }
-            </View>
-        </Modal>
+        <ModalTemplate onExit={props.onExit} >
+            <Text style={styles.header}>Which exercise do you want to add?</Text>
+            <FlatList
+                data={exercises}
+                renderItem={renderExerciseSelector}
+                keyExtractor={exercise => exercise.exerciseId}
+                style={styles.flatlist}
+            />
+        </ModalTemplate>
     );
 };
 
 const styles = StyleSheet.create({
-    centeredView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.2)',
-    },
-    modalView: {
-      margin: 20,
-      backgroundColor: 'white',
-      borderRadius: 5,
-      padding: 20,
-      alignItems: 'center',
+    header: {
+        paddingVertical: 8,
+        fontSize: 15,
+        fontWeight: 'bold'
     },
     button: {
       borderRadius: 5,
       padding: 10,
-      elevation: 2,
-    },
-    buttonOpen: {
-      backgroundColor: '#F194FF',
+      width: '100%'
     },
     buttonClose: {
-      backgroundColor: '#2196F3',
+      backgroundColor: 'lightgrey',
+      marginVertical: 3,
     },
     textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
+      color: 'black',
       textAlign: 'center',
     },
-    modalText: {
-      marginBottom: 15,
-      textAlign: 'center',
-    },
+    flatlist: {
+        height: '80%'
+    }
 });
 
 export { ExercisePickerModal }

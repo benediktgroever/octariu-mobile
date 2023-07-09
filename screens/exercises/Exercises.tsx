@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { NavBar } from '../../common';
-import {View, StyleSheet, Pressable, Image, Text} from 'react-native';
+import {View, StyleSheet, Pressable, Image, Text, FlatList} from 'react-native';
 import {
-    useCreateExerciseMutation,
     useListExercisesQuery,
 } from '../../store';
 import {
@@ -14,54 +13,56 @@ import {
 import {
   CreateExerciseModal
 } from './CreateExerciseModal';
+import { NavigationProp } from '@react-navigation/native';
 
 type ExercisesScreenProps = {
-  navigation: any
+  navigation: NavigationProp<any, any>
 }
 
 const ExercisesScreen = (props: ExercisesScreenProps) => {
 
-    const { data, error, isLoading } = useListExercisesQuery({hidden: false});
-    const [createExercise] = useCreateExerciseMutation();
+    const { data } = useListExercisesQuery({hidden: false});
     const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false)
-
-    const onClickCreateNewExercise = () => {
-        createExercise({name: 'New exercise'})
-    }
 
     let exercises: ExerciseType[] | undefined = undefined;
     if(data){
         exercises = data.data
     }
 
+    const renderExercise = ({item}: {item: ExerciseType}) => {
+        return <Text style={styles.exerciseItem} key={item.exerciseId}>{item.name}</Text>
+        // return <ExerciseListItem key={item.exerciseId} exercise={item}/>
+    }
+
     return (
         <NavBar 
             navigation={props.navigation}
             >
-            <View style={styles.templateHeader}>
-                <Text style={styles.header}>Exercises</Text>
-                <Pressable 
-                    style={styles.button}
-                    onPress={() => changeShowCreateExerciseModal(!showCreateExerciseModal)}>
-                    <Image 
-                        source={require('../../assets/plus-button.png')}
-                        style={styles.icon}
-                    />
-                    <Text style={styles.buttonText}>
-                        Add
-                    </Text>
-                </Pressable>
-            </View>
-            <View style={styles.centeredView}>
+            <View style={styles.container}>
+                <View style={styles.templateHeader}>
+                    <Text style={styles.header}>Exercises</Text>
+                    {/* <Pressable 
+                        style={styles.button}
+                        onPress={() => changeShowCreateExerciseModal(!showCreateExerciseModal)}>
+                        <Image 
+                            source={require('../../assets/plus-button.png')}
+                            style={styles.icon}
+                        />
+                        <Text style={styles.buttonText}>
+                            Add
+                        </Text>
+                    </Pressable> */}
+                </View>
+                <FlatList
+                    data={exercises}
+                    renderItem={renderExercise}
+                    keyExtractor={exercise => exercise.exerciseId}
+                    style={styles.flatlist}
+                />
                 {
-                    exercises && exercises.map((exercise: ExerciseType) => {
-                        return <ExerciseListItem key={exercise.exerciseId} exercise={exercise}/>
-                    })
+                    showCreateExerciseModal && <CreateExerciseModal onExit={() => changeShowCreateExerciseModal(false)} navigation={props.navigation}/>
                 }
             </View>
-            {
-              showCreateExerciseModal && <CreateExerciseModal onExit={() => changeShowCreateExerciseModal(false)} navigation={props.navigation}/>
-            }
         </NavBar>
     );
 };
@@ -94,8 +95,24 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     centeredView: {
-      flex: 1,
-      overflow: 'scroll'
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+    },
+    flatlist: {
+        display: 'flex',
+        width: '95%',
+    },
+    exerciseItem: {
+        paddingVertical: 5,
+        marginVertical: 5,
+        backgroundColor: 'lightgrey',
+    },
+    container: {
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center'
     }
 });
 

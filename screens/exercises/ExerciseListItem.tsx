@@ -36,7 +36,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
                 value={name}
                 style={styles.input}
             />
-            <View>
+            {/* <View>
                 <Pressable
                     onPress={onClickDeleteExercise}>
                     <Image
@@ -44,7 +44,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
                         style={styles.icon}
                     />
                 </Pressable>
-            </View>
+            </View> */}
         </View>
     );
 };

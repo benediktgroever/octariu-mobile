@@ -10,7 +10,6 @@ import {
 import {
     useCreateWorkoutMutation,
     useUpdateWorkoutMutation,
-    useDeleteWorkoutMutation,
 } from '../../../store';
 import {
     WORKOUTS
@@ -19,10 +18,14 @@ import {
   WorkoutType
 } from '../../../common/types';
 import { Timer } from '../Timer';
+import { 
+    DeleteWorkoutModal 
+} from './DeleteWorkoutModal';
+import { NavigationProp } from '@react-navigation/native';
 
 type WorkoutHeaderProps = {
     workout: WorkoutType,
-    navigation: any,
+    navigation: NavigationProp<any, any>,
     onLoadingFromHeader: Function, 
 }
 
@@ -33,10 +36,10 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
     const previous = !props.workout.template && props.workout.endTime !==0;
 
     const [name, onChangeName] = useState(props.workout.name);
+    const [showDeleteWorkoutModal, changeShowDeleteWorkoutModal] = useState(false);
 
     const [createWorkout, createWorkoutMutation] = useCreateWorkoutMutation();
     const [updateWorkout, updateWorkoutMutation] = useUpdateWorkoutMutation();
-    const [deleteWorkout] = useDeleteWorkoutMutation();
 
 
     useEffect(() => {
@@ -96,11 +99,6 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
         second: undefined,
     };
 
-    const onClickDeleteWorkout = () => {
-        deleteWorkout({workoutId: props.workout.workoutId})
-        props.navigation.navigate(WORKOUTS)
-    }
-
     return (
         <View style={styles.workoutHeader}>
             <TextInput
@@ -144,10 +142,19 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                 }
                 <Pressable
                     style={[styles.button]}
-                    onPress={onClickDeleteWorkout}>
+                    onPress={() => { changeShowDeleteWorkoutModal(true)}}>
                     <Image source={require('./../../../assets/trash-can.png')} style={{width: 20, height: 20}} />
                     <Text style={styles.textStyle}>{ active ? "Cancel" : "Delete"}</Text>
                 </Pressable>
+                {
+                    showDeleteWorkoutModal && <DeleteWorkoutModal 
+                        navigation={props.navigation} 
+                        workout={props.workout} 
+                        onExit={() => {
+                            changeShowDeleteWorkoutModal(false)
+                        }}
+                    />
+                }
             </View>
         </View>
     );

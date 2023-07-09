@@ -4,7 +4,6 @@ import { Button } from '../../../common';
 import { ExerciseListItem } from './ExerciseListItem';
 import { ExercisePickerModal } from './ExercisePickerModal';
 import {
-    useCreateSetMutation,
     useListExercisesQuery,
     useListSetsQuery,
 } from '../../../store';
@@ -16,26 +15,29 @@ import {
 import {
   WorkoutHeader
 } from './WorkoutHeader';
+import { NavigationProp } from '@react-navigation/native';
 
 type WorkoutProps = {
     workout: WorkoutType,
-    navigation: any,
+    navigation: NavigationProp<any, any>,
 }
 
 const Workout = (props: WorkoutProps) => {
 
     const listSetsQuery = useListSetsQuery({workoutId: props.workout.workoutId});
     const listExercisesQuery = useListExercisesQuery({hidden: true});
-    const [exercisePickerVisible, onClickPickExercise] = useState(false);
-    const [isLoadingFromHeader, onLoadingFromHeader] = useState(false);
+    const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
+    const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
     const isLoading = listExercisesQuery.isLoading || listSetsQuery.isLoading;
     const error = listExercisesQuery.error || listSetsQuery.error;
 
-    const [createSet] = useCreateSetMutation();
-
     let sets: SetType[] = [];
+    let newWorkoutRank: number = 0;
     if(listSetsQuery.data){
       sets = listSetsQuery.data.data
+      newWorkoutRank = sets.reduce((maximum, set) => {
+        return (maximum = maximum > set.workoutRank ? maximum : set.workoutRank);
+      }, 0) + 1;
     }
 
     let exercises: { [exerciseId: string]: ExerciseType} = {};
@@ -45,18 +47,6 @@ const Workout = (props: WorkoutProps) => {
       });
     }
 
-    const onClickCreateExercise = (exerciseId: string) => {
-      createSet({
-        exerciseId,
-        workoutId: props.workout.workoutId,
-        exerciseRank: 0,
-        workoutRank: sets.length,
-        reps: 8,
-        weight: 12.5,
-        template: props.workout.template
-      })
-      onClickPickExercise(!exercisePickerVisible);
-    }
 
     const renderExercises = () => {
 
@@ -91,7 +81,7 @@ const Workout = (props: WorkoutProps) => {
         <WorkoutHeader 
           workout={props.workout} 
           navigation={props.navigation} 
-          onLoadingFromHeader={onLoadingFromHeader} 
+          onLoadingFromHeader={changeLoadingFromHeader} 
         />
         {
           isLoading || error || isLoadingFromHeader ? (
@@ -102,11 +92,14 @@ const Workout = (props: WorkoutProps) => {
                     { renderExercises() }
                     <Button 
                       text={'Add exercise'} 
-                      onClick={() => onClickPickExercise((exercisePickerVisible)=>!exercisePickerVisible)}
+                      onClick={() => changeExercisePickerVisible(true)}
                     />
                 </View>
                 {
-                  exercisePickerVisible && <ExercisePickerModal onClickCreateExercise={onClickCreateExercise}/>
+                  exercisePickerVisible && <ExercisePickerModal 
+                    onExit={()=>changeExercisePickerVisible(false)}
+                    workout={props.workout}
+                    newWorkoutRank={newWorkoutRank} />
                 }
               </View>
           </ScrollView>
@@ -121,26 +114,10 @@ const styles = StyleSheet.create({
       overflow: 'scroll',
       alignItems: 'center',
     },
-    modalView: {
-      alignItems: 'center',
-    },
     exercises: {
       display: 'flex',
       justifyContent: 'center',
       alignContent: 'center',
-    },
-    textStyle: {
-      color: 'darkblue',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    workoutHeaderText: {
-      marginBottom: 5,
-      marginTop: 5,
-      display: 'flex',
-      textAlign: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
     activityIndicator: {
       display: 'flex',
