@@ -5,7 +5,7 @@ import { ActivityIndicator } from 'react-native';
 type ButtonProps = {
     onClick: Function,
     text: string,
-    isLoading: boolean,
+    isLoading?: boolean,
 }
 
 const Button = (props: ButtonProps) => {
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '90%',
     },
     buttonText: {
         color: 'black'

@@ -80,8 +80,8 @@ function NavBar(props: NavBarProps) {
 
 const styles = StyleSheet.create({
     icon: {
-        width: 20,
-        height: 20,
+        width: 23,
+        height: 23,
     },
     button: {
         display: 'flex',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        fontSize: 10,
+        fontSize: 12,
     },
     container: {
         display: 'flex',
@@ -102,9 +102,10 @@ const styles = StyleSheet.create({
     navBar: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         backgroundColor: 'lightgrey',
         padding: 5,
+        paddingTop: 10,
     }
 });
 
