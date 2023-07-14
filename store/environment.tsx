@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 PROTOCOL = 'http'
-OSUBMIT = '127.0.0.1:8080'
+OSUBMIT = '192.168.1.9:8080'
 
 export {
     PROTOCOL,

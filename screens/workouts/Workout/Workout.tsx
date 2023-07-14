@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import {View, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
 import { Button } from '../../../common';
 import { ExerciseListItem } from './ExerciseListItem';
-import { ExercisePickerModal } from './ExercisePickerModal';
+import { ExercisePickerModal } from '../../../common';
 import {
     useListExercisesQuery,
     useListSetsQuery,
     useListWorkoutsQuery,
+    useCreateSetMutation,
 } from '../../../store';
 import {
   SetType,
@@ -30,6 +31,7 @@ const Workout = (props: WorkoutProps) => {
     const listExercisesQuery = useListExercisesQuery({});
     const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
     const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
+    const [ createSet ] = useCreateSetMutation();
     const isLoading = workoutQuery.isLoading || listExercisesQuery.isLoading || listSetsQuery.isLoading;
     const error = listExercisesQuery.error || listSetsQuery.error;
 
@@ -52,6 +54,19 @@ const Workout = (props: WorkoutProps) => {
     let workout: WorkoutType | undefined = undefined;
     if (workoutQuery.data){
       workout = workoutQuery.data.data[0];
+    }
+
+    const onClickCreateExercise = (exercise: ExerciseType) => {
+      createSet({
+        exerciseId: exercise.exerciseId,
+        workoutId: props.workout.workoutId,
+        exerciseRank: 0,
+        workoutRank: newWorkoutRank,
+        reps: 8,
+        weight: 12,
+        template: props.workout.template
+      })
+      changeExercisePickerVisible(false);
     }
 
     const renderExercises = () => {
@@ -77,6 +92,7 @@ const Workout = (props: WorkoutProps) => {
               key={setsList[0].workoutRank}
               exercise={exercises[setsList[0].exerciseId]}
               sets={setsList}
+              workout={props.workout}
             />
           )
       })
@@ -104,8 +120,8 @@ const Workout = (props: WorkoutProps) => {
                 {
                   exercisePickerVisible && <ExercisePickerModal 
                     onExit={()=>changeExercisePickerVisible(false)}
-                    workout={props.workout}
-                    newWorkoutRank={newWorkoutRank} />
+                    onClickPickExercise={onClickCreateExercise}
+                  />
                 }
               </View>
           </ScrollView>
@@ -128,7 +144,7 @@ const styles = StyleSheet.create({
     activityIndicator: {
       display: 'flex',
       flex: 1,
-  }
+    }
 });
 
 export { Workout }

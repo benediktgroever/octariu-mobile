@@ -1,3 +1,5 @@
+import { ViewStyle, Falsy } from 'react-native';
+
 export type SetType = {
     createdAt: number,
     setId: string,
@@ -30,3 +32,4 @@ export type ExerciseType = {
     user: string,
 }
 
+export type StyleType = ViewStyle | Falsy

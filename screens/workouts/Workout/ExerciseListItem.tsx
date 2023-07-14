@@ -6,12 +6,14 @@ import {
 } from '../../../store';
 import { 
     ExerciseType, 
-    SetType 
+    SetType,
+    WorkoutType
 } from '../../../common/types';
 
 type ExerciseListItemProps = {
     exercise: ExerciseType,
     sets: SetType[],
+    workout: WorkoutType
 }
 
 const ExerciseListItem = (props: ExerciseListItemProps) => {
@@ -44,6 +46,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
                         key={set.setId}
                         counter={index+1}
                         set={set}
+                        workout={props.workout}
                     />
                 })
             }

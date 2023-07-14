@@ -13,16 +13,19 @@ import {
     useDeleteSetMutation,
 } from '../../../store';
 import {
-    SetType
+    SetType,
+    WorkoutType
 } from '../../../common/types';
 
 type SetProps = {
     counter: number,
     set: SetType,
+    workout: WorkoutType,
 }
 
 const Set = (props: SetProps) => {
 
+    const previous = props.workout.template == false && props.workout.endTime !== 0
     const [reps, onChangeReps] = useState(props.set.reps);
     const [weight, onChangeWeight] = useState(props.set.weight);
     const [finished, onChangeFinished] = useState(props.set.date !== 0);
@@ -45,7 +48,10 @@ const Set = (props: SetProps) => {
             updateSet({setId: props.set.setId, date: 0});
             onChangeFinished(false);
         }else{
-            updateSet({setId: props.set.setId, date: Date.now()});
+            updateSet({
+                setId: props.set.setId,
+                date: previous ? props.workout.endTime : Date.now()
+            });
             onChangeFinished(true)
         }
     }

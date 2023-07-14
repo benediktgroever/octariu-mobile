@@ -1,43 +1,27 @@
-import {View, Text, Pressable, StyleSheet, FlatList} from 'react-native';
+import {Text, Pressable, StyleSheet, FlatList} from 'react-native';
 import {
     useListExercisesQuery,
-    useCreateSetMutation
-} from '../../../store';
+} from '../store';
 import {
-    ExerciseType, WorkoutType
-} from '../../../common/types';
+    ExerciseType
+} from './types';
 import {
     ModalTemplate,
-} from '../../../common';
+} from '.';
 
 type ExercisePickerModalProps = {
     onExit: Function
-    workout: WorkoutType
-    newWorkoutRank: number
+    onClickPickExercise: Function
 }
 
 const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 
     const { data } = useListExercisesQuery({});
-    const [createSet] = useCreateSetMutation();
 
     let exercises: ExerciseType[] | undefined = undefined;
     if(data){
         exercises = data.data
     }
-
-    const onClickCreateExercise = (exerciseId: string) => {
-        createSet({
-          exerciseId,
-          workoutId: props.workout.workoutId,
-          exerciseRank: 0,
-          workoutRank: props.newWorkoutRank,
-          reps: 8,
-          weight: 12,
-          template: props.workout.template
-        })
-        props.onExit()
-      }
 
     const renderExerciseSelector = ({item}: {item: ExerciseType}) => {
         const {exerciseId, name} = item;
@@ -45,7 +29,7 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
             <Pressable
                     key={exerciseId}
                     style={[styles.button, styles.buttonClose]}
-                    onPress={() => onClickCreateExercise(exerciseId)}>
+                    onPress={() => props.onClickPickExercise(item)}>
                 <Text style={styles.textStyle}>{name}</Text>
             </Pressable>
         )

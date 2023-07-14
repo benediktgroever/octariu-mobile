@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {View, Text, StyleSheet, SectionList, FlatList, ActivityIndicator, Pressable, Image} from 'react-native';
+import {View, Text, StyleSheet, SectionList, ActivityIndicator, Pressable, Image} from 'react-native';
 import { 
     WorkoutListItem,
 } from './WorkoutListItem';
@@ -41,7 +41,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         }
         workoutsActive = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTime === 0);
         if(workoutsActive.length){
-            workoutsActive.sort((workoutA: any, workoutB: any) => workoutB.createdAt - workoutA.createdAt);
+            workoutsActive.sort((workoutA: any, workoutB: any) => workoutB.endTime - workoutA.endTime);
             DATA.push(
                 {
                     title: 'Active workouts',
@@ -51,7 +51,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         }
         workoutsPerformed = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTime !== 0);
         if(workoutsPerformed.length){
-            workoutsPerformed.sort((workoutA: any, workoutB: any) => workoutB.createdAt - workoutA.createdAt);
+            workoutsPerformed.sort((workoutA: any, workoutB: any) => workoutB.startTime - workoutA.startTime);
             DATA.push(
                 {
                     title: 'Previous workouts',

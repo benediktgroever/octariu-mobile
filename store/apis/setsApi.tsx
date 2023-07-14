@@ -21,7 +21,8 @@ type createSetParams = {
 
 type listSetsParams = {
     exerciseId?: string,
-    workoutId?: string
+    workoutId?: string,
+    template?: number,
 }
 
 type updateSetParams = {
