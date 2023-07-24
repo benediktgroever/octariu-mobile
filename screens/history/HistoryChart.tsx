@@ -51,10 +51,6 @@ const HistoryChart = (props: HistoryChartProps) => {
         return (maximum = maximum > set.weight ? maximum : set.weight);
     }, 0) + 1;
 
-    sets.map((set: SetType) => {
-        console.log(`${set.date}, ${new Date(set.date).toLocaleDateString('en-US', optionsDate)}, ${set.weight}`)
-    })
-
     return (
         <View style={styles.chart}>
             <VictoryChart

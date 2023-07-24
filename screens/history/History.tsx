@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { NavBar } from '../../common';
 import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import { NavigationProp } from '@react-navigation/native';
@@ -23,22 +23,24 @@ const HistoryScreen = (props: HistoryScreenProps) => {
         changeShowExercisePicker(false)
     }
 
-    console.log(exercise)
+    let content = <ActivityIndicator style={styles.activityIndicator} size="large"/>
+    if( isLoading == false && exercise ){
+        content = (
+            <React.Fragment>
+                <View style={styles.controlls}>
+                    <Button style={{width: 300}} onClick={() => changeShowExercisePicker(true)} text={exercise.name}/>
+                </View>
+                <View style={styles.container}>
+                    <HistoryChart navigation={props.navigation} exercise={exercise}/>
+                </View>
+            </React.Fragment>
+        )
+    }
 
     return (
         <NavBar navigation={props.navigation}>
-            {
-                exercise && <View style={styles.controlls}>
-                    <Button style={{width: 300}} onClick={() => changeShowExercisePicker(true)} text={exercise.name}/>
-                </View>
-            }
-            {
-                isLoading && <ActivityIndicator style={styles.activityIndicator} size="large"/>
-            }
             <View style={styles.container}>
-                {
-                    exercise &&  <HistoryChart navigation={props.navigation} exercise={exercise}/>
-                }
+                { content }
             </View>
             {
                 showExercisePicker && <ExercisePickerModal
@@ -60,8 +62,8 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: '100%',
     },
     activityIndicator: {

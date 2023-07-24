@@ -1,11 +1,8 @@
 import {Text, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     useCreateExerciseMutation,
 } from '../../store';
-import {
-    EXERCISES
-} from '../../Routes';
 import { Button } from '../../common';
 import {
     ModalTemplate
@@ -22,34 +19,33 @@ const CreateExerciseModal = (props: CreateExerciseModalProps) => {
     const [createExercise, createExerciseMutation] = useCreateExerciseMutation();
     const [name, onChangeName] = useState('');
 
-    useEffect(() => {
-        if(createExerciseMutation.isSuccess){
-            props.navigation.navigate(EXERCISES)
-        }
-    },
-        [
-            createExerciseMutation
-        ]
-    );
-
     const onClickCreateExercise = () => {
         createExercise({
             name: name,
         });
-        props.onExit()
     }
 
-    return (
-        <ModalTemplate onExit = {props.onExit}>
-            <Text style={styles.textStyle}>Exercise's name</Text>
+    let content = (
+        <React.Fragment>
+            <Text style={styles.textStyle}>We are constantly adding new exercises. What exercise do you want us to add?</Text>
             {
-                createExerciseMutation.isLoading ? <ActivityIndicator size="large"/> : <TextInput
+                createExerciseMutation.isLoading ? <ActivityIndicator style={styles.activityIndicator} size="small"/> : <TextInput
                     style={styles.input}
                     onChangeText={onChangeName}
                     value={name}
                 /> 
             }
-            <Button onClick={onClickCreateExercise} text={'Create new exercise'}/>
+            <Button onClick={onClickCreateExercise} text={'Request new exercise'}/>
+        </React.Fragment>
+    )
+
+    if(createExerciseMutation.isSuccess){
+        content = <Text style={styles.textStyle}>We will be in touch when we added the exercise.</Text>
+    }
+
+    return (
+        <ModalTemplate onExit = {props.onExit}>
+            {content}
         </ModalTemplate>
     );
 };
@@ -65,6 +61,9 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         width: '100%',
     },
+    activityIndicator: {
+        marginVertical: 10
+    }
 });
 
 export { CreateExerciseModal }

@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import { NavBar } from '../../common';
-import {View, StyleSheet, Pressable, Image, Text, FlatList} from 'react-native';
-import {
-    useListExercisesQuery,
-} from '../../store';
+import React, { useState } from 'react';
+import { NavBar, Dropdown } from '../../common';
+import {View, StyleSheet, Pressable, Image, Text, FlatList, ActivityIndicator} from 'react-native';
 import {
     ExerciseListItem
 } from './ExerciseListItem';
@@ -14,6 +11,9 @@ import {
   CreateExerciseModal
 } from './CreateExerciseModal';
 import { NavigationProp } from '@react-navigation/native';
+import {
+    useListFilteredExerciseQuery
+} from '../../hooks/useListFilteredExercisesQuery';
 
 type ExercisesScreenProps = {
   navigation: NavigationProp<any, any>
@@ -21,27 +21,27 @@ type ExercisesScreenProps = {
 
 const ExercisesScreen = (props: ExercisesScreenProps) => {
 
-    const { data } = useListExercisesQuery({});
-    const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false)
+    const {
+        exercises,
+        uniqueEquipments,
+        uniqueMuscleGroups,
+        changeFilterMuscleGroup,
+        changeFilterEquipment
+    } = useListFilteredExerciseQuery();
 
-    let exercises: ExerciseType[] | undefined = undefined;
-    if(data){
-        exercises = data.data
-    }
+    const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false);
 
     const renderExercise = ({item}: {item: ExerciseType}) => {
-        return <Text style={styles.exerciseItem} key={item.exerciseId}>{item.name}</Text>
-        // return <ExerciseListItem key={item.exerciseId} exercise={item}/>
+        return <ExerciseListItem key={item.exerciseId} exercise={item}/>
     }
 
-    return (
-        <NavBar 
-            navigation={props.navigation}
-            >
-            <View style={styles.container}>
+    let content = <ActivityIndicator style={styles.activityIndicator} size="large"/>
+    if(exercises){
+        content = (
+            <React.Fragment>
                 <View style={styles.templateHeader}>
                     <Text style={styles.header}>Exercises</Text>
-                    {/* <Pressable 
+                    <Pressable
                         style={styles.button}
                         onPress={() => changeShowCreateExerciseModal(!showCreateExerciseModal)}>
                         <Image 
@@ -49,9 +49,21 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
                             style={styles.icon}
                         />
                         <Text style={styles.buttonText}>
-                            Add
+                            Request
                         </Text>
-                    </Pressable> */}
+                    </Pressable>
+                </View>
+                <View style={styles.selection}>
+                    <Dropdown
+                        label={'Any muscle group'}
+                        data={uniqueMuscleGroups}
+                        onSelect={changeFilterMuscleGroup}
+                    />
+                    <Dropdown
+                        label={'Any equipment'}
+                        data={uniqueEquipments}
+                        onSelect={changeFilterEquipment}
+                    />
                 </View>
                 <FlatList
                     data={exercises}
@@ -59,6 +71,14 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
                     keyExtractor={exercise => exercise.exerciseId}
                     style={styles.flatlist}
                 />
+            </React.Fragment>
+        )
+    }
+
+    return (
+        <NavBar navigation={props.navigation}>
+            <View style={styles.container}>
+                { content }
                 {
                     showCreateExerciseModal && <CreateExerciseModal onExit={() => changeShowCreateExerciseModal(false)} navigation={props.navigation}/>
                 }
@@ -89,20 +109,16 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        width: '100%',
     },
     header: {
         fontSize: 20,
         margin: 10,
     },
-    centeredView: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%'
-    },
     flatlist: {
         display: 'flex',
         width: '95%',
+        zIndex: -1,
     },
     exerciseItem: {
         paddingVertical: 5,
@@ -113,6 +129,17 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         alignItems: 'center'
+    },
+    activityIndicator: {
+        display: 'flex',
+        flex: 1,
+        width: '100%',
+    },
+    selection: {
+        dipslay: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        width: '95%'
     }
 });
 

@@ -29,7 +29,8 @@ export type ExerciseType = {
     createdAt: number,
     exerciseId: string,
     name: string,
-    user: string,
+    muscleGroup: string,
+    equipment: string,
 }
 
 export type StyleType = ViewStyle | Falsy
