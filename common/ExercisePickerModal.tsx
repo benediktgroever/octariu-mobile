@@ -1,4 +1,4 @@
-import {Text, Pressable, StyleSheet, FlatList} from 'react-native';
+import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
 import {
     useListExercisesQuery,
 } from '../store';
@@ -19,17 +19,17 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
     const { data } = useListExercisesQuery({});
 
     let exercises: ExerciseType[] | undefined = undefined;
-    if(data){
+    if (data) {
         exercises = data.data
     }
 
-    const renderExerciseSelector = ({item}: {item: ExerciseType}) => {
-        const {exerciseId, name} = item;
+    const renderExerciseSelector = ({ item }: { item: ExerciseType }) => {
+        const { exerciseId, name } = item;
         return (
             <Pressable
-                    key={exerciseId}
-                    style={[styles.button, styles.buttonClose]}
-                    onPress={() => props.onClickPickExercise(item)}>
+                key={exerciseId}
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => props.onClickPickExercise(item)}>
                 <Text style={styles.textStyle}>{name}</Text>
             </Pressable>
         )

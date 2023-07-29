@@ -11,18 +11,18 @@ const useListFilteredExerciseQuery = () => {
     let exercises: ExerciseType[] | undefined = undefined;
     const uniqueMuscleGroups = new Set<string>();
     const uniqueEquipments = new Set<string>();
-    
-    if(data){
+
+    if (data) {
         exercises = data.data
-        if(exercises){
-            exercises.map((exercise: ExerciseType)=>{
+        if (exercises) {
+            exercises.map((exercise: ExerciseType) => {
                 uniqueMuscleGroups.add(exercise.muscleGroup);
                 uniqueEquipments.add(exercise.equipment);
             })
-            if(filterMuscleGroup){
+            if (filterMuscleGroup) {
                 exercises = exercises.filter((exercise: ExerciseType) => exercise.muscleGroup == filterMuscleGroup);
             }
-            if(filterEquipment){
+            if (filterEquipment) {
                 exercises = exercises.filter((exercise: ExerciseType) => exercise.equipment == filterEquipment);
             }
         }

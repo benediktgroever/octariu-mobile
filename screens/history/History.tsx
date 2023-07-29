@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../common';
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { NavigationProp } from '@react-navigation/native';
 import { HistoryChart } from './HistoryChart';
 import { ExercisePickerModal } from '../../common';
@@ -23,15 +23,15 @@ const HistoryScreen = (props: HistoryScreenProps) => {
         changeShowExercisePicker(false)
     }
 
-    let content = <ActivityIndicator style={styles.activityIndicator} size="large"/>
-    if( isLoading == false && exercise ){
+    let content = <ActivityIndicator style={styles.activityIndicator} size="large" />
+    if (isLoading == false && exercise) {
         content = (
             <React.Fragment>
                 <View style={styles.controlls}>
-                    <Button style={{width: 300}} onClick={() => changeShowExercisePicker(true)} text={exercise.name}/>
+                    <Button style={{ width: 300 }} onClick={() => changeShowExercisePicker(true)} text={exercise.name} />
                 </View>
                 <View style={styles.container}>
-                    <HistoryChart navigation={props.navigation} exercise={exercise}/>
+                    <HistoryChart navigation={props.navigation} exercise={exercise} />
                 </View>
             </React.Fragment>
         )
@@ -40,12 +40,12 @@ const HistoryScreen = (props: HistoryScreenProps) => {
     return (
         <NavBar navigation={props.navigation}>
             <View style={styles.container}>
-                { content }
+                {content}
             </View>
             {
                 showExercisePicker && <ExercisePickerModal
                     onExit={() => changeShowExercisePicker(false)}
-                    onClickPickExercise={onClickPickExercise} 
+                    onClickPickExercise={onClickPickExercise}
                 />
             }
         </NavBar>

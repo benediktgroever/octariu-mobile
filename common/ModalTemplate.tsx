@@ -1,5 +1,5 @@
-import {ReactNode} from 'react';
-import {View, Modal, StyleSheet, Pressable, Image } from 'react-native';
+import { ReactNode } from 'react';
+import { View, Modal, StyleSheet, Pressable, Image } from 'react-native';
 
 type ModalTemplateProps = {
     onExit: Function
@@ -9,9 +9,9 @@ type ModalTemplateProps = {
 const ModalTemplate = (props: ModalTemplateProps) => {
     return (
         <Modal
-                transparent={true}
-                visible={true}
-            >
+            transparent={true}
+            visible={true}
+        >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <View style={styles.button}>
@@ -23,7 +23,7 @@ const ModalTemplate = (props: ModalTemplateProps) => {
                             />
                         </Pressable>
                     </View>
-                    { props.children }
+                    {props.children}
                 </View>
             </View>
         </Modal>

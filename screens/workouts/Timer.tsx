@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 type TimerProps = {
-    startTime: number
+  startTime: number
 }
 
 const Timer = (props: TimerProps) => {
@@ -26,17 +26,17 @@ const Timer = (props: TimerProps) => {
 
   return (
     <View>
-        <Text style={styles.text}>
-            { hours }h { minutes }m { seconds }s
-        </Text>
+      <Text style={styles.text}>
+        {hours}h {minutes}m {seconds}s
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    text: {
-        color: 'red'
-    },
+  text: {
+    color: 'red'
+  },
 });
 
 export { Timer };

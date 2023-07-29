@@ -1,4 +1,4 @@
-import {Text, View, StyleSheet} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import {
     ModalTemplate
 } from '../../common';
@@ -12,7 +12,7 @@ type ExerciseModalProps = {
 const ExerciseModal = (props: ExerciseModalProps) => {
 
     return (
-        <ModalTemplate onExit = {props.onExit}>
+        <ModalTemplate onExit={props.onExit}>
             <Text style={styles.title}>{props.exercise.name}</Text>
             <View style={styles.container}>
                 <Text style={styles.heading}>Muscle group</Text>

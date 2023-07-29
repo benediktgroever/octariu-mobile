@@ -1,7 +1,7 @@
-import {Text, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
+import { Text, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import {
-    useCreateExerciseMutation,
+    useRequestExerciseMutation,
 } from '../../store';
 import { Button } from '../../common';
 import {
@@ -16,11 +16,11 @@ type CreateExerciseModalProps = {
 
 const CreateExerciseModal = (props: CreateExerciseModalProps) => {
 
-    const [createExercise, createExerciseMutation] = useCreateExerciseMutation();
+    const [requestExercise, requestExerciseMutation] = useRequestExerciseMutation();
     const [name, onChangeName] = useState('');
 
     const onClickCreateExercise = () => {
-        createExercise({
+        requestExercise({
             name: name,
         });
     }
@@ -29,22 +29,22 @@ const CreateExerciseModal = (props: CreateExerciseModalProps) => {
         <React.Fragment>
             <Text style={styles.textStyle}>We are constantly adding new exercises. What exercise do you want us to add?</Text>
             {
-                createExerciseMutation.isLoading ? <ActivityIndicator style={styles.activityIndicator} size="small"/> : <TextInput
+                requestExerciseMutation.isLoading ? <ActivityIndicator style={styles.activityIndicator} size="small" /> : <TextInput
                     style={styles.input}
                     onChangeText={onChangeName}
                     value={name}
-                /> 
+                />
             }
-            <Button onClick={onClickCreateExercise} text={'Request new exercise'}/>
+            <Button onClick={onClickCreateExercise} text={'Request new exercise'} />
         </React.Fragment>
     )
 
-    if(createExerciseMutation.isSuccess){
-        content = <Text style={styles.textStyle}>We will be in touch when we added the exercise.</Text>
+    if (requestExerciseMutation.isSuccess) {
+        content = <Text style={styles.textStyle}>Thank you for your help to extend our collection! We will be in touch when we added the exercise</Text>
     }
 
     return (
-        <ModalTemplate onExit = {props.onExit}>
+        <ModalTemplate onExit={props.onExit}>
             {content}
         </ModalTemplate>
     );

@@ -40,10 +40,8 @@ export {
     useDeleteSetMutation,
 } from './apis/setsApi';
 export {
-    useCreateExerciseMutation,
+    useRequestExerciseMutation,
     useListExercisesQuery,
-    useUpdateExerciseMutation,
-    useDeleteExerciseMutation,
 } from './apis/exerciseApi';
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

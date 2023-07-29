@@ -29,7 +29,7 @@ export default function App() {
     return subscriber; // unsubscribe on unmount
   }, []);
 
-  if (initializing){
+  if (initializing) {
     <SafeAreaView>
       <Text> Loading... </Text>
     </SafeAreaView>
@@ -39,7 +39,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Provider store={store}>
         {
-          user ? <AuthStack/> : <NonAuthStack/>
+          user ? <AuthStack /> : <NonAuthStack />
         }
       </Provider>
     </SafeAreaView>
@@ -47,8 +47,8 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      height: '100%',
-      width: '100%',
-    },
+  container: {
+    height: '100%',
+    width: '100%',
+  },
 });

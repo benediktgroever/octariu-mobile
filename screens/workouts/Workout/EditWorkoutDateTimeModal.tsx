@@ -3,9 +3,6 @@ import { Button } from '../../../common';
 import {
     useUpdateWorkoutMutation,
 } from '../../../store';
-import {
-    WORKOUTS
-} from '../../../Routes';
 import { WorkoutType } from '../../../common/types';
 import {
     ModalTemplate
@@ -23,35 +20,35 @@ type EditWorkoutDateTimeModalProps = {
 
 const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
 
-    const [startTime, changeStartTime] = useState(new Date(props.workout.startTime));
-    const [endTime, changeEndTime] = useState(new Date(props.workout.endTime));
+    const [startTime, changeStartTime] = useState(new Date(props.workout.startTimeMs));
+    const [endTime, changeEndTime] = useState(new Date(props.workout.endTimeMs));
     const [warning, changeWarning] = useState('');
     const [updateWorkout, updateWorkoutMutation] = useUpdateWorkoutMutation();
-    
+
     useEffect(() => {
-        if (startTime > endTime){
+        if (startTime > endTime) {
             changeWarning("Start time can't be before end time")
-        }else{
+        } else {
             changeWarning("")
         }
-        if(updateWorkoutMutation.fulfilledTimeStamp){
+        if (updateWorkoutMutation.fulfilledTimeStamp) {
             props.onExit()
         }
     }, [
-            startTime,
-            endTime,
-            updateWorkoutMutation,
-        ]
+        startTime,
+        endTime,
+        updateWorkoutMutation,
+    ]
     );
 
     const onClickUpdateWorkout = () => {
-        if(warning){
+        if (warning) {
             return;
         }
         updateWorkout({
             workoutId: props.workout.workoutId,
-            startTime: startTime.valueOf(),
-            endTime: endTime.valueOf(),
+            startTimeMs: startTime.valueOf(),
+            endTimeMs: endTime.valueOf(),
         })
     }
 
@@ -64,11 +61,11 @@ const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
                 <Text style={styles.subheader}>End time</Text>
                 <DatePicker date={endTime} onDateChange={changeEndTime} />
                 {
-                    warning && <Text style={styles.warning}> { warning }</Text>
+                    warning && <Text style={styles.warning}> {warning}</Text>
                 }
-                <Button 
-                    onClick={onClickUpdateWorkout} 
-                    text='Update workout' 
+                <Button
+                    onClick={onClickUpdateWorkout}
+                    text='Update workout'
                     isLoading={updateWorkoutMutation.isLoading}
                 />
             </View>

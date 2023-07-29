@@ -11,7 +11,7 @@ type createSetParams = {
     exerciseRank: number,
     workoutRank: number,
     weight: number,
-    reps: number,
+    repCount: number,
     template: boolean,
 } | {
     copySetId: string,
@@ -27,10 +27,10 @@ type listSetsParams = {
 
 type updateSetParams = {
     setId: string,
-    reps?: number
+    repCount?: number
     exerciseRank?: number,
     weight?: number,
-    date?: number
+    completedAtMs?: number
 }
 
 type deleteSetParams = {

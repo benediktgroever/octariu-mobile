@@ -5,22 +5,8 @@ import {
     OSUBMIT
 } from '../environment'
 
-type createExerciseParams = {
+type requestExerciseParams = {
     name: string,
-}
-
-type updateExerciseParams = {
-    exerciseId: string,
-    bodyPart?: number,
-    name?: string,
-}
-
-type deleteExerciseParams = {
-    exerciseId: string,
-}
-
-type listExercisesParams = {
-    excludeHidden?: boolean
 }
 
 const exercisesApi = createApi({
@@ -37,11 +23,11 @@ const exercisesApi = createApi({
     tagTypes: ['Exercises'],
     endpoints(builder) {
         return {
-            createExercise: builder.mutation({
+            requestExercise: builder.mutation({
                 invalidatesTags: ['Exercises'],
-                query: (params: createExerciseParams) => {
+                query: (params: requestExerciseParams) => {
                     return {
-                        url: '/create',
+                        url: '/request',
                         method: 'POST',
                         params
                     }
@@ -49,42 +35,19 @@ const exercisesApi = createApi({
             }),
             listExercises: builder.query({
                 providesTags: ['Exercises'],
-                query: (params: listExercisesParams) => {
+                query: () => {
                     return {
                         url: '/list',
                         method: 'GET',
-                        params
                     }
                 }
             }),
-            updateExercise: builder.mutation({
-                invalidatesTags: ['Exercises'],
-                query: (params: updateExerciseParams) => {
-                    return {
-                        url: '/update',
-                        method: 'POST',
-                        params
-                    }
-                }
-            }),
-            deleteExercise: builder.mutation({
-                invalidatesTags: ['Exercises'],
-                query: (params: deleteExerciseParams) => {
-                    return {
-                        url: '/delete',
-                        method: 'DELETE',
-                        params
-                    }
-                }
-            })
         };
     }
 })
 
 export const {
-    useCreateExerciseMutation,
+    useRequestExerciseMutation,
     useListExercisesQuery,
-    useUpdateExerciseMutation,
-    useDeleteExerciseMutation,
 } = exercisesApi;
 export { exercisesApi };

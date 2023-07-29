@@ -62,7 +62,7 @@ const Workout = (props: WorkoutProps) => {
         workoutId: props.workout.workoutId,
         exerciseRank: 0,
         workoutRank: newWorkoutRank,
-        reps: 8,
+        repCount: 8,
         weight: 12,
         template: props.workout.template
       })

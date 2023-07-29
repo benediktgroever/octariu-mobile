@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavBar, Dropdown } from '../../common';
-import {View, StyleSheet, Pressable, Image, Text, FlatList, ActivityIndicator} from 'react-native';
+import { View, StyleSheet, Pressable, Image, Text, FlatList, ActivityIndicator } from 'react-native';
 import {
     ExerciseListItem
 } from './ExerciseListItem';
@@ -8,7 +8,7 @@ import {
     ExerciseType
 } from '../../common/types';
 import {
-  CreateExerciseModal
+    CreateExerciseModal
 } from './CreateExerciseModal';
 import { NavigationProp } from '@react-navigation/native';
 import {
@@ -16,7 +16,7 @@ import {
 } from '../../hooks/useListFilteredExercisesQuery';
 
 type ExercisesScreenProps = {
-  navigation: NavigationProp<any, any>
+    navigation: NavigationProp<any, any>
 }
 
 const ExercisesScreen = (props: ExercisesScreenProps) => {
@@ -31,12 +31,12 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
 
     const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false);
 
-    const renderExercise = ({item}: {item: ExerciseType}) => {
-        return <ExerciseListItem key={item.exerciseId} exercise={item}/>
+    const renderExercise = ({ item }: { item: ExerciseType }) => {
+        return <ExerciseListItem key={item.exerciseId} exercise={item} />
     }
 
-    let content = <ActivityIndicator style={styles.activityIndicator} size="large"/>
-    if(exercises){
+    let content = <ActivityIndicator style={styles.activityIndicator} size="large" />
+    if (exercises) {
         content = (
             <React.Fragment>
                 <View style={styles.templateHeader}>
@@ -44,7 +44,7 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
                     <Pressable
                         style={styles.button}
                         onPress={() => changeShowCreateExerciseModal(!showCreateExerciseModal)}>
-                        <Image 
+                        <Image
                             source={require('../../assets/plus-button.png')}
                             style={styles.icon}
                         />
@@ -78,9 +78,9 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
     return (
         <NavBar navigation={props.navigation}>
             <View style={styles.container}>
-                { content }
+                {content}
                 {
-                    showCreateExerciseModal && <CreateExerciseModal onExit={() => changeShowCreateExerciseModal(false)} navigation={props.navigation}/>
+                    showCreateExerciseModal && <CreateExerciseModal onExit={() => changeShowCreateExerciseModal(false)} navigation={props.navigation} />
                 }
             </View>
         </NavBar>

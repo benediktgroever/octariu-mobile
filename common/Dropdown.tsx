@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Text, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import { Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
 type DropdownProps = {
     label: string,
@@ -13,10 +13,10 @@ const Dropdown = (props: DropdownProps) => {
     const [dropdownVisible, changeDropdownVisible] = useState<boolean>(false);
 
     const onItemPress = (item: string) => {
-        if(item === dropdownSelection){
+        if (item === dropdownSelection) {
             item = "";
         }
-        if(item === props.label){
+        if (item === props.label) {
             item = "";
         }
         changeDropdownSelection(item);
@@ -24,7 +24,7 @@ const Dropdown = (props: DropdownProps) => {
         props.onSelect(item);
     }
 
-    const renderDropdownItem = ({item}: {item: string}) => {
+    const renderDropdownItem = ({ item }: { item: string }) => {
         const style = dropdownSelection === item ? [styles.text, styles.selected] : [styles.text];
         return (
             <TouchableOpacity style={style} onPress={() => onItemPress(item)}>
@@ -43,7 +43,7 @@ const Dropdown = (props: DropdownProps) => {
             onPress={toggleDropdown}
         >
             <Text style={styles.buttonText}>{dropdownSelection || props.label}</Text>
-            { dropdownVisible && <FlatList
+            {dropdownVisible && <FlatList
                 data={dropdownSelection ? [props.label, ...props.data] : props.data}
                 renderItem={renderDropdownItem}
                 keyExtractor={item => item}
@@ -62,27 +62,27 @@ const styles = StyleSheet.create({
         width: '50%',
         zIndex: 1,
         margin: 5,
-      },
-      buttonText: {
+    },
+    buttonText: {
         flex: 1,
         textAlign: 'center',
-      },
-      dropdown: {
+    },
+    dropdown: {
         position: 'absolute',
         backgroundColor: '#fff',
         top: 50,
         zIndex: 100,
         width: '100%',
-      },
-      text: {
+    },
+    text: {
         padding: 10,
         margin: 2,
         backgroundColor: '#efefef',
         width: '100%'
-      },
-      selected: {
+    },
+    selected: {
         backgroundColor: 'lightblue'
-      }
+    }
 });
 
 export { Dropdown }

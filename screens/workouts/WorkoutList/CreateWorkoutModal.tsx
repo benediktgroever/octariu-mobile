@@ -1,4 +1,4 @@
-import { Text, TextInput, StyleSheet, ActivityIndicator} from 'react-native';
+import { Text, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
 import { Button } from '../../../common';
 import { useState, useEffect } from 'react';
 import {
@@ -24,13 +24,13 @@ const CreateWorkoutModal = (props: CreateWorkoutModalProps) => {
     const [name, onChangeName] = useState('');
 
     useEffect(() => {
-        if(createWorkoutMutation.data){
+        if (createWorkoutMutation.data) {
             const workout = createWorkoutMutation.data as WorkoutType
-            props.navigation.navigate(WORKOUTS, {workout})
+            props.navigation.navigate(WORKOUTS, { workout })
         }
-    },  [
-            createWorkoutMutation
-        ]
+    }, [
+        createWorkoutMutation
+    ]
     );
 
     const createWorkoutTemplate = () => {
@@ -43,13 +43,13 @@ const CreateWorkoutModal = (props: CreateWorkoutModalProps) => {
         <ModalTemplate onExit={props.onExit}>
             <Text style={styles.textStyle}>Your template's name</Text>
             {
-                createWorkoutMutation.isLoading ? <ActivityIndicator size="large"/> : <TextInput
+                createWorkoutMutation.isLoading ? <ActivityIndicator size="large" /> : <TextInput
                     style={styles.input}
                     onChangeText={onChangeName}
                     value={name}
-                /> 
+                />
             }
-            <Button onClick={createWorkoutTemplate} text={'Create new template'}/>
+            <Button onClick={createWorkoutTemplate} text={'Create new template'} />
         </ModalTemplate>
     );
 };
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     textStyle: {
-      textAlign: 'left',
-      width: '100%',
+        textAlign: 'left',
+        width: '100%',
     },
 });
 

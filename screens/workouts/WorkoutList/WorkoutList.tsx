@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {View, Text, StyleSheet, SectionList, ActivityIndicator, Pressable, Image} from 'react-native';
-import { 
+import { View, Text, StyleSheet, SectionList, ActivityIndicator, Pressable, Image } from 'react-native';
+import {
     WorkoutListItem,
 } from './WorkoutListItem';
 import {
@@ -20,7 +20,9 @@ type WorkoutListProps = {
 
 const WorkoutList = (props: WorkoutListProps) => {
 
-    const {data, error, isLoading } = useListWorkoutsQuery({});
+    const { data, error, isLoading } = useListWorkoutsQuery({});
+
+    console.log(isLoading, error)
 
     const [showAddWorkoutModal, changeShowAddWorkoutModal] = useState(false);
 
@@ -28,9 +30,9 @@ const WorkoutList = (props: WorkoutListProps) => {
     let workoutsActive: WorkoutType[] = [];
     let workoutsPerformed: WorkoutType[] = [];
     const DATA = [];
-    if(data){
+    if (data) {
         workoutTemplates = data.data.filter((workout: WorkoutType) => workout.template === true);
-        if(workoutTemplates){
+        if (workoutTemplates) {
             workoutTemplates.sort((workoutA: any, workoutB: any) => workoutB.createdAt - workoutA.createdAt);
             DATA.push(
                 {
@@ -39,8 +41,8 @@ const WorkoutList = (props: WorkoutListProps) => {
                 }
             )
         }
-        workoutsActive = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTime === 0);
-        if(workoutsActive.length){
+        workoutsActive = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTimeMs === 0);
+        if (workoutsActive.length) {
             workoutsActive.sort((workoutA: any, workoutB: any) => workoutB.endTime - workoutA.endTime);
             DATA.push(
                 {
@@ -49,8 +51,8 @@ const WorkoutList = (props: WorkoutListProps) => {
                 }
             )
         }
-        workoutsPerformed = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTime !== 0);
-        if(workoutsPerformed.length){
+        workoutsPerformed = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTimeMs !== 0);
+        if (workoutsPerformed.length) {
             workoutsPerformed.sort((workoutA: any, workoutB: any) => workoutB.startTime - workoutA.startTime);
             DATA.push(
                 {
@@ -61,9 +63,9 @@ const WorkoutList = (props: WorkoutListProps) => {
         }
     }
 
-    const renderWorkout = ({item}: {item: WorkoutType}) => {
-        return(
-            <WorkoutListItem 
+    const renderWorkout = ({ item }: { item: WorkoutType }) => {
+        return (
+            <WorkoutListItem
                 key={item.workoutId}
                 navigation={props.navigation}
                 workout={item}
@@ -71,14 +73,14 @@ const WorkoutList = (props: WorkoutListProps) => {
         )
     }
 
-    const renderWorkoutSectionTitle = ({section: {title}}: {section: {title: string}}) => (
+    const renderWorkoutSectionTitle = ({ section: { title } }: { section: { title: string } }) => (
         <View style={styles.templateHeader}>
-            <Text style={styles.header}> { title }</Text>
+            <Text style={styles.header}> {title}</Text>
             {
-                title == "Templates" && <Pressable 
+                title == "Templates" && <Pressable
                     style={styles.button}
                     onPress={() => changeShowAddWorkoutModal(!showAddWorkoutModal)}>
-                    <Image 
+                    <Image
                         source={require('../../../assets/plus-button.png')}
                         style={styles.icon}
                     />
@@ -90,7 +92,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         </View>
     )
 
-    if (isLoading || error){
+    if (isLoading || error) {
         return <ActivityIndicator style={styles.activityIndicator} size="large" />
     }
 
@@ -102,10 +104,10 @@ const WorkoutList = (props: WorkoutListProps) => {
                     keyExtractor={(item, index) => item.workoutId + index}
                     renderItem={renderWorkout}
                     renderSectionHeader={renderWorkoutSectionTitle}
-                    />
+                />
             </View>
             {
-                showAddWorkoutModal && <CreateWorkoutModal onExit={() => changeShowAddWorkoutModal(false)} navigation={props.navigation}/>
+                showAddWorkoutModal && <CreateWorkoutModal onExit={() => changeShowAddWorkoutModal(false)} navigation={props.navigation} />
             }
         </View>
     );

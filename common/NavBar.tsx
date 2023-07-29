@@ -25,7 +25,7 @@ function NavBar(props: NavBarProps) {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
-                { props.children }
+                {props.children}
             </View>
             <View style={styles.navBar}>
                 <Pressable

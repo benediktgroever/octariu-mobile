@@ -13,7 +13,7 @@ type createWorkoutParams = {
     copyWorkoutId: string,
     weightIntensity: number,
     repIntensity: number,
-    startTime: number
+    startTimeMs: number
 }
 
 type listWorkoutParams = {
@@ -23,8 +23,8 @@ type listWorkoutParams = {
 type updateWorkoutParams = {
     workoutId: string,
     name?: string,
-    startTime?: number,
-    endTime?: number
+    startTimeMs?: number,
+    endTimeMs?: number
 }
 
 type deleteWorkoutParams = {

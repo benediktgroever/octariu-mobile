@@ -9,11 +9,11 @@ import {
     WorkoutType
 } from '../../common/types';
 
-const WorkoutsScreen = ({navigation, route}: any) => {
+const WorkoutsScreen = ({ navigation, route }: any) => {
 
     let workout: WorkoutType | undefined = undefined;
-    if(route.params){
-        if(route.params.hasOwnProperty("workout")){
+    if (route.params) {
+        if (route.params.hasOwnProperty("workout")) {
             workout = route.params["workout"];
         }
     }
@@ -21,10 +21,10 @@ const WorkoutsScreen = ({navigation, route}: any) => {
     return (
         <NavBar navigation={navigation}>
             {
-                workout ? <Workout 
+                workout ? <Workout
                     workout={workout}
                     navigation={navigation}
-                /> : <WorkoutList navigation={navigation}/>
+                /> : <WorkoutList navigation={navigation} />
             }
         </NavBar>
     );

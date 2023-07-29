@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { 
-    View, 
+import {
+    View,
     Text,
     Pressable,
     StyleSheet,
@@ -15,11 +15,11 @@ import {
     WORKOUTS
 } from '../../../Routes';
 import {
-  WorkoutType
+    WorkoutType
 } from '../../../common/types';
 import { Timer } from '../Timer';
-import { 
-    DeleteWorkoutModal 
+import {
+    DeleteWorkoutModal
 } from './DeleteWorkoutModal';
 import { NavigationProp } from '@react-navigation/native';
 import { EditWorkoutDateTimeModal } from './EditWorkoutDateTimeModal';
@@ -27,14 +27,14 @@ import { EditWorkoutDateTimeModal } from './EditWorkoutDateTimeModal';
 type WorkoutHeaderProps = {
     workout: WorkoutType,
     navigation: NavigationProp<any, any>,
-    onLoadingFromHeader: Function, 
+    onLoadingFromHeader: Function,
 }
 
 const WorkoutHeader = (props: WorkoutHeaderProps) => {
 
-    const active = !props.workout.template && props.workout.endTime === 0;
+    const active = !props.workout.template && props.workout.endTimeMs === 0;
     const template = props.workout.template;
-    const previous = !props.workout.template && props.workout.endTime !==0;
+    const previous = !props.workout.template && props.workout.endTimeMs !== 0;
 
     const [name, onChangeName] = useState(props.workout.name);
     const [showDeleteWorkoutModal, changeShowDeleteWorkoutModal] = useState(false);
@@ -46,32 +46,32 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
 
     useEffect(() => {
         // end active workout
-        if (updateWorkoutMutation.data){
+        if (updateWorkoutMutation.data) {
             const workout = updateWorkoutMutation.data as WorkoutType;
-            if(workout.endTime !== 0){
+            if (workout.endTimeMs !== 0) {
                 props.onLoadingFromHeader(false);
                 props.navigation.navigate(WORKOUTS);
             }
         }
         // create active workout from template
-        if (createWorkoutMutation.data){
+        if (createWorkoutMutation.data) {
             const workout = createWorkoutMutation.data as WorkoutType;
-            if(workout.workoutId !== props.workout.workoutId){
+            if (workout.workoutId !== props.workout.workoutId) {
                 props.onLoadingFromHeader(false);
-                props.navigation.navigate(WORKOUTS,{workout})
+                props.navigation.navigate(WORKOUTS, { workout })
             }
         }
-    },  [
-            updateWorkoutMutation,
-            createWorkoutMutation,
-        ]
+    }, [
+        updateWorkoutMutation,
+        createWorkoutMutation,
+    ]
     );
 
 
     const onClickFinishWorkout = () => {
         updateWorkout({
             workoutId: props.workout.workoutId,
-            endTime: Date.now()
+            endTimeMs: Date.now()
         })
         props.onLoadingFromHeader(true);
     }
@@ -82,26 +82,26 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
             weightIntensity: 1,
             repIntensity: 1,
             name: props.workout.name,
-            startTime: Date.now()
+            startTimeMs: Date.now()
         })
         props.onLoadingFromHeader(true);
     }
 
     const onSubmitEditingName = () => {
-        updateWorkout({workoutId: props.workout.workoutId, name: name})
+        updateWorkout({ workoutId: props.workout.workoutId, name: name })
     }
 
-    const optionsDate: Intl.DateTimeFormatOptions = { 
+    const optionsDate: Intl.DateTimeFormatOptions = {
         weekday: 'short',
-        year: undefined, 
-        month: 'short', 
+        year: undefined,
+        month: 'short',
         day: '2-digit',
     };
 
-    const options: Intl.DateTimeFormatOptions = { 
+    const options: Intl.DateTimeFormatOptions = {
         weekday: undefined,
-        year: undefined, 
-        month: undefined, 
+        year: undefined,
+        month: undefined,
         day: undefined,
         hour: '2-digit',
         minute: '2-digit',
@@ -119,36 +119,36 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
             />
             {
                 active && <View style={styles.timerContainer}>
-                    <Timer startTime={props.workout.startTime}/>
+                    <Timer startTime={props.workout.startTimeMs} />
                 </View>
             }
             <View style={styles.headerController}>
                 <Pressable
                     style={[styles.button]}
                     onPress={() => props.navigation.navigate(WORKOUTS)}>
-                    <Image source={require('./../../../assets/back-button.png')} style={{width: 20, height: 20}} />
+                    <Image source={require('./../../../assets/back-button.png')} style={{ width: 20, height: 20 }} />
                     <Text style={styles.textStyle}>Back</Text>
                 </Pressable>
                 {
                     active || template ? <View style={styles.container}>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={active ? () => onClickFinishWorkout() : () => onClickStartWorkout() }>
-                            <Text style={styles.textStyle}>{ active ? "Finish workout" : "Start workout"}</Text>
+                            onPress={active ? () => onClickFinishWorkout() : () => onClickStartWorkout()}>
+                            <Text style={styles.textStyle}>{active ? "Finish workout" : "Start workout"}</Text>
                         </Pressable>
                     </View> : <View style={styles.container}>
                         <Pressable
                             style={[styles.button]}
-                            onPress={ () => changeShowEditWorkoutDateTimeModal(true) }>
-                            <Text> 
+                            onPress={() => changeShowEditWorkoutDateTimeModal(true)}>
+                            <Text>
                                 {
-                                    new Date(props.workout.startTime).toLocaleDateString('en-US', optionsDate)
+                                    new Date(props.workout.startTimeMs).toLocaleDateString('en-US', optionsDate)
                                 }
                             </Text>
-                            <Text> 
+                            <Text>
                                 {
-                                    new Date(props.workout.startTime).toLocaleTimeString('en-US', options)
-                                    + '  -  ' + new Date(props.workout.endTime).toLocaleTimeString('en-US', options)
+                                    new Date(props.workout.startTimeMs).toLocaleTimeString('en-US', options)
+                                    + '  -  ' + new Date(props.workout.endTimeMs).toLocaleTimeString('en-US', options)
                                 }
                             </Text>
                         </Pressable>
@@ -156,14 +156,14 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                 }
                 <Pressable
                     style={[styles.button]}
-                    onPress={() => { changeShowDeleteWorkoutModal(true)}}>
-                    <Image source={require('./../../../assets/trash-can.png')} style={{width: 20, height: 20}} />
-                    <Text style={styles.textStyle}>{ active ? "Cancel" : "Delete"}</Text>
+                    onPress={() => { changeShowDeleteWorkoutModal(true) }}>
+                    <Image source={require('./../../../assets/trash-can.png')} style={{ width: 20, height: 20 }} />
+                    <Text style={styles.textStyle}>{active ? "Cancel" : "Delete"}</Text>
                 </Pressable>
                 {
-                    showDeleteWorkoutModal && <DeleteWorkoutModal 
-                        navigation={props.navigation} 
-                        workout={props.workout} 
+                    showDeleteWorkoutModal && <DeleteWorkoutModal
+                        navigation={props.navigation}
+                        workout={props.workout}
                         onExit={() => {
                             changeShowDeleteWorkoutModal(false)
                         }}
@@ -171,8 +171,8 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                 }
                 {
                     showEditWorkoutDateTimeModal && <EditWorkoutDateTimeModal
-                        navigation={props.navigation} 
-                        workout={props.workout} 
+                        navigation={props.navigation}
+                        workout={props.workout}
                         onExit={() => {
                             changeShowEditWorkoutDateTimeModal(false)
                         }}
@@ -185,10 +185,10 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
 
 const styles = StyleSheet.create({
     input: {
-        paddingVertical: 5, 
+        paddingVertical: 5,
         textAlign: 'center',
         fontSize: 15,
-        fontWeight: 'bold',     
+        fontWeight: 'bold',
     },
     container: {
         display: 'flex',

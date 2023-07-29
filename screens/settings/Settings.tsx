@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, NavBar } from '../../common';
-import {View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
@@ -14,8 +14,8 @@ const SettingsScreen = (props: SettingsScreenProps) => {
 
     const handleLogout = () => {
         auth()
-        .signOut()
-        .then(() => console.log('User signed out!'));
+            .signOut()
+            .then(() => console.log('User signed out!'));
         changeIsLoading(true);
     }
 

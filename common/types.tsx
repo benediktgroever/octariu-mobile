@@ -1,36 +1,39 @@
 import { ViewStyle, Falsy } from 'react-native';
 
 export type SetType = {
-    createdAt: number,
-    setId: string,
+    completedAtMs: number,
+    createdAtMs: number,
     exerciseId: string,
-    workoutRank: number,
     exerciseRank: number,
-    workoutId: string,
-    reps: number,
-    weight: number,
-    date: number,
+    repCount: number,
+    setId: string,
     template: boolean,
     user: string,
+    weight: number,
+    workoutId: string,
+    workoutRank: number,
 }
 
 export type WorkoutType = {
-    endTime: number,
+    createdTimeMs: number,
+    endTimeMs: number,
     name: string,
     repIntensity: number,
-    startTime: number,
+    startTimeMs: number,
     template: boolean,
     user: string,
     weightIntensity: number,
-    workoutId: string
+    workoutId: string,
+    workoutPlanId: string,
 }
 
 export type ExerciseType = {
-    createdAt: number,
-    exerciseId: string,
-    name: string,
-    muscleGroup: string,
+    createdAtMs: number,
     equipment: string,
+    exerciseId: string,
+    muscleGroup: string,
+    name: string,
+    updatedAtMs: number,
 }
 
 export type StyleType = ViewStyle | Falsy

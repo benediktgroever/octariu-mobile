@@ -29,7 +29,7 @@ const HistoryChart = (props: HistoryChartProps) => {
 
     let sets: SetType[] = [];
     if(data){
-        sets = data.data.filter((set: SetType) => set.date !== 0)
+        sets = data.data.filter((set: SetType) => set.completedAtMs !== 0)
     }
 
     if(sets.length === 0){
@@ -69,7 +69,7 @@ const HistoryChart = (props: HistoryChartProps) => {
                 />
                 <VictoryScatter
                     data={sets}
-                    labels={({ datum }) => `${new Date(datum.date).toLocaleDateString('en-US', optionsDate)}, ${datum.weight}`}
+                    labels={({ datum }) => `${new Date(datum.completedAtMs).toLocaleDateString('en-US', optionsDate)}, ${datum.weight}`}
                     labelComponent={<VictoryTooltip renderInPortal={false} />}
                     x="date" 
                     y="weight"

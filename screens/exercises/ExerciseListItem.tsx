@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import {
     ExerciseType
-}from '../../common/types';
+} from '../../common/types';
 import { ExerciseModal } from './ExerciseModal';
 
 type ExerciseListItemProps = {
@@ -27,7 +27,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
                 </View>
             </Pressable>
             {
-                showExerciseModal && <ExerciseModal exercise={props.exercise} onExit={onExit}/>
+                showExerciseModal && <ExerciseModal exercise={props.exercise} onExit={onExit} />
             }
         </View>
     );

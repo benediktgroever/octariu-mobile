@@ -1,7 +1,7 @@
-import {View, Text, StyleSheet} from 'react-native';
-import { 
-    ExerciseType, 
-    SetType 
+import { View, Text, StyleSheet } from 'react-native';
+import {
+    ExerciseType,
+    SetType
 } from '../../../common/types';
 
 type LargestSetItemProps = {
@@ -11,13 +11,13 @@ type LargestSetItemProps = {
 
 const LargestSetItem = (props: LargestSetItemProps) => {
 
-    const getOneMaxRep = (set: SetType) => set.weight / ((1.0278) - (0.0278 * set.reps ));
-    const largestSet =  props.sets.reduce((a,b)=> getOneMaxRep(a) > getOneMaxRep(b) ? a : b);
+    const getOneMaxRep = (set: SetType) => set.weight / ((1.0278) - (0.0278 * set.repCount));
+    const largestSet = props.sets.reduce((a, b) => getOneMaxRep(a) > getOneMaxRep(b) ? a : b);
 
     return (
         <View style={styles.container}>
-            <Text> { props.sets.length + "x " + props.exercise.name } </Text>
-            <Text> {largestSet.weight + " lb x " + largestSet.reps }</Text>
+            <Text> {props.sets.length + "x " + props.exercise.name} </Text>
+            <Text> {largestSet.weight + " lb x " + largestSet.repCount}</Text>
         </View>
     );
 };
