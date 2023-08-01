@@ -1,6 +1,6 @@
 import { Text, StyleSheet, View } from "react-native";
 import {
-    VictoryChart, 
+    VictoryChart,
     VictoryTheme,
     VictoryLine,
     VictoryAxis,
@@ -23,16 +23,15 @@ type HistoryChartProps = {
 const HistoryChart = (props: HistoryChartProps) => {
 
     const { data } = useListSetsQuery({
-        exerciseId: props.exercise.exerciseId,
-        template: 0
+        exerciseId: props.exercise.exerciseId
     })
 
     let sets: SetType[] = [];
-    if(data){
+    if (data) {
         sets = data.data.filter((set: SetType) => set.completedAtMs !== 0)
     }
 
-    if(sets.length === 0){
+    if (sets.length === 0) {
         return (
             <View style={styles.chart}>
                 <Text> No completed sets for this exercise </Text>
@@ -40,10 +39,10 @@ const HistoryChart = (props: HistoryChartProps) => {
         )
     }
 
-    const optionsDate: Intl.DateTimeFormatOptions = { 
+    const optionsDate: Intl.DateTimeFormatOptions = {
         weekday: undefined,
-        year: undefined, 
-        month: '2-digit', 
+        year: undefined,
+        month: '2-digit',
         day: '2-digit',
     };
 
@@ -54,36 +53,36 @@ const HistoryChart = (props: HistoryChartProps) => {
     return (
         <View style={styles.chart}>
             <VictoryChart
-                containerComponent={<VictoryVoronoiContainer />} 
+                containerComponent={<VictoryVoronoiContainer />}
                 domainPadding={10}
                 padding={{ top: 50, bottom: 60, right: 30, left: 60 }}
                 theme={VictoryTheme.grayscale}
                 style={{
-                    background: {fill: 'lightblue'}, 
-                    parent: {border: "5px solid", width: "100%", fill: 'lightblue', position: 'static'},
+                    background: { fill: 'lightblue' },
+                    parent: { border: "5px solid", width: "100%", fill: 'lightblue', position: 'static' },
                 }}>
-                <VictoryLine 
-                    data={sets} 
-                    x="date" 
+                <VictoryLine
+                    data={sets}
+                    x="completedAtMs"
                     y="weight"
                 />
                 <VictoryScatter
                     data={sets}
                     labels={({ datum }) => `${new Date(datum.completedAtMs).toLocaleDateString('en-US', optionsDate)}, ${datum.weight}`}
                     labelComponent={<VictoryTooltip renderInPortal={false} />}
-                    x="date" 
+                    x="completedAtMs"
                     y="weight"
-                />                         
+                />
                 <VictoryAxis dependentAxis
-                    axisLabelComponent={<VictoryLabel dx={0}/>}
-                    style={{axisLabel: {padding: 40}}}
+                    axisLabelComponent={<VictoryLabel dx={0} />}
+                    style={{ axisLabel: { padding: 40 } }}
                     label="Weight"
                     domain={[0, maxWeight]}
                 />
                 <VictoryAxis
                     tickFormat={(t) => `${new Date(t).toLocaleDateString('en-US', optionsDate)}`}
-                    style={{ axisLabel: {padding: 40}, tickLabels: {angle: 0}}}
-                    axisLabelComponent={<VictoryLabel dy={-5}/>}
+                    style={{ axisLabel: { padding: 40 }, tickLabels: { angle: 0 } }}
+                    axisLabelComponent={<VictoryLabel dy={-5} />}
                     label="Date"
                 />
             </VictoryChart>

@@ -22,8 +22,6 @@ const WorkoutList = (props: WorkoutListProps) => {
 
     const { data, error, isLoading } = useListWorkoutsQuery({});
 
-    console.log(isLoading, error)
-
     const [showAddWorkoutModal, changeShowAddWorkoutModal] = useState(false);
 
     let workoutTemplates: WorkoutType[] = [];
@@ -53,7 +51,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         }
         workoutsPerformed = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTimeMs !== 0);
         if (workoutsPerformed.length) {
-            workoutsPerformed.sort((workoutA: any, workoutB: any) => workoutB.startTime - workoutA.startTime);
+            workoutsPerformed.sort((workoutA: any, workoutB: any) => workoutB.endTimeMs - workoutA.endTimeMs);
             DATA.push(
                 {
                     title: 'Previous workouts',

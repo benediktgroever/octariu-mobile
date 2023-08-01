@@ -9,6 +9,10 @@ type requestExerciseParams = {
     name: string,
 }
 
+type listExerciseParams = {
+    completed?: number
+}
+
 const exercisesApi = createApi({
     reducerPath: 'exercises',
     baseQuery: fetchBaseQuery({
@@ -35,10 +39,11 @@ const exercisesApi = createApi({
             }),
             listExercises: builder.query({
                 providesTags: ['Exercises'],
-                query: () => {
+                query: (params: listExerciseParams) => {
                     return {
                         url: '/list',
                         method: 'GET',
+                        params
                     }
                 }
             }),

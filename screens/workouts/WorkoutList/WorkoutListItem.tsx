@@ -99,7 +99,12 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
       )}
       onPress={() => props.navigation.navigate(WORKOUTS, { workout: props.workout })}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>{active || template ? props.workout.name : props.workout.name + ', ' + renderDate()} </Text>
+        <View style={styles.nameDateContainer}>
+          <Text style={styles.headerText}> {props.workout.name} </Text>
+          {
+            previous && <Text style={styles.date}>{" " + renderDate()}</Text>
+          }
+        </View>
         {!template && <Text>{renderDuration()} </Text>}
       </View>
       {isLoading || error ? <ActivityIndicator size="small" /> : renderExercises()}
@@ -108,6 +113,14 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
 }
 
 const styles = StyleSheet.create({
+  nameDateContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  date: {
+    fontWeight: "200",
+  },
   header: {
     display: 'flex',
     flexDirection: 'row',

@@ -12,11 +12,12 @@ import {
 type ExercisePickerModalProps = {
     onExit: Function
     onClickPickExercise: Function
+    completed: number
 }
 
 const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 
-    const { data } = useListExercisesQuery({});
+    const { data } = useListExercisesQuery({ completed: props.completed });
 
     let exercises: ExerciseType[] | undefined = undefined;
     if (data) {
@@ -68,7 +69,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     flatlist: {
-        height: '80%'
+        height: '80%',
+        width: '100%'
     }
 });
 
