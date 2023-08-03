@@ -7,7 +7,6 @@ import {
 import {
     WORKOUTS
 } from '../../../Routes';
-import { WorkoutType } from '../../../common/types';
 import {
     ModalTemplate
 } from '../../../common';
@@ -20,16 +19,15 @@ type CreateWorkoutModalProps = {
 
 const CreateWorkoutModal = (props: CreateWorkoutModalProps) => {
 
-    const [createWorkout, createWorkoutMutation] = useCreateWorkoutMutation();
+    const { createWorkout, isLoading, workout: createdWorkout } = useCreateWorkoutMutation();
     const [name, onChangeName] = useState('');
 
     useEffect(() => {
-        if (createWorkoutMutation.data) {
-            const workout = createWorkoutMutation.data as WorkoutType
-            props.navigation.navigate(WORKOUTS, { workout })
+        if (createdWorkout) {
+            props.navigation.navigate(WORKOUTS, { workout: createdWorkout })
         }
     }, [
-        createWorkoutMutation
+        createdWorkout
     ]
     );
 
@@ -43,7 +41,7 @@ const CreateWorkoutModal = (props: CreateWorkoutModalProps) => {
         <ModalTemplate onExit={props.onExit}>
             <Text style={styles.textStyle}>Your template's name</Text>
             {
-                createWorkoutMutation.isLoading ? <ActivityIndicator size="large" /> : <TextInput
+                isLoading ? <ActivityIndicator size="large" /> : <TextInput
                     style={styles.input}
                     onChangeText={onChangeName}
                     value={name}

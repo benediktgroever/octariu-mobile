@@ -5,15 +5,12 @@ import {
     ExerciseListItem
 } from './ExerciseListItem';
 import {
-    ExerciseType
-} from '../../common/types';
-import {
     CreateExerciseModal
 } from './CreateExerciseModal';
 import { NavigationProp } from '@react-navigation/native';
 import {
-    useListFilteredExerciseQuery
-} from '../../hooks/useListFilteredExercisesQuery';
+    useListExercisesQuery, Exercise
+} from '../../store';
 
 type ExercisesScreenProps = {
     navigation: NavigationProp<any, any>
@@ -27,11 +24,11 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
         uniqueMuscleGroups,
         changeFilterMuscleGroup,
         changeFilterEquipment
-    } = useListFilteredExerciseQuery();
+    } = useListExercisesQuery({});
 
     const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false);
 
-    const renderExercise = ({ item }: { item: ExerciseType }) => {
+    const renderExercise = ({ item }: { item: Exercise }) => {
         return <ExerciseListItem key={item.exerciseId} exercise={item} />
     }
 

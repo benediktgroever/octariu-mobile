@@ -1,31 +1,28 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Set } from './Set';
+import { SetListItem } from './SetListItem';
 import { Button } from '../../../common';
 import {
+    Exercise, Workout, Set,
     useCreateSetMutation,
 } from '../../../store';
-import {
-    ExerciseType,
-    SetType,
-    WorkoutType
-} from '../../../common/types';
+
 
 type ExerciseListItemProps = {
-    exercise: ExerciseType,
-    sets: SetType[],
-    workout: WorkoutType
+    exercise: Exercise,
+    sets: Set[],
+    workout: Workout
 }
 
 const ExerciseListItem = (props: ExerciseListItemProps) => {
 
 
-    const [createSet] = useCreateSetMutation();
+    const { createSet } = useCreateSetMutation();
 
-    const maxExerciseRank: number = Math.max(...props.sets.map((set: SetType) => {
+    const maxExerciseRank: number = Math.max(...props.sets.map((set: Set) => {
         return set.exerciseRank
     }))
 
-    const sortedSets: SetType[] = props.sets.sort(function (a, b) {
+    const sortedSets: Set[] = props.sets.sort(function (a, b) {
         return a.exerciseRank - b.exerciseRank;
     });
 
@@ -41,8 +38,8 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
         <View style={styles.container}>
             <Text> {props.exercise.name} </Text>
             {
-                sortedSets && sortedSets.map((set: SetType, index: number) => {
-                    return <Set
+                sortedSets && sortedSets.map((set: Set, index: number) => {
+                    return <SetListItem
                         key={set.setId}
                         counter={index + 1}
                         set={set}

@@ -2,11 +2,11 @@ import { Text, View, StyleSheet } from 'react-native';
 import {
     ModalTemplate
 } from '../../common';
-import { ExerciseType } from '../../common/types';
+import { Exercise } from '../../store';
 
 type ExerciseModalProps = {
     onExit: Function
-    exercise: ExerciseType,
+    exercise: Exercise,
 }
 
 const ExerciseModal = (props: ExerciseModalProps) => {

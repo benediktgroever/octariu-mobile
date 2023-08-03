@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import {
-    ExerciseType
-} from '../../common/types';
+    Exercise
+} from '../../store';
 import { ExerciseModal } from './ExerciseModal';
 
 type ExerciseListItemProps = {
-    exercise: ExerciseType,
+    exercise: Exercise,
 }
 
 const ExerciseListItem = (props: ExerciseListItemProps) => {

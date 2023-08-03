@@ -1,17 +1,17 @@
 import { NavBar } from '../../common';
 import {
-    Workout
-} from './Workout/Workout';
+    WorkoutItem
+} from './Workout/WorkoutItem';
 import {
     WorkoutList
 } from './WorkoutList/WorkoutList';
 import {
-    WorkoutType
-} from '../../common/types';
+    Workout
+} from '../../store';
 
 const WorkoutsScreen = ({ navigation, route }: any) => {
 
-    let workout: WorkoutType | undefined = undefined;
+    let workout: Workout | undefined = undefined;
     if (route.params) {
         if (route.params.hasOwnProperty("workout")) {
             workout = route.params["workout"];
@@ -21,7 +21,7 @@ const WorkoutsScreen = ({ navigation, route }: any) => {
     return (
         <NavBar navigation={navigation}>
             {
-                workout ? <Workout
+                workout ? <WorkoutItem
                     workout={workout}
                     navigation={navigation}
                 /> : <WorkoutList navigation={navigation} />

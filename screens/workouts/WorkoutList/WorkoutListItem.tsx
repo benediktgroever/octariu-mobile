@@ -1,20 +1,18 @@
 import { Pressable, Text, StyleSheet, View, ActivityIndicator } from "react-native";
-import { WorkoutType } from "../../../common/types";
 import { useListExercisesQuery, useListSetsQuery } from "../../../store";
 import { WORKOUTS } from "../../../Routes";
 import {
   Timer
 } from '../Timer';
-import {
-  SetType,
-  ExerciseType,
-} from '../../../common/types';
+import { Set } from '../../../store/sets/types';
+import { Workout } from '../../../store/workouts/types';
+import { Exercise } from "../../../store/exercises/types";
 import { LargestSetItem } from "./LargestSetItem";
 import { NavigationProp } from "@react-navigation/native";
 
 type WorkoutListItemProps = {
   navigation: NavigationProp<any, any>,
-  workout: WorkoutType,
+  workout: Workout,
 }
 
 const WorkoutListItem = (props: WorkoutListItemProps) => {
@@ -23,22 +21,14 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
   const template = props.workout.template;
   const previous = !props.workout.template && props.workout.endTimeMs !== 0;
 
-  const listSetsQuery = useListSetsQuery({ workoutId: props.workout.workoutId });
-  const listExercisesQuery = useListExercisesQuery({});
-  const isLoading = listExercisesQuery.isLoading || listSetsQuery.isLoading;
-  const error = listExercisesQuery.error || listSetsQuery.error;
+  const { isLoading: isLoadingSets, sets } = useListSetsQuery({ workoutId: props.workout.workoutId });
+  const { isLoading: isLoadingExercies, exercises } = useListExercisesQuery({});
+  const isLoading = isLoadingExercies || isLoadingSets;
 
-  let sets: SetType[] = [];
-  if (listSetsQuery.data) {
-    sets = listSetsQuery.data.data
-  }
-
-  let exercises: { [exerciseId: string]: ExerciseType } = {};
-  if (listExercisesQuery.data) {
-    listExercisesQuery.data.data.map((item: ExerciseType) => {
-      exercises[item.exerciseId] = item;
-    });
-  }
+  let exercisesMap: { [exerciseId: string]: Exercise } = {};
+  exercises.map((exercise) => {
+    exercisesMap[exercise.exerciseId] = exercise;
+  });
 
   const renderExercises = () => {
 
@@ -46,9 +36,9 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
       return null;
     }
 
-    const exercisesWithinWorkoutRank: { [workoutRank: string]: SetType[] } = {};
+    const exercisesWithinWorkoutRank: { [workoutRank: string]: Set[] } = {};
 
-    sets.map((set: SetType) => {
+    sets.map((set) => {
       if (set.workoutRank !== undefined &&
         exercisesWithinWorkoutRank.hasOwnProperty(set.workoutRank)) {
         exercisesWithinWorkoutRank[set.workoutRank].push(set)
@@ -57,9 +47,9 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
       }
     })
 
-    return Object.values(exercisesWithinWorkoutRank).map((setsList: SetType[]) => {
+    return Object.values(exercisesWithinWorkoutRank).map((setsList: Set[]) => {
       return <LargestSetItem
-        exercise={exercises[setsList[0].exerciseId]}
+        exercise={exercisesMap[setsList[0].exerciseId]}
         sets={setsList}
         key={setsList[0].workoutRank}
       />
@@ -107,7 +97,7 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
         </View>
         {!template && <Text>{renderDuration()} </Text>}
       </View>
-      {isLoading || error ? <ActivityIndicator size="small" /> : renderExercises()}
+      {isLoading ? <ActivityIndicator size="small" /> : renderExercises()}
     </Pressable>
   )
 }

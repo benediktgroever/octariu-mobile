@@ -6,7 +6,7 @@ import {
 import {
     WORKOUTS
 } from '../../../Routes';
-import { WorkoutType } from '../../../common/types';
+import { Workout } from '../../../store';
 import {
     ModalTemplate
 } from '../../../common';
@@ -14,13 +14,13 @@ import { NavigationProp } from '@react-navigation/native';
 
 type DeleteWorkoutModalProps = {
     onExit: Function
-    workout: WorkoutType
+    workout: Workout
     navigation: NavigationProp<any, any>
 }
 
 const DeleteWorkoutModal = (props: DeleteWorkoutModalProps) => {
 
-    const [deleteWorkout] = useDeleteWorkoutMutation();
+    const { deleteWorkout } = useDeleteWorkoutMutation();
 
     const onClickDeleteWorkout = () => {
         deleteWorkout({ workoutId: props.workout.workoutId })
@@ -29,7 +29,7 @@ const DeleteWorkoutModal = (props: DeleteWorkoutModalProps) => {
 
     return (
         <ModalTemplate onExit={props.onExit}>
-            <Text style={styles.textStyle}>Are you sure to delete the workout?</Text>
+            <Text style={styles.textStyle}>Are you sure you want to delete the workout?</Text>
             <Button onClick={onClickDeleteWorkout} text={'Delete workout'} />
         </ModalTemplate>
     );

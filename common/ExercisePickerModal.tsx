@@ -1,10 +1,8 @@
 import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
 import {
+    Exercise,
     useListExercisesQuery,
 } from '../store';
-import {
-    ExerciseType
-} from './types';
 import {
     ModalTemplate,
 } from '.';
@@ -12,19 +10,13 @@ import {
 type ExercisePickerModalProps = {
     onExit: Function
     onClickPickExercise: Function
-    completed: number
+    completed: number,
+    exercises: Exercise[],
 }
 
 const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 
-    const { data } = useListExercisesQuery({ completed: props.completed });
-
-    let exercises: ExerciseType[] | undefined = undefined;
-    if (data) {
-        exercises = data.data
-    }
-
-    const renderExerciseSelector = ({ item }: { item: ExerciseType }) => {
+    const renderExerciseSelector = ({ item }: { item: Exercise }) => {
         const { exerciseId, name } = item;
         return (
             <Pressable
@@ -40,7 +32,7 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
         <ModalTemplate onExit={props.onExit} >
             <Text style={styles.header}>Which exercise do you want to add?</Text>
             <FlatList
-                data={exercises}
+                data={props.exercises}
                 renderItem={renderExerciseSelector}
                 keyExtractor={exercise => exercise.exerciseId}
                 style={styles.flatlist}

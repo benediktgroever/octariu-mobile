@@ -1,17 +1,17 @@
 import { View, Text, StyleSheet } from 'react-native';
 import {
-    ExerciseType,
-    SetType
-} from '../../../common/types';
+    Exercise,
+    Set
+} from '../../../store';
 
 type LargestSetItemProps = {
-    exercise: ExerciseType,
-    sets: SetType[],
+    exercise: Exercise,
+    sets: Set[],
 }
 
 const LargestSetItem = (props: LargestSetItemProps) => {
 
-    const getOneMaxRep = (set: SetType) => set.weight / ((1.0278) - (0.0278 * set.repCount));
+    const getOneMaxRep = (set: Set) => set.weight / ((1.0278) - (0.0278 * set.repCount));
     const largestSet = props.sets.reduce((a, b) => getOneMaxRep(a) > getOneMaxRep(b) ? a : b);
 
     return (

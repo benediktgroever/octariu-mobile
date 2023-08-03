@@ -1,47 +1,52 @@
-import {
-    configureStore
-} from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
-import { workoutsApi } from "./apis/workoutsApi";
-import { setsApi } from "./apis/setsApi";
-import { exercisesApi } from "./apis/exerciseApi";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { setsReducer } from './sets/reducer';
+import { workoutsReducer } from "./workouts/reducers";
+import { exercisesReducer } from "./exercises/reducers";
+import { legacy_createStore as createStore } from 'redux'
+import { combineReducers } from "@reduxjs/toolkit";
 
-const store = configureStore({
-    reducer: {
-        [workoutsApi.reducerPath]: workoutsApi.reducer,
-        [setsApi.reducerPath]: setsApi.reducer,
-        [exercisesApi.reducerPath]: exercisesApi.reducer,
-    },
-    middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(
-            workoutsApi.middleware,
-            setsApi.middleware,
-            exercisesApi.middleware
-        )
-    }
-})
+const createRootReducer = () => combineReducers({
+    sets: setsReducer,
+    workouts: workoutsReducer,
+    exercises: exercisesReducer,
+});
 
-setupListeners(store.dispatch)
+export {
+    useCreateSetMutation,
+    useDeleteSetMutation,
+    useUpdateSetMutation,
+    useListSetsQuery,
+} from './sets/hooks'
+
+export {
+    useCreateWorkoutMutation,
+    useDeleteWorkoutMutation,
+    useListWorkoutsQuery,
+    useUpdateWorkoutMutation,
+} from './workouts/hooks'
+
+export {
+    useListExercisesQuery,
+    useRequestExerciseMutation,
+    useListCompletedExercisesQuery,
+} from './exercises/hooks'
+
+export type {
+    Set
+} from './sets/types';
+
+export type {
+    Workout
+} from './workouts/types';
+
+export type {
+    Exercise
+} from './exercises/types';
+
+const store = createStore(createRootReducer())
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
 export { store }
-export {
-    useCreateWorkoutMutation,
-    useListWorkoutsQuery,
-    useUpdateWorkoutMutation,
-    useDeleteWorkoutMutation,
-} from './apis/workoutsApi';
-export {
-    useCreateSetMutation,
-    useListSetsQuery,
-    useUpdateSetMutation,
-    useDeleteSetMutation,
-} from './apis/setsApi';
-export {
-    useRequestExerciseMutation,
-    useListExercisesQuery,
-} from './apis/exerciseApi';
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

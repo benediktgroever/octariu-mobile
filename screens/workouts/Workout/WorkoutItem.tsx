@@ -4,59 +4,44 @@ import { Button } from '../../../common';
 import { ExerciseListItem } from './ExerciseListItem';
 import { ExercisePickerModal } from '../../../common';
 import {
-  useListExercisesQuery,
   useListSetsQuery,
   useListWorkoutsQuery,
   useCreateSetMutation,
+  useListExercisesQuery,
+  Workout, Exercise, Set,
 } from '../../../store';
-import {
-  SetType,
-  ExerciseType,
-  WorkoutType
-} from '../../../common/types';
 import {
   WorkoutHeader
 } from './WorkoutHeader';
 import { NavigationProp } from '@react-navigation/native';
 
 type WorkoutProps = {
-  workout: WorkoutType,
+  workout: Workout,
   navigation: NavigationProp<any, any>,
 }
 
-const Workout = (props: WorkoutProps) => {
+const WorkoutItem = (props: WorkoutProps) => {
 
-  const workoutQuery = useListWorkoutsQuery({ workoutId: props.workout.workoutId })
-  const listSetsQuery = useListSetsQuery({ workoutId: props.workout.workoutId });
-  const listExercisesQuery = useListExercisesQuery({});
+  const { isLoading: workoutQueryIsLoading, workout } = useListWorkoutsQuery({ workoutId: props.workout.workoutId })
+  const { isLoading: setsQueryIsLoading, sets } = useListSetsQuery({ workoutId: props.workout.workoutId });
+  const { isLoading: exerciseIsLoading, exercises } = useListExercisesQuery({});
+  const { createSet } = useCreateSetMutation();
+
   const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
   const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
-  const [createSet] = useCreateSetMutation();
-  const isLoading = workoutQuery.isLoading || listExercisesQuery.isLoading || listSetsQuery.isLoading;
-  const error = listExercisesQuery.error || listSetsQuery.error;
 
-  let sets: SetType[] = [];
-  let newWorkoutRank: number = 0;
-  if (listSetsQuery.data) {
-    sets = listSetsQuery.data.data
-    newWorkoutRank = sets.reduce((maximum, set) => {
-      return (maximum = maximum > set.workoutRank ? maximum : set.workoutRank);
-    }, 0) + 1;
-  }
+  const isLoading = workoutQueryIsLoading || setsQueryIsLoading || exerciseIsLoading;
 
-  let exercises: { [exerciseId: string]: ExerciseType } = {};
-  if (listExercisesQuery.data) {
-    listExercisesQuery.data.data.map((item: ExerciseType) => {
-      exercises[item.exerciseId] = item;
-    });
-  }
+  let newWorkoutRank: number = sets.reduce((maximum, set) => {
+    return (maximum = maximum > set.workoutRank ? maximum : set.workoutRank);
+  }, 0) + 1;
 
-  let workout: WorkoutType | undefined = undefined;
-  if (workoutQuery.data) {
-    workout = workoutQuery.data.data[0];
-  }
+  let exercisesMap: { [exerciseId: string]: Exercise } = {};
+  exercises.map((item: Exercise) => {
+    exercisesMap[item.exerciseId] = item;
+  });
 
-  const onClickCreateExercise = (exercise: ExerciseType) => {
+  const onClickCreateExercise = (exercise: Exercise) => {
     createSet({
       exerciseId: exercise.exerciseId,
       workoutId: props.workout.workoutId,
@@ -75,9 +60,9 @@ const Workout = (props: WorkoutProps) => {
       return null;
     }
 
-    const exercisesWithinWorkoutRank: { [workoutRank: string]: SetType[] } = {};
+    const exercisesWithinWorkoutRank: { [workoutRank: string]: Set[] } = {};
 
-    sets.map((set: SetType) => {
+    sets.map((set: Set) => {
       if (set.workoutRank !== undefined &&
         exercisesWithinWorkoutRank.hasOwnProperty(set.workoutRank)) {
         exercisesWithinWorkoutRank[set.workoutRank].push(set)
@@ -86,11 +71,11 @@ const Workout = (props: WorkoutProps) => {
       }
     })
 
-    return Object.values(exercisesWithinWorkoutRank).map((setsList: SetType[]) => {
+    return Object.values(exercisesWithinWorkoutRank).map((setsList: Set[]) => {
       return (
         <ExerciseListItem
           key={setsList[0].workoutRank}
-          exercise={exercises[setsList[0].exerciseId]}
+          exercise={exercisesMap[setsList[0].exerciseId]}
           sets={setsList}
           workout={props.workout}
         />
@@ -106,7 +91,7 @@ const Workout = (props: WorkoutProps) => {
         onLoadingFromHeader={changeLoadingFromHeader}
       />
       {
-        isLoading || error || isLoadingFromHeader ? (
+        isLoading || isLoadingFromHeader ? (
           <ActivityIndicator style={styles.activityIndicator} size="large" />
         ) : <ScrollView>
           <View style={styles.centeredView}>
@@ -122,6 +107,7 @@ const Workout = (props: WorkoutProps) => {
                 onExit={() => changeExercisePickerVisible(false)}
                 onClickPickExercise={onClickCreateExercise}
                 completed={0}
+                exercises={exercises}
               />
             }
           </View>
@@ -148,4 +134,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { Workout }
+export { WorkoutItem }

@@ -4,8 +4,7 @@ import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { NavigationProp } from '@react-navigation/native';
 import { HistoryChart } from './HistoryChart';
 import { ExercisePickerModal } from '../../common';
-import { ExerciseType } from '../../common/types';
-import { useListExercisesQuery } from '../../store';
+import { useListCompletedExercisesQuery, Exercise } from '../../store';
 import { Button } from '../../common';
 
 type HistoryScreenProps = {
@@ -14,21 +13,16 @@ type HistoryScreenProps = {
 
 const HistoryScreen = (props: HistoryScreenProps) => {
 
-    const { data, isLoading } = useListExercisesQuery({ completed: 1 });
+    const { exercises } = useListCompletedExercisesQuery({ completed: 1 });
     const [showExercisePicker, changeShowExercisePicker] = useState(false);
-    const [exercise, changeExercise] = useState<ExerciseType | undefined>(undefined);
+    const [exercise, changeExercise] = useState<Exercise | undefined>(exercises.length ? exercises[0] : undefined);
 
-    const onClickPickExercise = (exercise: ExerciseType) => {
+    const onClickPickExercise = (exercise: Exercise) => {
         changeExercise(exercise)
         changeShowExercisePicker(false)
     }
 
     let content = <ActivityIndicator style={styles.activityIndicator} size="large" />
-    useEffect(() => {
-        if (data) {
-            changeExercise(data.data[0])
-        }
-    }, [data])
     if (exercise) {
         content = (
             <React.Fragment>
@@ -52,6 +46,7 @@ const HistoryScreen = (props: HistoryScreenProps) => {
                     onExit={() => changeShowExercisePicker(false)}
                     onClickPickExercise={onClickPickExercise}
                     completed={1}
+                    exercises={exercises}
                 />
             }
         </NavBar>

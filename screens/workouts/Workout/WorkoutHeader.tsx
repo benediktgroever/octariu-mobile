@@ -8,15 +8,11 @@ import {
     TextInput
 } from 'react-native';
 import {
-    useCreateWorkoutMutation,
-    useUpdateWorkoutMutation,
+    Workout, useCreateWorkoutMutation, useUpdateWorkoutMutation
 } from '../../../store';
 import {
     WORKOUTS
 } from '../../../Routes';
-import {
-    WorkoutType
-} from '../../../common/types';
 import { Timer } from '../Timer';
 import {
     DeleteWorkoutModal
@@ -25,7 +21,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { EditWorkoutDateTimeModal } from './EditWorkoutDateTimeModal';
 
 type WorkoutHeaderProps = {
-    workout: WorkoutType,
+    workout: Workout,
     navigation: NavigationProp<any, any>,
     onLoadingFromHeader: Function,
 }
@@ -40,30 +36,28 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
     const [showDeleteWorkoutModal, changeShowDeleteWorkoutModal] = useState(false);
     const [showEditWorkoutDateTimeModal, changeShowEditWorkoutDateTimeModal] = useState(false);
 
-    const [createWorkout, createWorkoutMutation] = useCreateWorkoutMutation();
-    const [updateWorkout, updateWorkoutMutation] = useUpdateWorkoutMutation();
+    const { createWorkout, workout: workoutCreateWorkout } = useCreateWorkoutMutation();
+    const { updateWorkout, workout: workoutUpdateWorkout } = useUpdateWorkoutMutation();
 
 
     useEffect(() => {
         // end active workout
-        if (updateWorkoutMutation.data) {
-            const workout = updateWorkoutMutation.data as WorkoutType;
-            if (workout.endTimeMs !== 0) {
+        if (workoutUpdateWorkout) {
+            if (workoutUpdateWorkout.endTimeMs !== 0) {
                 props.onLoadingFromHeader(false);
                 props.navigation.navigate(WORKOUTS);
             }
         }
         // create active workout from template
-        if (createWorkoutMutation.data) {
-            const workout = createWorkoutMutation.data as WorkoutType;
-            if (workout.workoutId !== props.workout.workoutId) {
+        if (workoutCreateWorkout) {
+            if (workoutCreateWorkout.workoutId !== props.workout.workoutId) {
                 props.onLoadingFromHeader(false);
-                props.navigation.navigate(WORKOUTS, { workout })
+                props.navigation.navigate(WORKOUTS, { workout: workoutCreateWorkout })
             }
         }
     }, [
-        updateWorkoutMutation,
-        createWorkoutMutation,
+        workoutCreateWorkout,
+        workoutUpdateWorkout,
     ]
     );
 

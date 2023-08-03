@@ -16,7 +16,7 @@ type CreateExerciseModalProps = {
 
 const CreateExerciseModal = (props: CreateExerciseModalProps) => {
 
-    const [requestExercise, requestExerciseMutation] = useRequestExerciseMutation();
+    const { requestExercise, isLoading, request } = useRequestExerciseMutation();
     const [name, onChangeName] = useState('');
 
     const onClickCreateExercise = () => {
@@ -29,7 +29,7 @@ const CreateExerciseModal = (props: CreateExerciseModalProps) => {
         <React.Fragment>
             <Text style={styles.textStyle}>We are constantly adding new exercises. What exercise do you want us to add?</Text>
             {
-                requestExerciseMutation.isLoading ? <ActivityIndicator style={styles.activityIndicator} size="small" /> : <TextInput
+                isLoading ? <ActivityIndicator style={styles.activityIndicator} size="small" /> : <TextInput
                     style={styles.input}
                     onChangeText={onChangeName}
                     value={name}
@@ -39,7 +39,7 @@ const CreateExerciseModal = (props: CreateExerciseModalProps) => {
         </React.Fragment>
     )
 
-    if (requestExerciseMutation.isSuccess) {
+    if (request) {
         content = <Text style={styles.textStyle}>Thank you for your help to extend our collection! We will be in touch when we added the exercise</Text>
     }
 

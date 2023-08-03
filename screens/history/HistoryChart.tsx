@@ -13,23 +13,18 @@ import {
     useListSetsQuery
 } from '../../store/';
 import { NavigationProp } from '@react-navigation/native';
-import { ExerciseType, SetType } from '../../common/types';
+import { Exercise, Set } from '../../store';
 
 type HistoryChartProps = {
     navigation: NavigationProp<any, any>
-    exercise: ExerciseType
+    exercise: Exercise
 }
 
 const HistoryChart = (props: HistoryChartProps) => {
 
-    const { data } = useListSetsQuery({
+    const { sets } = useListSetsQuery({
         exerciseId: props.exercise.exerciseId
     })
-
-    let sets: SetType[] = [];
-    if (data) {
-        sets = data.data.filter((set: SetType) => set.completedAtMs !== 0)
-    }
 
     if (sets.length === 0) {
         return (

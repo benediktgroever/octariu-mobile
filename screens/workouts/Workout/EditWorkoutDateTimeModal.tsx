@@ -3,7 +3,7 @@ import { Button } from '../../../common';
 import {
     useUpdateWorkoutMutation,
 } from '../../../store';
-import { WorkoutType } from '../../../common/types';
+import { Workout } from '../../../store';
 import {
     ModalTemplate
 } from '../../../common';
@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 
 type EditWorkoutDateTimeModalProps = {
     onExit: Function
-    workout: WorkoutType
+    workout: Workout
     navigation: NavigationProp<any, any>
 }
 
@@ -23,7 +23,7 @@ const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
     const [startTime, changeStartTime] = useState(new Date(props.workout.startTimeMs));
     const [endTime, changeEndTime] = useState(new Date(props.workout.endTimeMs));
     const [warning, changeWarning] = useState('');
-    const [updateWorkout, updateWorkoutMutation] = useUpdateWorkoutMutation();
+    const { updateWorkout, isLoading, workout: updatedWorkout } = useUpdateWorkoutMutation();
 
     useEffect(() => {
         if (startTime > endTime) {
@@ -31,13 +31,13 @@ const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
         } else {
             changeWarning("")
         }
-        if (updateWorkoutMutation.fulfilledTimeStamp) {
+        if (updatedWorkout) {
             props.onExit()
         }
     }, [
         startTime,
         endTime,
-        updateWorkoutMutation,
+        updatedWorkout,
     ]
     );
 
@@ -66,7 +66,7 @@ const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
                 <Button
                     onClick={onClickUpdateWorkout}
                     text='Update workout'
-                    isLoading={updateWorkoutMutation.isLoading}
+                    isLoading={isLoading}
                 />
             </View>
         </ModalTemplate>

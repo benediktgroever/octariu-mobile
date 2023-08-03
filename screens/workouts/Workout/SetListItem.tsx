@@ -11,27 +11,24 @@ import {
 import {
     useUpdateSetMutation,
     useDeleteSetMutation,
+    Set, Workout,
 } from '../../../store';
-import {
-    SetType,
-    WorkoutType
-} from '../../../common/types';
 
 type SetProps = {
     counter: number,
-    set: SetType,
-    workout: WorkoutType,
+    set: Set,
+    workout: Workout,
 }
 
-const Set = (props: SetProps) => {
+const SetListItem = (props: SetProps) => {
 
     const previous = props.workout.template == false && props.workout.endTimeMs !== 0
     const [repCount, onChangeRepCount] = useState(Math.round(Number(props.set.repCount)).toString());
     const [weight, onChangeWeight] = useState((Math.round(Number(props.set.weight) * 10) / 10).toString());
     const [finished, onChangeFinished] = useState(props.set.completedAtMs !== 0);
 
-    const [deleteSet] = useDeleteSetMutation();
-    const [updateSet] = useUpdateSetMutation();
+    const { deleteSet } = useDeleteSetMutation();
+    const { updateSet } = useUpdateSetMutation();
 
     const onChangeTextInputWeight = (text: string) => {
         if (text && text.slice(-1) !== '.' && text.indexOf(".") !== -1) {
@@ -167,4 +164,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export { Set }
+export { SetListItem }

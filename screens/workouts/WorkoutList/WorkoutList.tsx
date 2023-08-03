@@ -4,14 +4,16 @@ import {
     WorkoutListItem,
 } from './WorkoutListItem';
 import {
+    useListExercisesQuery,
+    useListSetsQuery,
     useListWorkoutsQuery,
 } from '../../../store';
 import {
     CreateWorkoutModal
 } from './CreateWorkoutModal';
 import {
-    WorkoutType
-} from '../../../common/types';
+    Workout
+} from '../../../store/workouts/types';
 import { NavigationProp } from '@react-navigation/native';
 
 type WorkoutListProps = {
@@ -20,48 +22,13 @@ type WorkoutListProps = {
 
 const WorkoutList = (props: WorkoutListProps) => {
 
-    const { data, error, isLoading } = useListWorkoutsQuery({});
+    const { isLoading: isLoadingWorkouts, workoutSections } = useListWorkoutsQuery({});
+    const { isLoading: isLoadingSets } = useListSetsQuery({});
+    const { isLoading: isLoadingExercises } = useListExercisesQuery({});
 
     const [showAddWorkoutModal, changeShowAddWorkoutModal] = useState(false);
 
-    let workoutTemplates: WorkoutType[] = [];
-    let workoutsActive: WorkoutType[] = [];
-    let workoutsPerformed: WorkoutType[] = [];
-    const DATA = [];
-    if (data) {
-        workoutTemplates = data.data.filter((workout: WorkoutType) => workout.template === true);
-        if (workoutTemplates) {
-            workoutTemplates.sort((workoutA: any, workoutB: any) => workoutB.createdAt - workoutA.createdAt);
-            DATA.push(
-                {
-                    title: 'Templates',
-                    data: workoutTemplates,
-                }
-            )
-        }
-        workoutsActive = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTimeMs === 0);
-        if (workoutsActive.length) {
-            workoutsActive.sort((workoutA: any, workoutB: any) => workoutB.endTime - workoutA.endTime);
-            DATA.push(
-                {
-                    title: 'Active workouts',
-                    data: workoutsActive,
-                }
-            )
-        }
-        workoutsPerformed = data.data.filter((workout: WorkoutType) => workout.template === false && workout.endTimeMs !== 0);
-        if (workoutsPerformed.length) {
-            workoutsPerformed.sort((workoutA: any, workoutB: any) => workoutB.endTimeMs - workoutA.endTimeMs);
-            DATA.push(
-                {
-                    title: 'Previous workouts',
-                    data: workoutsPerformed,
-                }
-            )
-        }
-    }
-
-    const renderWorkout = ({ item }: { item: WorkoutType }) => {
+    const renderWorkout = ({ item }: { item: Workout }) => {
         return (
             <WorkoutListItem
                 key={item.workoutId}
@@ -90,7 +57,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         </View>
     )
 
-    if (isLoading || error) {
+    if (isLoadingSets || isLoadingWorkouts || isLoadingExercises) {
         return <ActivityIndicator style={styles.activityIndicator} size="large" />
     }
 
@@ -98,7 +65,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         <View>
             <View style={styles.container}>
                 <SectionList
-                    sections={DATA}
+                    sections={workoutSections}
                     keyExtractor={(item, index) => item.workoutId + index}
                     renderItem={renderWorkout}
                     renderSectionHeader={renderWorkoutSectionTitle}
