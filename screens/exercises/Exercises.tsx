@@ -24,7 +24,7 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
         uniqueMuscleGroups,
         changeFilterMuscleGroup,
         changeFilterEquipment
-    } = useListExercisesQuery({});
+    } = useListExercisesQuery();
 
     const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false);
 

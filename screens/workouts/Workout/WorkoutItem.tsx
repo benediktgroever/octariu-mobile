@@ -24,7 +24,7 @@ const WorkoutItem = (props: WorkoutProps) => {
 
   const { isLoading: workoutQueryIsLoading, workout } = useListWorkoutsQuery({ workoutId: props.workout.workoutId })
   const { isLoading: setsQueryIsLoading, sets } = useListSetsQuery({ workoutId: props.workout.workoutId });
-  const { isLoading: exerciseIsLoading, exercises } = useListExercisesQuery({});
+  const { isLoading: exerciseIsLoading, exercises } = useListExercisesQuery();
   const { createSet } = useCreateSetMutation();
 
   const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
@@ -106,8 +106,7 @@ const WorkoutItem = (props: WorkoutProps) => {
               exercisePickerVisible && <ExercisePickerModal
                 onExit={() => changeExercisePickerVisible(false)}
                 onClickPickExercise={onClickCreateExercise}
-                completed={0}
-                exercises={exercises}
+                questionText='Which exercise do you want to add?'
               />
             }
           </View>

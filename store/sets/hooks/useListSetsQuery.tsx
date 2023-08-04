@@ -13,7 +13,7 @@ const useListSetsQuery = (props: useListSetQueryProps) => {
     const { isLoading, sets } = useSelector((state: RootState) => state.sets);
 
     useEffect(() => {
-        fetchSets();
+        fetchSets(false);
     }, [fetchSets])
 
     let filteredSets = undefined

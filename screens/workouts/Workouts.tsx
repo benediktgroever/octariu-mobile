@@ -11,17 +11,13 @@ import {
 
 const WorkoutsScreen = ({ navigation, route }: any) => {
 
-    let workout: Workout | undefined = undefined;
-    if (route.params) {
-        if (route.params.hasOwnProperty("workout")) {
-            workout = route.params["workout"];
-        }
-    }
+    const hasWorkout = route.params && route.params.hasOwnProperty("workout");
+    const workout: Workout = hasWorkout ? route.params["workout"] : undefined;
 
     return (
         <NavBar navigation={navigation}>
             {
-                workout ? <WorkoutItem
+                hasWorkout ? <WorkoutItem
                     workout={workout}
                     navigation={navigation}
                 /> : <WorkoutList navigation={navigation} />

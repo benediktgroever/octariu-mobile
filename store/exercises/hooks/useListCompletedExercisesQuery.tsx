@@ -1,15 +1,12 @@
 import { useListExercisesQuery } from "../..";
 import { useListSetsQuery } from "../..";
 
-type listExercisesQuery = {
-    completed?: number
-}
 
-const useListCompletedExercisesQuery = (props: listExercisesQuery) => {
+const useListCompletedExercisesQuery = () => {
 
     const { isLoading: isLoadingSets, sets } = useListSetsQuery({})
     const { isLoading: isLoadingExercises, exercises, uniqueEquipments,
-        uniqueMuscleGroups, changeFilterEquipment, changeFilterMuscleGroup } = useListExercisesQuery({})
+        uniqueMuscleGroups, changeFilterEquipment, changeFilterMuscleGroup } = useListExercisesQuery()
 
     const isLoading = isLoadingExercises || isLoadingSets;
 

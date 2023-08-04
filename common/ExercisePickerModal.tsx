@@ -1,20 +1,28 @@
-import { Text, Pressable, StyleSheet, FlatList } from 'react-native';
+import { Text, Pressable, StyleSheet, FlatList, View } from 'react-native';
 import {
     Exercise,
     useListExercisesQuery,
 } from '../store';
 import {
+    Dropdown,
     ModalTemplate,
 } from '.';
 
 type ExercisePickerModalProps = {
     onExit: Function
+    questionText: string,
     onClickPickExercise: Function
-    completed: number,
-    exercises: Exercise[],
+    includeExercises?: Exercise[] | undefined,
 }
 
 const ExercisePickerModal = (props: ExercisePickerModalProps) => {
+
+    const { exercises, uniqueEquipments, uniqueMuscleGroups,
+        changeFilterEquipment, changeFilterMuscleGroup } = useListExercisesQuery();
+
+    const includeExercisesSet = new Set(props.includeExercises ? props.includeExercises : [])
+    const filteredExercises = props.includeExercises ?
+        exercises.filter(exercise => includeExercisesSet.has(exercise)) : exercises
 
     const renderExerciseSelector = ({ item }: { item: Exercise }) => {
         const { exerciseId, name } = item;
@@ -30,9 +38,21 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 
     return (
         <ModalTemplate onExit={props.onExit} >
-            <Text style={styles.header}>Which exercise do you want to add?</Text>
+            <Text style={styles.header}> {props.questionText}</Text>
+            <View style={styles.selection}>
+                <Dropdown
+                    label={'Any muscle group'}
+                    data={uniqueMuscleGroups}
+                    onSelect={changeFilterMuscleGroup}
+                />
+                <Dropdown
+                    label={'Any equipment'}
+                    data={uniqueEquipments}
+                    onSelect={changeFilterEquipment}
+                />
+            </View>
             <FlatList
-                data={props.exercises}
+                data={filteredExercises}
                 renderItem={renderExerciseSelector}
                 keyExtractor={exercise => exercise.exerciseId}
                 style={styles.flatlist}
@@ -62,7 +82,14 @@ const styles = StyleSheet.create({
     },
     flatlist: {
         height: '80%',
-        width: '100%'
+        width: '100%',
+        zIndex: -1,
+    },
+    selection: {
+        dipslay: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        width: '95%',
     }
 });
 

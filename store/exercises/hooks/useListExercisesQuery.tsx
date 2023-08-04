@@ -3,11 +3,7 @@ import { fetchExercises } from "../actions";
 import { useSelector } from "react-redux";
 import { RootState } from "../..";
 
-type listExercisesQuery = {
-    completed?: number
-}
-
-const useListExercisesQuery = (props: listExercisesQuery) => {
+const useListExercisesQuery = () => {
 
     const { isLoading, exercises } = useSelector((state: RootState) => state.exercises);
 

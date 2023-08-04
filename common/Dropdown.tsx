@@ -4,7 +4,7 @@ import { Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 type DropdownProps = {
     label: string,
     data: Array<string>,
-    onSelect: (item: string) => void,
+    onSelect: Function,
 }
 
 const Dropdown = (props: DropdownProps) => {

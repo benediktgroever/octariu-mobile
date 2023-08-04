@@ -13,7 +13,7 @@ type HistoryScreenProps = {
 
 const HistoryScreen = (props: HistoryScreenProps) => {
 
-    const { exercises } = useListCompletedExercisesQuery({ completed: 1 });
+    const { exercises } = useListCompletedExercisesQuery();
     const [showExercisePicker, changeShowExercisePicker] = useState(false);
     const [exercise, changeExercise] = useState<Exercise | undefined>(exercises.length ? exercises[0] : undefined);
 
@@ -45,8 +45,8 @@ const HistoryScreen = (props: HistoryScreenProps) => {
                 showExercisePicker && <ExercisePickerModal
                     onExit={() => changeShowExercisePicker(false)}
                     onClickPickExercise={onClickPickExercise}
-                    completed={1}
-                    exercises={exercises}
+                    includeExercises={exercises}
+                    questionText='Which exercise do you want to see?'
                 />
             }
         </NavBar>
