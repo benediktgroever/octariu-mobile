@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Button } from '../../../common';
+import { Button, useSortExercisesWithinWorkoutRank } from '../../../common';
 import { ExerciseListItem } from './ExerciseListItem';
 import { ExercisePickerModal } from '../../../common';
 import {
-  useListSetsQuery,
-  useListWorkoutsQuery,
   useCreateSetMutation,
-  useListExercisesQuery,
-  Workout, Exercise, Set,
+  Workout, Exercise, useListWorkoutsQuery,
 } from '../../../store';
 import {
   WorkoutHeader
@@ -22,24 +19,28 @@ type WorkoutProps = {
 
 const WorkoutItem = (props: WorkoutProps) => {
 
-  const { isLoading: workoutQueryIsLoading, workout } = useListWorkoutsQuery({ workoutId: props.workout.workoutId })
-  const { isLoading: setsQueryIsLoading, sets } = useListSetsQuery({ workoutId: props.workout.workoutId });
-  const { isLoading: exerciseIsLoading, exercises } = useListExercisesQuery();
+  const {
+    isLoading: workoutQueryIsLoading,
+    workout
+  } = useListWorkoutsQuery({ workoutId: props.workout.workoutId })
+
+  const {
+    isLoading: sortExercisesIsLoading,
+    exercisesWithinWorkoutRank,
+    exercisesMap,
+    sets
+  } = useSortExercisesWithinWorkoutRank({ workoutId: props.workout.workoutId })
+
   const { createSet } = useCreateSetMutation();
 
   const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
   const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
 
-  const isLoading = workoutQueryIsLoading || setsQueryIsLoading || exerciseIsLoading;
+  const isLoading = sortExercisesIsLoading || workoutQueryIsLoading;
 
   let newWorkoutRank: number = sets.reduce((maximum, set) => {
     return (maximum = maximum > set.workoutRank ? maximum : set.workoutRank);
   }, 0) + 1;
-
-  let exercisesMap: { [exerciseId: string]: Exercise } = {};
-  exercises.map((item: Exercise) => {
-    exercisesMap[item.exerciseId] = item;
-  });
 
   const onClickCreateExercise = (exercise: Exercise) => {
     createSet({
@@ -60,18 +61,7 @@ const WorkoutItem = (props: WorkoutProps) => {
       return null;
     }
 
-    const exercisesWithinWorkoutRank: { [workoutRank: string]: Set[] } = {};
-
-    sets.map((set: Set) => {
-      if (set.workoutRank !== undefined &&
-        exercisesWithinWorkoutRank.hasOwnProperty(set.workoutRank)) {
-        exercisesWithinWorkoutRank[set.workoutRank].push(set)
-      } else {
-        exercisesWithinWorkoutRank[set.workoutRank] = [set];
-      }
-    })
-
-    return Object.values(exercisesWithinWorkoutRank).map((setsList: Set[]) => {
+    return Object.values(exercisesWithinWorkoutRank).map((setsList) => {
       return (
         <ExerciseListItem
           key={setsList[0].workoutRank}

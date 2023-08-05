@@ -1,14 +1,12 @@
 import { Pressable, Text, StyleSheet, View, ActivityIndicator } from "react-native";
-import { useListExercisesQuery, useListSetsQuery } from "../../../store";
 import { WORKOUTS } from "../../../Routes";
 import {
   Timer
 } from '../Timer';
-import { Set } from '../../../store/sets/types';
-import { Workout } from '../../../store/workouts/types';
-import { Exercise } from "../../../store/exercises/types";
+import { Workout } from '../../../store';
 import { LargestSetItem } from "./LargestSetItem";
 import { NavigationProp } from "@react-navigation/native";
+import { useSortExercisesWithinWorkoutRank } from "../../../common";
 
 type WorkoutListItemProps = {
   navigation: NavigationProp<any, any>,
@@ -21,14 +19,12 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
   const template = props.workout.template;
   const previous = !props.workout.template && props.workout.endTimeMs !== 0;
 
-  const { isLoading: isLoadingSets, sets } = useListSetsQuery({ workoutId: props.workout.workoutId });
-  const { isLoading: isLoadingExercies, exercises } = useListExercisesQuery({});
-  const isLoading = isLoadingExercies || isLoadingSets;
+  const {
+    isLoading,
+    exercisesWithinWorkoutRank,
+    exercisesMap
+  } = useSortExercisesWithinWorkoutRank({ workoutId: props.workout.workoutId });
 
-  let exercisesMap: { [exerciseId: string]: Exercise } = {};
-  exercises.map((exercise) => {
-    exercisesMap[exercise.exerciseId] = exercise;
-  });
 
   const renderExercises = () => {
 
@@ -36,18 +32,7 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
       return null;
     }
 
-    const exercisesWithinWorkoutRank: { [workoutRank: string]: Set[] } = {};
-
-    sets.map((set) => {
-      if (set.workoutRank !== undefined &&
-        exercisesWithinWorkoutRank.hasOwnProperty(set.workoutRank)) {
-        exercisesWithinWorkoutRank[set.workoutRank].push(set)
-      } else {
-        exercisesWithinWorkoutRank[set.workoutRank] = [set];
-      }
-    })
-
-    return Object.values(exercisesWithinWorkoutRank).map((setsList: Set[]) => {
+    return Object.values(exercisesWithinWorkoutRank).map((setsList) => {
       return <LargestSetItem
         exercise={exercisesMap[setsList[0].exerciseId]}
         sets={setsList}
