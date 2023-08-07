@@ -2,6 +2,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { setsReducer } from './sets/reducer';
 import { workoutsReducer } from "./workouts/reducers";
 import { exercisesReducer } from "./exercises/reducers";
+import { settingsReducer } from './settings/reducer';
 import { legacy_createStore as createStore } from 'redux'
 import { combineReducers } from "@reduxjs/toolkit";
 
@@ -9,6 +10,7 @@ const createRootReducer = () => combineReducers({
     sets: setsReducer,
     workouts: workoutsReducer,
     exercises: exercisesReducer,
+    settings: settingsReducer,
 });
 
 export {
@@ -30,6 +32,14 @@ export {
     useRequestExerciseMutation,
     useListCompletedExercisesQuery,
 } from './exercises/hooks'
+
+export {
+    useCountDownTimer
+} from './settings/hooks'
+
+export {
+    setCountDownTime,
+} from './settings/actions';
 
 export type {
     Set

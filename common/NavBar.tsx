@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 
 import {
+    CountDown
+} from './CountDown';
+
+import {
     View,
     StyleSheet,
     Pressable,
@@ -24,6 +28,7 @@ function NavBar(props: NavBarProps) {
 
     return (
         <View style={styles.container}>
+            <CountDown />
             <View style={styles.content}>
                 {props.children}
             </View>

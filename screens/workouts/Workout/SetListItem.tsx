@@ -11,6 +11,7 @@ import {
 import {
     useUpdateSetMutation,
     useDeleteSetMutation,
+    setCountDownTime,
     Set, Workout,
 } from '../../../store';
 
@@ -71,12 +72,24 @@ const SetListItem = (props: SetProps) => {
         if (finished) {
             updateSet({ setId: props.set.setId, completedAtMs: 0 });
             onChangeFinished(false);
+            if (!previous) {
+                setCountDownTime({
+                    countDownEndTime: 0,
+                    countDownSetId: props.set.setId
+                })
+            }
         } else {
             updateSet({
                 setId: props.set.setId,
                 completedAtMs: previous ? props.workout.endTimeMs : Date.now()
             });
             onChangeFinished(true)
+            if (!previous) {
+                setCountDownTime({
+                    countDownEndTime: Date.now() + 120 * 1000,
+                    countDownSetId: props.set.setId
+                })
+            }
         }
     }
 
