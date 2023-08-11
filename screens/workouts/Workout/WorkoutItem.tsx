@@ -90,6 +90,7 @@ const WorkoutItem = (props: WorkoutProps) => {
               <Button
                 text={'Add exercise'}
                 onClick={() => changeExercisePickerVisible(true)}
+                style={styles.addExerciseButton}
               />
             </View>
             {
@@ -110,16 +111,22 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     overflow: 'scroll',
-    alignItems: 'center',
+    width: '100%',
   },
   exercises: {
+    width: '100%',
+    backgroundColor: '#e0dcd7',
     display: 'flex',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
   },
   activityIndicator: {
     display: 'flex',
     flex: 1,
+  },
+  addExerciseButton: {
+    width: '95%',
+    borderRadius: 5,
   }
 });
 
