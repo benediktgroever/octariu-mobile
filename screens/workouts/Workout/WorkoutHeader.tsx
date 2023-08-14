@@ -1,3 +1,6 @@
+import Previous from './../../../assets/previous.svg';
+import Trash from './../../../assets/trash-can.svg';
+import Cross from './../../../assets/cross.svg';
 import { useState, useEffect } from 'react';
 import {
     View,
@@ -120,7 +123,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                 <Pressable
                     style={[styles.button]}
                     onPress={() => props.navigation.navigate(WORKOUTS)}>
-                    <Image source={require('./../../../assets/back-button.png')} style={{ width: 20, height: 20 }} />
+                    <Previous style={styles.icon} />
                     <Text style={styles.textStyle}>All</Text>
                 </Pressable>
                 {
@@ -151,7 +154,8 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                 <Pressable
                     style={[styles.button]}
                     onPress={() => { changeShowDeleteWorkoutModal(true) }}>
-                    <Image source={require('./../../../assets/trash-can.png')} style={{ width: 20, height: 20 }} />
+                    {active ? <Cross width={23} height={23} style={styles.icon} /> :
+                        <Trash style={styles.icon} fill={'red'} />}
                     <Text style={styles.textStyle}>{active ? "Cancel" : "Delete"}</Text>
                 </Pressable>
                 {
@@ -194,10 +198,16 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     button: {
+        margin: 5,
         padding: 5,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    icon: {
+        width: 20,
+        height: 20,
+        margin: 5,
     },
     buttonClose: {
         backgroundColor: '#2196F3',
@@ -209,7 +219,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     textStyle: {
-        color: 'darkblue',
+        color: 'black',
         fontWeight: 'bold',
         textAlign: 'center',
     },

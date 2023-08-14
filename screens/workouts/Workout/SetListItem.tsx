@@ -1,3 +1,4 @@
+import CheckMark from './../../../assets/checked.svg';
 import { useState, useEffect } from 'react';
 import {
     Keyboard,
@@ -14,6 +15,7 @@ import {
     setCountDownTime,
     Set, Workout,
 } from '../../../store';
+import TrashCan from '../../../assets/trash-can.svg';
 
 type SetProps = {
     counter: number,
@@ -130,20 +132,16 @@ const SetListItem = (props: SetProps) => {
                 !props.set.template && <Pressable
                     style={styles.button}
                     onPress={toggleFinishSet}>
-                    {finished ? <Image
-                        source={require('./../../../assets/checkFinished.png')}
+                    <CheckMark
                         style={styles.controlIcon}
-                    /> : <Image
-                        source={require('./../../../assets/check.png')}
-                        style={styles.controlIcon}
+                        fill={finished ? '#00ba00' : 'black'}
                     />
-                    }
                 </Pressable>
             }
             <Pressable
                 style={styles.button}
                 onPress={onClickDelete}>
-                <Image source={require('./../../../assets/trash-can.png')} style={{ width: 15, height: 15 }} />
+                <TrashCan style={styles.icon} fill={'red'} />
             </Pressable>
         </View>
     );
@@ -152,6 +150,10 @@ const SetListItem = (props: SetProps) => {
 const styles = StyleSheet.create({
     finishedSet: {
         backgroundColor: 'rgb(185, 255, 185)',
+    },
+    icon: {
+        width: 16,
+        height: 16,
     },
     set: {
         display: 'flex',

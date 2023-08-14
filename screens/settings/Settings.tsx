@@ -3,6 +3,7 @@ import { Button, NavBar } from '../../common';
 import { View, StyleSheet } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import { FOREGROUND_COLOR } from '../../common/constants'
 
 type SettingsScreenProps = {
     navigation: NavigationProp<any, any>;
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     button: {
         width: '95%',
         padding: 5,
-        backgroundColor: '#efefef',
+        backgroundColor: FOREGROUND_COLOR,
     }
 });
 

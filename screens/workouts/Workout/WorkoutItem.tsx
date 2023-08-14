@@ -15,6 +15,9 @@ import {
   WorkoutHeader
 } from './WorkoutHeader';
 import { NavigationProp } from '@react-navigation/native';
+import {
+  BACKGROUND_COLOR, FOREGROUND_COLOR
+} from '../../../common/constants';
 
 type WorkoutProps = {
   workout: Workout,
@@ -130,12 +133,12 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'scroll',
     width: '100%',
-    backgroundColor: '#e0dcd7',
+    backgroundColor: BACKGROUND_COLOR,
     height: '100%'
   },
   exercises: {
     width: '100%',
-    backgroundColor: '#e0dcd7',
+    backgroundColor: BACKGROUND_COLOR,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -148,7 +151,7 @@ const styles = StyleSheet.create({
   addExerciseButton: {
     width: '95%',
     borderRadius: 5,
-    backgroundColor: '#efefef',
+    backgroundColor: FOREGROUND_COLOR,
   }
 });
 

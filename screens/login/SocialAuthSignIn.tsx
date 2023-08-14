@@ -1,8 +1,9 @@
 import React from 'react';
 import auth from '@react-native-firebase/auth';
+import Google from '../../assets/google.svg'
 import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { Text, Pressable, StyleSheet, Image } from 'react-native';
+import { Text, Pressable, StyleSheet } from 'react-native';
 
 GoogleSignin.configure({
   webClientId: '439712533808-umu271ki2qpp9mtur4l0em1jk9laganc.apps.googleusercontent.com',
@@ -47,49 +48,49 @@ const SocialAuthSignIn = () => {
       <AppleButton
         buttonStyle={AppleButton.Style.BLACK}
         buttonType={AppleButton.Type.SIGN_IN}
-        style={{
-          width: '80%',
-          height: 45,
-          margin: 10,
-          marginTop: 100,
-        }}
+        style={styles.appleContainer}
         onPress={() => onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))}
       />
       <Pressable
-        style={{
-          padding: 10,
-          width: '80%',
-          borderRadius: 4,
-          backgroundColor: '#2d5ae0',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
+        style={styles.googleContainer}
         onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}>
-        <Image
-          source={require('../../assets/google.png')}
-          style={{
-            width: 13,
-            height: 13,
-            padding: 5,
-            marginRight: 5,
-          }}
+        <Google
+          style={styles.googleIcon}
         />
-        <Text style={{
-          color: 'white',
-          textAlign: 'center',
-          fontSize: 17,
-          fontWeight: '600',
-        }}> Sign in with Google</Text>
+        <Text style={styles.googleText}> Sign in with Google</Text>
       </Pressable>
     </React.Fragment>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-
+  appleContainer: {
+    width: '80%',
+    height: 45,
+    margin: 10,
+    marginTop: 100,
+  },
+  googleIcon: {
+    width: 13,
+    height: 13,
+    padding: 5,
+    marginRight: 5,
+  },
+  googleContainer: {
+    padding: 10,
+    width: '80%',
+    borderRadius: 4,
+    backgroundColor: '#2d5ae0',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  googleText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: '600',
   }
 })
 

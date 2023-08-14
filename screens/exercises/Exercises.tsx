@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Plus from '../../assets/addition.svg'
 import { NavBar, Dropdown } from '../../common';
 import { View, StyleSheet, Pressable, Image, Text, FlatList, ActivityIndicator } from 'react-native';
 import {
@@ -41,10 +42,7 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
                     <Pressable
                         style={styles.button}
                         onPress={() => changeShowCreateExerciseModal(!showCreateExerciseModal)}>
-                        <Image
-                            source={require('../../assets/plus-button.png')}
-                            style={styles.icon}
-                        />
+                        <Plus width={23} height={23} style={styles.icon} />
                         <Text style={styles.buttonText}>
                             Request
                         </Text>

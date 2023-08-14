@@ -5,6 +5,9 @@ import {
   Exercise, Workout, Set,
   useCreateSetMutation,
 } from '../../../store';
+import {
+  FOREGROUND_COLOR
+} from '../../../common/constants'
 
 
 type ExerciseListItemProps = {
@@ -37,7 +40,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
 
   return (
     <View style={styles.container}>
-      <Text> {props.exercise.name} </Text>
+      <Text style={styles.exerciseName}> {props.exercise.name} </Text>
       {
         sortedSets && sortedSets.map((set: Set, index: number) => {
           return <SetListItem
@@ -58,9 +61,12 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
 };
 
 const styles = StyleSheet.create({
+  exerciseName: {
+    fontWeight: "200",
+  },
   container: {
     width: '95%',
-    backgroundColor: '#efefef',
+    backgroundColor: FOREGROUND_COLOR,
     padding: 5,
     marginVertical: 5,
     borderRadius: 5,

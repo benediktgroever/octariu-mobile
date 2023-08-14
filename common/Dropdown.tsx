@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { BACKGROUND_COLOR, FOREGROUND_COLOR } from './constants';
 
 type DropdownProps = {
     label: string,
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     button: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#efefef',
+        backgroundColor: FOREGROUND_COLOR,
         height: 50,
         width: '50%',
         zIndex: 1,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         position: 'absolute',
-        backgroundColor: '#e0dcd7',
+        backgroundColor: BACKGROUND_COLOR,
         top: 50,
         zIndex: 100,
         width: '100%',
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     text: {
         padding: 10,
         margin: 2,
-        backgroundColor: '#efefef',
+        backgroundColor: FOREGROUND_COLOR,
         width: '100%'
     },
     selected: {

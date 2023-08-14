@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Plus from '../../../assets/addition.svg'
 import { View, Text, StyleSheet, SectionList, ActivityIndicator, Pressable, Image } from 'react-native';
 import {
   WorkoutListItem,
@@ -15,6 +16,9 @@ import {
   Workout
 } from '../../../store/workouts/types';
 import { NavigationProp } from '@react-navigation/native';
+import {
+  BACKGROUND_COLOR
+} from '../../../common/constants';
 
 type WorkoutListProps = {
   navigation: NavigationProp<any, any>;
@@ -45,10 +49,7 @@ const WorkoutList = (props: WorkoutListProps) => {
         title == "Templates" && <Pressable
           style={styles.button}
           onPress={() => changeShowAddWorkoutModal(!showAddWorkoutModal)}>
-          <Image
-            source={require('../../../assets/plus-button.png')}
-            style={styles.icon}
-          />
+          <Plus width={23} height={23} style={styles.icon} />
           <Text style={styles.buttonText}>
             Add
           </Text>
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#e0dcd7',
+    backgroundColor: BACKGROUND_COLOR,
   },
   header: {
     fontSize: 20,

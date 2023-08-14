@@ -7,6 +7,7 @@ import { ExercisePickerModal } from '../../common';
 import { useListCompletedExercisesQuery, Exercise } from '../../store';
 import { Button } from '../../common';
 import { HistoryList } from './HistoryList';
+import { FOREGROUND_COLOR } from '../../common/constants'
 
 type HistoryScreenProps = {
     navigation: NavigationProp<any, any>
@@ -56,7 +57,7 @@ const HistoryScreen = (props: HistoryScreenProps) => {
 
 const styles = StyleSheet.create({
     changeExerciseButton: {
-        backgroundColor: '#efefef',
+        backgroundColor: FOREGROUND_COLOR,
         width: '90%',
     },
     controlls: {

@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Animated, StyleSheet, Text } from 'react-native';
+import { BACKGROUND_COLOR } from './constants';
 
 interface AnimatedProgressBarProps {
     progress: number,
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 20,
-        backgroundColor: '#e0dcd7',
+        backgroundColor: BACKGROUND_COLOR,
     },
     progressBar: {
         height: '100%',

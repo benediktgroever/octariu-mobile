@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { View, Modal, StyleSheet, Pressable, Image } from 'react-native';
+import Reject from '../assets/cancel.svg';
 
 type ModalTemplateProps = {
     onExit: Function
@@ -17,10 +18,7 @@ const ModalTemplate = (props: ModalTemplateProps) => {
                     <View style={styles.button}>
                         <Pressable
                             onPress={() => props.onExit()}>
-                            <Image
-                                source={require('../assets/reject.png')}
-                                style={styles.icon}
-                            />
+                            <Reject style={styles.icon} />
                         </Pressable>
                     </View>
                     {props.children}
@@ -32,8 +30,8 @@ const ModalTemplate = (props: ModalTemplateProps) => {
 
 const styles = StyleSheet.create({
     icon: {
-        width: 25,
-        height: 25,
+        width: 16,
+        height: 16,
     },
     button: {
         display: 'flex',

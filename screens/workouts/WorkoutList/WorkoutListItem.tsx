@@ -7,6 +7,9 @@ import { Workout } from '../../../store';
 import { LargestSetItem } from "./LargestSetItem";
 import { NavigationProp } from "@react-navigation/native";
 import { useSortExercisesWithinWorkoutRank } from "../../../common";
+import {
+  FOREGROUND_COLOR
+} from '../../../common/constants'
 
 type WorkoutListItemProps = {
   navigation: NavigationProp<any, any>,
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 4,
-    backgroundColor: '#efefef',
+    backgroundColor: FOREGROUND_COLOR,
   },
   active: {
     borderColor: 'red'

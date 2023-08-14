@@ -44,7 +44,7 @@ const HistoryList = (props: HistoryListProps) => {
 
     const renderSet = ({ item }: { item: Set }) => {
         return (
-            <View style={[styles.setlistitem, { paddingVertical: 3 }]}>
+            <View style={[styles.setlistitem, { paddingVertical: 1 }]}>
                 <Text style={[styles.text, styles.dateText]}> {`${new Date(item.completedAtMs).toLocaleDateString('en-US', optionsDate)}`}</Text>
                 <Text style={[styles.text, styles.weightText]}> {item.weight}</Text>
                 <Text style={[styles.text, styles.repsText]}> {item.repCount}</Text>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         width: '80%',
-        marginVertical: 10,
+        marginVertical: 5,
     },
     text: {
         textAlign: 'left',
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
     headingText: {
-        fontWeight: "300",
+        fontWeight: "500",
     },
 })
 
