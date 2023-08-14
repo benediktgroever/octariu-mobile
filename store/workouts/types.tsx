@@ -8,6 +8,7 @@ export interface Workout {
     user: string,
     weightIntensity: number,
     workoutId: string,
+    workoutParentId: string,
     workoutPlanId: string,
 }
 
