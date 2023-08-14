@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 import { StyleType } from './types';
 
@@ -12,7 +12,7 @@ type ButtonProps = {
 
 const Button = (props: ButtonProps) => {
     return (
-        <Pressable
+        <TouchableOpacity
             style={[styles.button, props.style]}
             onPress={() => props.onClick()}>
             {
@@ -20,7 +20,7 @@ const Button = (props: ButtonProps) => {
                     <Text style={styles.buttonText}>{props.text}</Text>
                 )
             }
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

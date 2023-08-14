@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
-import { Button, useSortExercisesWithinWorkoutRank } from '../../../common';
+import {
+  Button,
+  useSortExercisesWithinWorkoutRank,
+  usePreviousBestSets
+} from '../../../common';
 import { ExerciseListItem } from './ExerciseListItem';
 import { ExercisePickerModal } from '../../../common';
 import {
@@ -31,25 +35,37 @@ const WorkoutItem = (props: WorkoutProps) => {
     sets
   } = useSortExercisesWithinWorkoutRank({ workoutId: props.workout.workoutId })
 
+  const {
+    isLoading: previousBestSetsLoading,
+    previousSet,
+  } = usePreviousBestSets(
+    { untilTimeMs: props.workout.startTimeMs ? props.workout.startTimeMs : undefined }
+  );
+
   const { createSet } = useCreateSetMutation();
 
   const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
   const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
 
-  const isLoading = sortExercisesIsLoading || workoutQueryIsLoading;
+  const isLoading = sortExercisesIsLoading || workoutQueryIsLoading || previousBestSetsLoading;
 
   let newWorkoutRank: number = sets.reduce((maximum, set) => {
     return (maximum = maximum > set.workoutRank ? maximum : set.workoutRank);
   }, 0) + 1;
 
   const onClickCreateExercise = (exercise: Exercise) => {
+    const previousSetCompleted = (
+      previousSet[exercise.exerciseId] ?
+        previousSet[exercise.exerciseId][newWorkoutRank] :
+        undefined
+    );
     createSet({
       exerciseId: exercise.exerciseId,
       workoutId: props.workout.workoutId,
-      exerciseRank: 0,
+      exerciseRank: 1,
       workoutRank: newWorkoutRank,
-      repCount: 8,
-      weight: 12,
+      repCount: previousSetCompleted ? previousSetCompleted.repCount : 0,
+      weight: previousSetCompleted ? previousSetCompleted.weight : 0,
       template: props.workout.template
     })
     changeExercisePickerVisible(false);
@@ -62,12 +78,14 @@ const WorkoutItem = (props: WorkoutProps) => {
     }
 
     return Object.values(exercisesWithinWorkoutRank).map((setsList) => {
+      const exerciseId = setsList[0].exerciseId;
       return (
         <ExerciseListItem
           key={setsList[0].workoutRank}
-          exercise={exercisesMap[setsList[0].exerciseId]}
+          exercise={exercisesMap[exerciseId]}
           sets={setsList}
           workout={props.workout}
+          previousSet={previousSet.hasOwnProperty(exerciseId) ? previousSet[exerciseId] : {}}
         />
       )
     })
@@ -112,6 +130,8 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'scroll',
     width: '100%',
+    backgroundColor: '#e0dcd7',
+    height: '100%'
   },
   exercises: {
     width: '100%',
@@ -119,6 +139,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%'
   },
   activityIndicator: {
     display: 'flex',
@@ -127,6 +148,7 @@ const styles = StyleSheet.create({
   addExerciseButton: {
     width: '95%',
     borderRadius: 5,
+    backgroundColor: '#efefef',
   }
 });
 

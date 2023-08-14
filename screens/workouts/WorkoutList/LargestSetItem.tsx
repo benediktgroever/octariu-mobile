@@ -3,6 +3,9 @@ import {
     Exercise,
     Set
 } from '../../../store';
+import {
+    getOneMaxRep
+} from '../../../common/helper';
 
 type LargestSetItemProps = {
     exercise: Exercise,
@@ -11,7 +14,6 @@ type LargestSetItemProps = {
 
 const LargestSetItem = (props: LargestSetItemProps) => {
 
-    const getOneMaxRep = (set: Set) => set.weight / ((1.0278) - (0.0278 * set.repCount));
     const largestSet = props.sets.reduce((a, b) => getOneMaxRep(a) > getOneMaxRep(b) ? a : b);
 
     return (

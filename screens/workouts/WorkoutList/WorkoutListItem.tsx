@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 3,
   },
   headerText: {
     fontWeight: "700",
@@ -108,7 +109,8 @@ const styles = StyleSheet.create({
     margin: 3,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 2,
+    padding: 4,
+    backgroundColor: '#efefef',
   },
   active: {
     borderColor: 'red'

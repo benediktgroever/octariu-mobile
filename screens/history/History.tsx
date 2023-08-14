@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavBar } from '../../common';
 import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { NavigationProp } from '@react-navigation/native';
@@ -6,6 +6,7 @@ import { HistoryChart } from './HistoryChart';
 import { ExercisePickerModal } from '../../common';
 import { useListCompletedExercisesQuery, Exercise } from '../../store';
 import { Button } from '../../common';
+import { HistoryList } from './HistoryList';
 
 type HistoryScreenProps = {
     navigation: NavigationProp<any, any>
@@ -16,7 +17,6 @@ const HistoryScreen = (props: HistoryScreenProps) => {
     const { exercises } = useListCompletedExercisesQuery();
     const [showExercisePicker, changeShowExercisePicker] = useState(false);
     const [exercise, changeExercise] = useState<Exercise | undefined>(exercises.length ? exercises[0] : undefined);
-
     const onClickPickExercise = (exercise: Exercise) => {
         changeExercise(exercise)
         changeShowExercisePicker(false)
@@ -27,10 +27,11 @@ const HistoryScreen = (props: HistoryScreenProps) => {
         content = (
             <React.Fragment>
                 <View style={styles.controlls}>
-                    <Button style={{ width: 300 }} onClick={() => changeShowExercisePicker(true)} text={exercise.name} />
+                    <Button style={styles.changeExerciseButton} onClick={() => changeShowExercisePicker(true)} text={exercise.name} />
                 </View>
                 <View style={styles.container}>
                     <HistoryChart navigation={props.navigation} exercise={exercise} />
+                    <HistoryList navigation={props.navigation} exercise={exercise} />
                 </View>
             </React.Fragment>
         )
@@ -54,6 +55,10 @@ const HistoryScreen = (props: HistoryScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+    changeExerciseButton: {
+        backgroundColor: '#efefef',
+        width: '90%',
+    },
     controlls: {
         paddingVertical: 10,
         display: 'flex',

@@ -13,7 +13,7 @@ import {
     useListSetsQuery
 } from '../../store/';
 import { NavigationProp } from '@react-navigation/native';
-import { Exercise, Set } from '../../store';
+import { Exercise } from '../../store';
 
 type HistoryChartProps = {
     navigation: NavigationProp<any, any>
@@ -23,16 +23,8 @@ type HistoryChartProps = {
 const HistoryChart = (props: HistoryChartProps) => {
 
     const { sets } = useListSetsQuery({
-        exerciseId: props.exercise.exerciseId
+        exerciseId: props.exercise.exerciseId, template: false, completed: true
     })
-
-    if (sets.length === 0) {
-        return (
-            <View style={styles.chart}>
-                <Text> No completed sets for this exercise </Text>
-            </View>
-        )
-    }
 
     const optionsDate: Intl.DateTimeFormatOptions = {
         weekday: undefined,
@@ -47,10 +39,14 @@ const HistoryChart = (props: HistoryChartProps) => {
 
     return (
         <View style={styles.chart}>
+            <View style={styles.completedCount}>
+                <Text style={styles.completedCountDisplay}> {sets.length} </Text>
+                <Text style={styles.completedCount}> sets completed</Text>
+            </View>
             <VictoryChart
                 containerComponent={<VictoryVoronoiContainer />}
                 domainPadding={10}
-                padding={{ top: 50, bottom: 60, right: 30, left: 60 }}
+                padding={{ top: 20, bottom: 60, right: 30, left: 60 }}
                 theme={VictoryTheme.grayscale}
                 style={{
                     background: { fill: 'lightblue' },
@@ -86,9 +82,16 @@ const HistoryChart = (props: HistoryChartProps) => {
 };
 
 const styles = StyleSheet.create({
+    completedCount: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '90%',
+    },
+    completedCountDisplay: {
+        fontWeight: "200",
+    },
     chart: {
         display: 'flex',
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',

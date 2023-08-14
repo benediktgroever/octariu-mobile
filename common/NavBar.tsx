@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         display: 'flex',
-        backgroundColor: 'white',
+        backgroundColor: '#e0dcd7',
     },
     navBar: {
         display: 'flex',

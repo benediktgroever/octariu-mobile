@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         position: 'absolute',
-        backgroundColor: '#fff',
+        backgroundColor: '#e0dcd7',
         top: 50,
         zIndex: 100,
         width: '100%',

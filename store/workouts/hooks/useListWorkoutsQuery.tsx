@@ -38,6 +38,7 @@ const useListWorkoutsQuery = (props: listWorkoutsQuery) => {
 
     return {
         isLoading,
+        workouts,
         workout: workout.length ? workout[0] : undefined,
         workoutsTemplates,
         workoutsActive,

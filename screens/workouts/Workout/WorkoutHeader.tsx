@@ -121,7 +121,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                     style={[styles.button]}
                     onPress={() => props.navigation.navigate(WORKOUTS)}>
                     <Image source={require('./../../../assets/back-button.png')} style={{ width: 20, height: 20 }} />
-                    <Text style={styles.textStyle}>Back</Text>
+                    <Text style={styles.textStyle}>All</Text>
                 </Pressable>
                 {
                     active || template ? <View style={styles.container}>

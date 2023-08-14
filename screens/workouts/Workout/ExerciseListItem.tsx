@@ -10,7 +10,8 @@ import {
 type ExerciseListItemProps = {
   exercise: Exercise,
   sets: Set[],
-  workout: Workout
+  workout: Workout,
+  previousSet: { [exerciseRank: string]: Set }
 }
 
 const ExerciseListItem = (props: ExerciseListItemProps) => {
@@ -44,6 +45,10 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
             counter={index + 1}
             set={set}
             workout={props.workout}
+            previousSet={
+              props.previousSet.hasOwnProperty(set.exerciseRank.toString()) ?
+                props.previousSet[set.exerciseRank.toString()] : undefined
+            }
           />
         })
       }
@@ -55,7 +60,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
 const styles = StyleSheet.create({
   container: {
     width: '95%',
-    backgroundColor: '#f0ede9',
+    backgroundColor: '#efefef',
     padding: 5,
     marginVertical: 5,
     borderRadius: 5,

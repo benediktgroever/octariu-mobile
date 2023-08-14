@@ -19,6 +19,7 @@ type SetProps = {
     counter: number,
     set: Set,
     workout: Workout,
+    previousSet: Set | undefined,
 }
 
 const SetListItem = (props: SetProps) => {
@@ -100,7 +101,13 @@ const SetListItem = (props: SetProps) => {
     return (
         <View style={finished ? [styles.set, styles.finishedSet] : styles.set}>
             <Text style={styles.counter}> {props.counter} </Text>
-            <Text style={styles.previous}> {"270x8"} </Text>
+            <Text style={styles.previous}>
+                {
+                    props.previousSet ?
+                        `${props.previousSet.weight} lbs x ${props.previousSet.repCount}` :
+                        " - "
+                }
+            </Text>
             <TextInput
                 editable
                 onChangeText={onChangeTextInputWeight}
@@ -125,10 +132,10 @@ const SetListItem = (props: SetProps) => {
                     onPress={toggleFinishSet}>
                     {finished ? <Image
                         source={require('./../../../assets/checkFinished.png')}
-                        style={{ width: 15, height: 15 }}
+                        style={styles.controlIcon}
                     /> : <Image
                         source={require('./../../../assets/check.png')}
-                        style={{ width: 15, height: 15 }}
+                        style={styles.controlIcon}
                     />
                     }
                 </Pressable>
@@ -172,8 +179,15 @@ const styles = StyleSheet.create({
     counter: {
         display: 'flex'
     },
+    controlIcon: {
+        width: 15,
+        height: 15,
+        padding: 8,
+    },
     previous: {
-        display: 'flex'
+        display: 'flex',
+        width: 80,
+        textAlign: 'center',
     }
 });
 

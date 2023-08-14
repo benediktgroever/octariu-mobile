@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     exerciseItem: {
-        backgroundColor: 'lightgrey',
     },
 });
 

@@ -7,6 +7,9 @@ import {
     Dropdown,
     ModalTemplate,
 } from '.';
+import {
+    usePreviousBestSets
+} from '../common';
 
 type ExercisePickerModalProps = {
     onExit: Function
@@ -20,18 +23,24 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
     const { exercises, uniqueEquipments, uniqueMuscleGroups,
         changeFilterEquipment, changeFilterMuscleGroup } = useListExercisesQuery();
 
+    const {
+        exerciseCount
+    } = usePreviousBestSets({});
+
     const includeExercisesSet = new Set(props.includeExercises ? props.includeExercises : [])
     const filteredExercises = props.includeExercises ?
         exercises.filter(exercise => includeExercisesSet.has(exercise)) : exercises
 
     const renderExerciseSelector = ({ item }: { item: Exercise }) => {
         const { exerciseId, name } = item;
+        const count = exerciseCount[exerciseId];
         return (
             <Pressable
                 key={exerciseId}
                 style={[styles.button, styles.buttonClose]}
                 onPress={() => props.onClickPickExercise(item)}>
                 <Text style={styles.textStyle}>{name}</Text>
+                <Text style={[styles.textStyle, styles.faintTextStyle]}>{count}</Text>
             </Pressable>
         )
     }
@@ -70,7 +79,14 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 5,
         padding: 10,
-        width: '100%'
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    faintTextStyle: {
+        color: 'grey'
     },
     buttonClose: {
         backgroundColor: 'lightgrey',
@@ -78,11 +94,11 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: 'black',
-        textAlign: 'center',
+        textAlign: 'left',
     },
     flatlist: {
         height: '80%',
-        width: '100%',
+        width: '95%',
         zIndex: -1,
     },
     selection: {
