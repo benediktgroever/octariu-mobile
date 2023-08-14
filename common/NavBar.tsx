@@ -20,6 +20,7 @@ import {
 } from '../Routes';
 import { useRoute } from '@react-navigation/native';
 import { BACKGROUND_COLOR } from './constants';
+import { useListWorkoutsQuery } from "../store";
 
 type NavBarProps = {
     navigation: any
@@ -30,6 +31,7 @@ const FOREGROUND_COLOR = '#5e5d5c'
 
 function NavBar(props: NavBarProps) {
     const route = useRoute();
+    const { workouts } = useListWorkoutsQuery({});
 
     const workoutFill = WORKOUTS === route.name ?
         FOREGROUND_COLOR : BACKGROUND_COLOR;
@@ -54,6 +56,12 @@ function NavBar(props: NavBarProps) {
                     <Text style={[styles.buttonText, { color: workoutFill }]}>
                         Workouts
                     </Text>
+                    {
+                        workouts.length !== 0 && <View style={styles.workoutCountContainer}>
+                            <Text style={styles.workoutCountText}>{workouts.length}</Text>
+                        </View>
+
+                    }
                 </Pressable>
                 <Pressable
                     style={styles.button}
@@ -93,6 +101,26 @@ function NavBar(props: NavBarProps) {
 }
 
 const styles = StyleSheet.create({
+    workoutCountContainer: {
+        color: 'black',
+        position: 'absolute',
+        backgroundColor: 'lightblue',
+        borderRadius: 8,
+        padding: 1,
+        height: 15,
+        width: 28,
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        top: -5,
+        right: 0,
+    },
+    workoutCountText: {
+        color: 'black',
+        fontSize: 10,
+        alignItems: 'center',
+    },
     icon: {
         margin: 3,
         width: 23,
