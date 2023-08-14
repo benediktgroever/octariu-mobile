@@ -7,7 +7,7 @@ const LoginScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Sterk</Text>
-            <Text style={styles.subheader}>for a better health</Text>
+            <Text style={styles.subheader}>track for a better health</Text>
             <SocialAuthSignIn />
         </View>
     );

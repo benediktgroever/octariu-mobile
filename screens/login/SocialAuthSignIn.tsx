@@ -2,7 +2,7 @@ import React from 'react';
 import auth from '@react-native-firebase/auth';
 import { AppleButton, appleAuth } from '@invertase/react-native-apple-authentication';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { Button, StyleSheet } from 'react-native';
+import { Text, Pressable, StyleSheet, Image } from 'react-native';
 
 GoogleSignin.configure({
   webClientId: '439712533808-umu271ki2qpp9mtur4l0em1jk9laganc.apps.googleusercontent.com',
@@ -55,10 +55,34 @@ const SocialAuthSignIn = () => {
         }}
         onPress={() => onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))}
       />
-      <Button
-        title="Google Sign-In"
-        onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
-      />
+      <Pressable
+        style={{
+          padding: 10,
+          width: '80%',
+          borderRadius: 4,
+          backgroundColor: '#2d5ae0',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+        onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}>
+        <Image
+          source={require('../../assets/google.png')}
+          style={{
+            width: 13,
+            height: 13,
+            padding: 5,
+            marginRight: 5,
+          }}
+        />
+        <Text style={{
+          color: 'white',
+          textAlign: 'center',
+          fontSize: 17,
+          fontWeight: '600',
+        }}> Sign in with Google</Text>
+      </Pressable>
     </React.Fragment>
   );
 }

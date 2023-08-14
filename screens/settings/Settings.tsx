@@ -26,6 +26,7 @@ const SettingsScreen = (props: SettingsScreenProps) => {
                     text='Logout'
                     onClick={handleLogout}
                     isLoading={isLoading}
+                    style={styles.button}
                 />
             </View>
         </NavBar>
@@ -38,6 +39,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
     },
+    button: {
+        width: '95%',
+        padding: 5,
+        backgroundColor: '#efefef',
+    }
 });
 
 export { SettingsScreen }
