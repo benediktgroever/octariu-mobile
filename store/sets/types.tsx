@@ -14,11 +14,12 @@ export interface Set {
 
 export enum SetActionTypes {
     API_ERROR = "@@set/API_ERROR",
-    CREATE_SET = "@@set/CREATE_SET",
-    DELETE_SET = "@@set/DELETE_SET",
+    CREATE_SETS = "@@set/CREATE_SETS",
+    DELETE_SETS = "@@set/DELETE_SETS",
+    DELETE_SETS_BY_WORKOUT_ID = "@@set/DELETE_SETS_BY_WORKOUT_ID",
     LISTS_SETS = "@@set/LISTS_SETS",
     IS_LOADING = "@@set/IS_LOADING",
-    UPDATE_SET = "@@set/UPDATE_SET",
+    UPDATE_SETS = "@@set/UPDATE_SETS",
 }
 
 export interface setsState {

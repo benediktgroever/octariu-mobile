@@ -22,10 +22,6 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
 
   const { createSet } = useCreateSetMutation();
 
-  const maxExerciseRank: number = Math.max(...props.sets.map((set: Set) => {
-    return set.exerciseRank
-  }))
-
   const sortedSets: Set[] = props.sets.sort(function (a, b) {
     return a.exerciseRank - b.exerciseRank;
   });
@@ -33,8 +29,6 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
   const onClickCreateSet = () => {
     createSet({
       copySetId: sortedSets[sortedSets.length - 1].setId,
-      exerciseRank: maxExerciseRank + 1,
-      workoutRank: sortedSets[0].workoutRank,
     })
   }
 
@@ -45,7 +39,7 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
         sortedSets && sortedSets.map((set: Set, index: number) => {
           return <SetListItem
             key={set.setId}
-            counter={index + 1}
+            counter={set.exerciseRank}
             set={set}
             workout={props.workout}
             previousSet={

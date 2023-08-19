@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 
-import { SetActionTypes, setsState } from "./types";
+import { Set, SetActionTypes, setsState } from "./types";
 export const initialState: setsState = {
     sets: [],
     errors: undefined,
@@ -18,17 +18,29 @@ const setsReducer: Reducer<setsState> = (state = initialState, action) => {
                 isLoading: true
             }
         }
-        case SetActionTypes.CREATE_SET: {
+        case SetActionTypes.CREATE_SETS: {
+            const sets: Set[] = action.payload;
             return {
                 ...state,
-                sets: [...state.sets, action.payload]
+                sets: [...state.sets, ...sets]
             };
         }
-        case SetActionTypes.DELETE_SET: {
+        case SetActionTypes.DELETE_SETS: {
+            const setIds: { [setId: string]: Set } = {};
+            const sets = action.payload as Set[];
+            sets.map((set: Set) => setIds[set.setId] = set)
             return {
                 ...state,
-                sets: state.sets.filter(set => set.setId !== action.payload.setId)
+                sets: state.sets.filter(set => setIds.hasOwnProperty(set.setId) == false)
             };
+        }
+        case SetActionTypes.DELETE_SETS_BY_WORKOUT_ID: {
+            const workoutId: string = action.payload;
+            return {
+                ...state,
+                sets: state.sets.filter(set => set.workoutId !== workoutId)
+            };
+
         }
         case SetActionTypes.LISTS_SETS: {
             return {
@@ -37,16 +49,19 @@ const setsReducer: Reducer<setsState> = (state = initialState, action) => {
                 sets: action.payload,
             };
         }
-        case SetActionTypes.UPDATE_SET: {
+        case SetActionTypes.UPDATE_SETS: {
+            const setToBeUpdated: { [setId: string]: Set } = {};
+            const sets = action.payload as Set[];
+            sets.map((set: Set) => setToBeUpdated[set.setId] = set)
             return {
                 ...state,
                 sets: state.sets.map((set) => {
-                    if (set.setId !== action.payload.setId) {
-                        // This isn't the item we care about - keep it as-is
+                    if (setToBeUpdated.hasOwnProperty(set.setId) === false) {
+                        // This isn't a Set we want to update - keep it as-is
                         return set
                     }
-                    // Otherwise, this is the one we want - return an updated value
-                    return action.payload
+                    // Otherwise, this is a set we want - return an updated value
+                    return setToBeUpdated[set.setId]
                 })
             }
         }

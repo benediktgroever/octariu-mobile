@@ -32,13 +32,13 @@ interface updateSetParams {
 
 const updateSet = async (params: updateSetParams) => {
     try {
-        const data = await baseFetch({
+        const set = await baseFetch({
             method: Method.POST,
             url: '/sets/update',
             params: params,
         }) as Set
-        store.dispatch({ type: SetActionTypes.UPDATE_SET, payload: data })
-        return data;
+        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: [set] })
+        return set;
     } catch (error) {
         console.error(error);
         return undefined;
@@ -48,26 +48,22 @@ const updateSet = async (params: updateSetParams) => {
 type createSetParams = {
     exerciseId: string,
     workoutId: string,
-    exerciseRank: number,
-    workoutRank: number,
     weight: number,
     repCount: number,
-    template: boolean,
+    template: number,
 } | {
     copySetId: string,
-    exerciseRank: number,
-    workoutRank: number
 }
 
 const createSet = async (params: createSetParams) => {
     try {
-        const data = await baseFetch({
+        const set = await baseFetch({
             method: Method.POST,
             url: '/sets/create',
             params: params,
         }) as Set
-        store.dispatch({ type: SetActionTypes.CREATE_SET, payload: data })
-        return data;
+        store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: [set] })
+        return set;
     } catch (error) {
         console.error(error);
         return undefined;
@@ -80,12 +76,14 @@ interface deleteSetParams {
 
 const deleteSet = async (params: deleteSetParams) => {
     try {
-        store.dispatch({ type: SetActionTypes.DELETE_SET, payload: {setId: params.setId} })
+        store.dispatch({ type: SetActionTypes.DELETE_SETS, payload: [{ setId: params.setId }] })
         const data = await baseFetch({
             method: Method.DELETE,
             url: '/sets/delete',
             params: params,
         })
+        const updated_sets = data.sets;
+        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: updated_sets })
         return data;
     } catch (error) {
         console.error(error);

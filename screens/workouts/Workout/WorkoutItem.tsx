@@ -65,11 +65,9 @@ const WorkoutItem = (props: WorkoutProps) => {
     createSet({
       exerciseId: exercise.exerciseId,
       workoutId: props.workout.workoutId,
-      exerciseRank: 1,
-      workoutRank: newWorkoutRank,
       repCount: previousSetCompleted ? previousSetCompleted.repCount : 0,
       weight: previousSetCompleted ? previousSetCompleted.weight : 0,
-      template: props.workout.template
+      template: props.workout.template ? 1 : 0
     })
     changeExercisePickerVisible(false);
   }
