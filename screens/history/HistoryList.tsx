@@ -1,8 +1,7 @@
 import React from 'react';
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { NavigationProp } from '@react-navigation/native';
-import { Exercise, Set, useListSetsQuery, useListWorkoutsQuery } from '../../store';
-import { WORKOUTS } from '../../Routes';
+import { Exercise, Set, useListSetsQuery } from '../../store';
 import { getOneMaxRep } from '../../common/helper';
 
 type HistoryListProps = {
@@ -19,8 +18,6 @@ const HistoryList = (props: HistoryListProps) => {
         bestSetPerDayOnly: true,
     })
 
-    const { workouts } = useListWorkoutsQuery({})
-
     if (sets.length === 0) {
         return null;
     }
@@ -36,12 +33,6 @@ const HistoryList = (props: HistoryListProps) => {
         day: '2-digit',
     };
 
-    const onClickViewWorkout = (workoutId: string) => {
-        props.navigation.navigate(WORKOUTS, {
-            workout: workouts.filter(workout => workout.workoutId === workoutId)[0]
-        })
-    }
-
     const renderSet = ({ item }: { item: Set }) => {
         return (
             <View style={[styles.setlistitem, { paddingVertical: 1 }]}>
@@ -49,9 +40,6 @@ const HistoryList = (props: HistoryListProps) => {
                 <Text style={[styles.text, styles.weightText]}> {item.weight}</Text>
                 <Text style={[styles.text, styles.repsText]}> {item.repCount}</Text>
                 <Text style={[styles.text, styles.onermText]}> {getOneMaxRep(item)}</Text>
-                <Pressable onPress={() => onClickViewWorkout(item.workoutId)}>
-                    <Text style={[styles.text, styles.workoutText, { color: 'blue' }]}>View</Text>
-                </Pressable>
             </View>
         );
     }
@@ -63,7 +51,6 @@ const HistoryList = (props: HistoryListProps) => {
                 <Text style={[styles.text, styles.headingText, styles.weightText]}> Weight </Text>
                 <Text style={[styles.text, styles.headingText, styles.repsText,]}> Reps</Text>
                 <Text style={[styles.text, styles.headingText, styles.onermText]}> 1 RM</Text>
-                <Text style={[styles.text, styles.workoutText, styles.headingText]}> Workout</Text>
             </View>
             <FlatList
                 data={sortedSets}
@@ -87,7 +74,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         width: '80%',
-        marginVertical: 5,
+        marginVertical: 10,
     },
     text: {
         textAlign: 'left',
@@ -106,10 +93,6 @@ const styles = StyleSheet.create({
     onermText: {
         width: 40,
         textAlign: 'center',
-    },
-    workoutText: {
-        width: 65,
-        textAlign: 'right',
     },
     headingText: {
         fontWeight: "500",

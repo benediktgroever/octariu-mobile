@@ -27,11 +27,11 @@ type NavBarProps = {
     children: ReactNode
 }
 
-const FOREGROUND_COLOR = '#5e5d5c'
+const FOREGROUND_COLOR = '#919090'
 
 function NavBar(props: NavBarProps) {
     const route = useRoute();
-    const { workouts } = useListWorkoutsQuery({});
+    const { workoutsPerformed } = useListWorkoutsQuery({});
 
     const workoutFill = WORKOUTS === route.name ?
         FOREGROUND_COLOR : BACKGROUND_COLOR;
@@ -57,8 +57,8 @@ function NavBar(props: NavBarProps) {
                         Workouts
                     </Text>
                     {
-                        workouts.length !== 0 && <View style={styles.workoutCountContainer}>
-                            <Text style={styles.workoutCountText}>{workouts.length}</Text>
+                        workoutsPerformed.length !== 0 && <View style={styles.workoutCountContainer}>
+                            <Text style={styles.workoutCountText}>{workoutsPerformed.length}</Text>
                         </View>
 
                     }
