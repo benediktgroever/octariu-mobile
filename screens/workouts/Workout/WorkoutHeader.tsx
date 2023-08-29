@@ -1,15 +1,21 @@
 import Previous from './../../../assets/previous.svg';
 import Trash from './../../../assets/trash-can.svg';
 import Cross from './../../../assets/cross.svg';
+import UpArrow from './../../../assets/up-arrow.svg';
+import DownArrow from './../../../assets/down-arrow.svg';
 import { useState, useEffect } from 'react';
 import {
     View,
     Text,
     Pressable,
     StyleSheet,
-    Image,
-    TextInput
+    TextInput,
+    TouchableOpacity,
+    GestureResponderEvent
 } from 'react-native';
+import {
+    FOREGROUND_COLOR
+} from '../../../common/constants';
 import {
     Workout, useCreateWorkoutMutation, useUpdateWorkoutMutation
 } from '../../../store';
@@ -27,6 +33,8 @@ type WorkoutHeaderProps = {
     workout: Workout,
     navigation: NavigationProp<any, any>,
     onLoadingFromHeader: Function,
+    expandAll: (event: GestureResponderEvent) => void,
+    collapseAll: (event: GestureResponderEvent) => void,
 }
 
 const WorkoutHeader = (props: WorkoutHeaderProps) => {
@@ -124,7 +132,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                     style={[styles.button]}
                     onPress={() => props.navigation.navigate(WORKOUTS)}>
                     <Previous style={styles.icon} />
-                    <Text style={styles.textStyle}>All</Text>
+                    <Text style={styles.textStyle}>Back</Text>
                 </Pressable>
                 {
                     active || template ? <View style={styles.container}>
@@ -155,7 +163,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                     style={[styles.button]}
                     onPress={() => { changeShowDeleteWorkoutModal(true) }}>
                     {active ? <Cross width={23} height={23} style={styles.icon} /> :
-                        <Trash style={styles.icon} fill={'red'} />}
+                        <Trash style={styles.icon} fill={'rgb(200,0,0)'} />}
                     <Text style={styles.textStyle}>{active ? "Cancel" : "Delete"}</Text>
                 </Pressable>
                 {
@@ -177,13 +185,41 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                     />
                 }
             </View>
+            <View style={styles.expandButtons}>
+                <TouchableOpacity style={styles.expandButtonItem} onPress={props.expandAll}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", flex: 1 }}>
+                        <DownArrow height={20} width={20} />
+                        <Text style={{ paddingLeft: 5, textAlign: "center" }}>Expand all</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.expandButtonItem} onPress={props.collapseAll}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", flex: 1 }}>
+                        <UpArrow height={20} width={20} />
+                        <Text style={{ paddingLeft: 5, textAlign: "center" }}>Collapse all</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    expandButtons: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    expandButtonItem: {
+        flex: 1,
+        textAlign: 'center',
+        display: "flex",
+        flexDirection: "row",
+        paddingVertical: 3,
+        margin: 1,
+        backgroundColor: FOREGROUND_COLOR,
+    },
     input: {
-        paddingVertical: 5,
+        paddingVertical: 3,
         textAlign: 'center',
         fontSize: 15,
         fontWeight: 'bold',
@@ -205,9 +241,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        width: 20,
-        height: 20,
-        margin: 5,
+        width: 16,
+        height: 16,
+        margin: 2,
     },
     buttonClose: {
         backgroundColor: '#2196F3',
@@ -220,7 +256,7 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: 'black',
-        fontWeight: 'bold',
+        fontWeight: "300",
         textAlign: 'center',
     },
     workoutHeaderText: {

@@ -21,13 +21,15 @@ import {
 import { useRoute } from '@react-navigation/native';
 import { BACKGROUND_COLOR } from './constants';
 import { useListWorkoutsQuery } from "../store";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 type NavBarProps = {
     navigation: any
     children: ReactNode
 }
 
-const FOREGROUND_COLOR = '#919090'
+const FOREGROUND_COLOR = '#919090';
+const NAVBAR_COLOR = '#1f1d1a';
 
 function NavBar(props: NavBarProps) {
     const route = useRoute();
@@ -43,7 +45,7 @@ function NavBar(props: NavBarProps) {
         FOREGROUND_COLOR : BACKGROUND_COLOR;
 
     return (
-        <View style={styles.container}>
+        <GestureHandlerRootView style={styles.container}>
             <CountDown />
             <View style={styles.content}>
                 {props.children}
@@ -96,7 +98,7 @@ function NavBar(props: NavBarProps) {
                     </Text>
                 </Pressable>
             </View>
-        </View>
+        </GestureHandlerRootView>
     );
 }
 
@@ -136,8 +138,8 @@ const styles = StyleSheet.create({
         color: BACKGROUND_COLOR,
     },
     container: {
-        display: 'flex',
-        flex: 1
+        height: "100%",
+        width: "100%",
     },
     content: {
         flex: 1,
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        backgroundColor: '#1f1d1a',
+        backgroundColor: NAVBAR_COLOR,
         padding: 5,
         paddingTop: 10,
     }

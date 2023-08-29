@@ -1,6 +1,7 @@
 import { baseFetch, Method } from "../baseFetch";
 import { store } from "..";
 import { SetActionTypes, Set } from "./types";
+import { WorkoutActionTypes, Workout } from "../workouts/types";
 
 const fetchSets = async (force: boolean) => {
     try {
@@ -57,11 +58,14 @@ type createSetParams = {
 
 const createSet = async (params: createSetParams) => {
     try {
-        const set = await baseFetch({
+        const data = await baseFetch({
             method: Method.POST,
             url: '/sets/create',
             params: params,
-        }) as Set
+        })
+        const workout = data.workout as Workout;
+        const set = data.set as Set;
+        store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUT, payload: workout })
         store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: [set] })
         return set;
     } catch (error) {

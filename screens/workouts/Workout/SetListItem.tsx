@@ -141,7 +141,7 @@ const SetListItem = (props: SetProps) => {
             <Pressable
                 style={styles.button}
                 onPress={onClickDelete}>
-                <TrashCan style={styles.icon} fill={'red'} />
+                <TrashCan style={styles.icon} fill={'rgb(200,0,0)'} />
             </Pressable>
         </View>
     );
@@ -149,7 +149,7 @@ const SetListItem = (props: SetProps) => {
 
 const styles = StyleSheet.create({
     finishedSet: {
-        backgroundColor: 'rgb(185, 255, 185)',
+        backgroundColor: 'rgb(230, 255, 230)',
     },
     icon: {
         width: 16,
@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
         border: 5,
         borderColor: 'black',
         margin: 2,
+        flexGrow: 1,
     },
     textInput: {
         width: 50,
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     },
     previous: {
         display: 'flex',
-        width: 80,
+        width: 90,
         textAlign: 'center',
     }
 });

@@ -35,7 +35,11 @@ const WorkoutListItem = (props: WorkoutListItemProps) => {
       return null;
     }
 
-    return Object.values(exercisesWithinWorkoutRank).map((setsList) => {
+    return Object.values(props.workout.workoutRanksOrder).map((workoutRank) => {
+      if (!exercisesWithinWorkoutRank.hasOwnProperty(workoutRank)) {
+        return null;
+      }
+      const setsList = exercisesWithinWorkoutRank[workoutRank]
       return <LargestSetItem
         exercise={exercisesMap[setsList[0].exerciseId]}
         sets={setsList}

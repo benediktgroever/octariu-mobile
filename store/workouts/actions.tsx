@@ -27,7 +27,8 @@ type updateWorkoutParams = {
     workoutId: string,
     name?: string,
     startTimeMs?: number,
-    endTimeMs?: number
+    endTimeMs?: number,
+    workoutRanksOrder?: number[],
 }
 
 const updateWorkout = async (params: updateWorkoutParams) => {
