@@ -36,13 +36,13 @@ function NavBar(props: NavBarProps) {
     const { workoutsPerformed } = useListWorkoutsQuery({});
 
     const workoutFill = WORKOUTS === route.name ?
-        FOREGROUND_COLOR : BACKGROUND_COLOR;
+        BACKGROUND_COLOR : FOREGROUND_COLOR;
     const historyFill = HISTORY === route.name ?
-        FOREGROUND_COLOR : BACKGROUND_COLOR;
+        BACKGROUND_COLOR : FOREGROUND_COLOR;
     const exercisesFill = EXERCISES === route.name ?
-        FOREGROUND_COLOR : BACKGROUND_COLOR;
+        BACKGROUND_COLOR : FOREGROUND_COLOR;
     const settingsFill = SETTINGS === route.name ?
-        FOREGROUND_COLOR : BACKGROUND_COLOR;
+        BACKGROUND_COLOR : FOREGROUND_COLOR;
 
     return (
         <GestureHandlerRootView style={styles.container}>
