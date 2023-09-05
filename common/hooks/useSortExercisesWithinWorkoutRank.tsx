@@ -15,7 +15,7 @@ const useSortExercisesWithinWorkoutRank = (props: propsSortExercisesWithinWOrkou
         exercisesMap[item.exerciseId] = item;
     });
 
-    const exercisesWithinWorkoutRank: { [workoutRank: number]: Set[] } = {};
+    const exercisesWithinWorkoutRank: { [workoutRank: string]: Set[] } = {};
 
     sets.map((set: Set) => {
         if (set.workoutRank !== undefined &&

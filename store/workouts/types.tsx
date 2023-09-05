@@ -10,7 +10,7 @@ export interface Workout {
     workoutId: string,
     workoutParentId: string,
     workoutPlanId: string,
-    workoutRanksOrder: number[],
+    workoutRanksOrder: string[],
 }
 
 export enum WorkoutActionTypes {

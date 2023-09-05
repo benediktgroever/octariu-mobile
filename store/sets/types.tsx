@@ -9,7 +9,7 @@ export interface Set {
     user: string,
     weight: number,
     workoutId: string,
-    workoutRank: number,
+    workoutRank: string,
 }
 
 export enum SetActionTypes {

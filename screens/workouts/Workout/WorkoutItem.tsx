@@ -26,7 +26,7 @@ type WorkoutProps = {
 }
 
 type Item = {
-  workoutRank: number;
+  workoutRank: string;
 };
 
 const WorkoutItem = (props: WorkoutProps) => {
@@ -52,20 +52,15 @@ const WorkoutItem = (props: WorkoutProps) => {
 
   const { createSet } = useCreateSetMutation();
 
-  const initialData: Item[] = [];
   const [exercisePickerVisible, changeExercisePickerVisible] = useState(false);
-  const [expandedWorkoutRankSet, setExpandedWorkoutRankSet] = useState<Set<number>>(new Set<number>(
-    Object.keys(exercisesWithinWorkoutRank).map(key => Number(key))
+  const [expandedWorkoutRankSet, setExpandedWorkoutRankSet] = useState<Set<string>>(new Set<string>(
+    Object.keys(exercisesWithinWorkoutRank)
   ));
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState([] as Item[]);
   const { updateWorkout } = useUpdateWorkoutMutation();
   const [isLoadingFromHeader, changeLoadingFromHeader] = useState(false);
 
   const isLoading = sortExercisesIsLoading || workoutQueryIsLoading || previousBestSetsLoading;
-
-  let newWorkoutRank: number = sets.reduce((maximum, set) => {
-    return (maximum = maximum > set.workoutRank ? maximum : set.workoutRank);
-  }, 0) + 1;
 
   useEffect(() => {
     if (workout) {
@@ -74,24 +69,24 @@ const WorkoutItem = (props: WorkoutProps) => {
   }, [workout])
 
   const collapseAll = () => {
-    const updatedSet = new Set<number>([]);
+    const updatedSet = new Set<string>([]);
     setExpandedWorkoutRankSet(updatedSet);
   };
 
   const expandAll = () => {
-    const updatedSet = new Set<number>(
-      Object.keys(exercisesWithinWorkoutRank).map(key => Number(key))
+    const updatedSet = new Set<string>(
+      Object.keys(exercisesWithinWorkoutRank)
     );
     setExpandedWorkoutRankSet(updatedSet);
   };
 
-  const onClickCreateExercise = (exercise: Exercise) => {
+  const onClickCreateExercise = async (exercise: Exercise) => {
     const previousSetCompleted = (
       previousSet[exercise.exerciseId] ?
         previousSet[exercise.exerciseId]["1"] :
         undefined
     );
-    createSet({
+    const set = await createSet({
       exerciseId: exercise.exerciseId,
       workoutId: props.workout.workoutId,
       repCount: previousSetCompleted ? previousSetCompleted.repCount : 0,
@@ -100,12 +95,14 @@ const WorkoutItem = (props: WorkoutProps) => {
     })
     // ensure that the newly created set is expanded
     const updatedSet = new Set(expandedWorkoutRankSet);
-    updatedSet.add(newWorkoutRank);
+    if (set) {
+      updatedSet.add(set.workoutRank);
+    }
     setExpandedWorkoutRankSet(updatedSet);
     changeExercisePickerVisible(false);
   }
 
-  const onExerciseListItemNameClick = (workoutRank: number) => {
+  const onExerciseListItemNameClick = (workoutRank: string) => {
     const updatedSet = new Set(expandedWorkoutRankSet);
     if (expandedWorkoutRankSet.has(workoutRank)) {
       updatedSet.delete(workoutRank);
