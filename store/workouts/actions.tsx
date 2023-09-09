@@ -1,7 +1,8 @@
 import { baseFetch, Method } from "../baseFetch";
 import { store } from "..";
 import { Workout, WorkoutActionTypes } from "./types";
-import { Set, SetActionTypes } from "../sets/types";
+import { SetActionTypes } from "../sets/types";
+import { WorkoutSetResponse } from '../../common/types';
 
 const fetchWorkouts = async () => {
     try {
@@ -16,8 +17,8 @@ const fetchWorkouts = async () => {
             method: Method.GET,
             url: '/workouts/list',
             params: {},
-        })
-        store.dispatch({ type: WorkoutActionTypes.LISTS_WORKOUTS, payload: data.workouts })
+        }) as WorkoutSetResponse;
+        store.dispatch({ type: WorkoutActionTypes.LISTS_WORKOUTS, payload: data.workouts.list })
     } catch (error) {
         console.error(error);
     }
@@ -29,6 +30,10 @@ type updateWorkoutParams = {
     startTimeMs?: number,
     endTimeMs?: number,
     workoutRanksOrder?: string[],
+} | {
+    workoutId: string,
+    copyWorkoutId: string,
+    reorder: boolean,
 }
 
 const updateWorkout = async (params: updateWorkoutParams) => {
@@ -37,12 +42,12 @@ const updateWorkout = async (params: updateWorkoutParams) => {
             method: Method.POST,
             url: '/workouts/update',
             params: params,
-        })
-        const workout = data.workout as Workout;
-        const sets = data.sets as Set[];
-        store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUT, payload: workout })
-        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: sets })
-        return workout
+        }) as WorkoutSetResponse;
+        store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUTS, payload: data.workouts.updated })
+        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: data.sets.updated })
+        store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: data.sets.created })
+        store.dispatch({ type: SetActionTypes.DELETE_SETS, payload: data.sets.deleted })
+        return data.workouts.updated[0]
     } catch (error) {
         console.error(error);
         return undefined;
@@ -65,12 +70,10 @@ const createWorkout = async (params: createWorkoutParams) => {
             method: Method.POST,
             url: '/workouts/create',
             params: params,
-        })
-        const workout = data.workout as Workout;
-        const sets = data.sets as Set[];
-        store.dispatch({ type: WorkoutActionTypes.CREATE_WORKOUT, payload: workout })
-        store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: sets })
-        return workout
+        }) as WorkoutSetResponse
+        store.dispatch({ type: WorkoutActionTypes.CREATE_WORKOUTS, payload: data.workouts.created })
+        store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: data.sets.created })
+        return data.workouts.created[0]
     } catch (error) {
         console.error(error);
         return undefined;
@@ -84,14 +87,14 @@ type deleteWorkoutParams = {
 const deleteWorkout = async (params: deleteWorkoutParams) => {
     try {
         const workoutId: string = params.workoutId;
-        store.dispatch({ type: WorkoutActionTypes.DELETE_WORKOUT, payload: { workoutId } })
+        store.dispatch({ type: WorkoutActionTypes.DELETE_WORKOUTS, payload: [{ workoutId }] })
         store.dispatch({ type: SetActionTypes.DELETE_SETS_BY_WORKOUT_ID, payload: workoutId })
         const data = await baseFetch({
             method: Method.DELETE,
             url: '/workouts/delete',
             params: params,
-        })
-        return data.workout as Workout;
+        }) as WorkoutSetResponse
+        return data.workouts.deleted[0] as Workout;
     } catch (error) {
         console.error(error);
         return undefined;

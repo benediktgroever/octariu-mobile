@@ -27,7 +27,7 @@ const setsReducer: Reducer<setsState> = (state = initialState, action) => {
         }
         case SetActionTypes.DELETE_SETS: {
             const setIds: { [setId: string]: Set } = {};
-            const sets = action.payload as Set[];
+            const sets: Set[] = action.payload;
             sets.map((set: Set) => setIds[set.setId] = set)
             return {
                 ...state,
@@ -51,7 +51,7 @@ const setsReducer: Reducer<setsState> = (state = initialState, action) => {
         }
         case SetActionTypes.UPDATE_SETS: {
             const setToBeUpdated: { [setId: string]: Set } = {};
-            const sets = action.payload as Set[];
+            const sets: Set[] = action.payload;
             sets.map((set: Set) => setToBeUpdated[set.setId] = set)
             return {
                 ...state,

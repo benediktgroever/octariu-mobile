@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 
-import { WorkoutActionTypes, workoutsState } from "./types";
+import { Workout, WorkoutActionTypes, workoutsState } from "./types";
 export const initialState: workoutsState = {
     workouts: [],
     errors: undefined,
@@ -12,18 +12,22 @@ const workoutsReducer: Reducer<workoutsState> = (state = initialState, action) =
         case WorkoutActionTypes.API_ERROR: {
             return { ...state, loading: false, errors: action.payload };
         }
-        case WorkoutActionTypes.CREATE_WORKOUT: {
+        case WorkoutActionTypes.CREATE_WORKOUTS: {
+            const workouts: Workout[] = action.payload;
             return {
                 errors: undefined,
                 isLoading: false,
-                workouts: [...state.workouts, action.payload]
+                workouts: [...state.workouts, ...workouts]
             };
         }
-        case WorkoutActionTypes.DELETE_WORKOUT: {
+        case WorkoutActionTypes.DELETE_WORKOUTS: {
+            const workoutIds: { [workoutId: string]: Workout } = {};
+            const workouts = action.payload as Workout[];
+            workouts.map((workout: Workout) => workoutIds[workout.workoutId] = workout)
             return {
                 errors: undefined,
                 isLoading: false,
-                workouts: state.workouts.filter(workout => workout.workoutId !== action.payload.workoutId)
+                workouts: state.workouts.filter(workout => workoutIds.hasOwnProperty(workout.workoutId) == false)
             };
         }
         case WorkoutActionTypes.LISTS_WORKOUTS: {
@@ -33,17 +37,20 @@ const workoutsReducer: Reducer<workoutsState> = (state = initialState, action) =
                 workouts: action.payload,
             };
         }
-        case WorkoutActionTypes.UPDATE_WORKOUT: {
+        case WorkoutActionTypes.UPDATE_WORKOUTS: {
+            const workoutsToBeUpdated: { [workoutId: string]: Workout } = {};
+            const workouts: Workout[] = action.payload;
+            workouts.map((workout: Workout) => workoutsToBeUpdated[workout.workoutId] = workout)
             return {
                 errors: undefined,
                 isLoading: false,
                 workouts: state.workouts.map((workout) => {
-                    if (workout.workoutId !== action.payload.workoutId) {
+                    if (workoutsToBeUpdated.hasOwnProperty(workout.workoutId) === false) {
                         // This isn't the item we care about - keep it as-is
                         return workout
                     }
                     // Otherwise, this is the one we want - return an updated value
-                    return action.payload
+                    return workoutsToBeUpdated[workout.workoutId]
                 })
             }
         }

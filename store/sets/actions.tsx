@@ -1,7 +1,8 @@
 import { baseFetch, Method } from "../baseFetch";
 import { store } from "..";
-import { SetActionTypes, Set } from "./types";
-import { WorkoutActionTypes, Workout } from "../workouts/types";
+import { SetActionTypes } from "./types";
+import { WorkoutActionTypes } from "../workouts/types";
+import { WorkoutSetResponse } from "../../common/types";
 
 const fetchSets = async (force: boolean) => {
     try {
@@ -16,8 +17,8 @@ const fetchSets = async (force: boolean) => {
             method: Method.GET,
             url: '/sets/list',
             params: {},
-        })
-        store.dispatch({ type: SetActionTypes.LISTS_SETS, payload: data.sets })
+        }) as WorkoutSetResponse
+        store.dispatch({ type: SetActionTypes.LISTS_SETS, payload: data.sets.list })
     } catch (error) {
         console.error(error);
     }
@@ -33,13 +34,13 @@ interface updateSetParams {
 
 const updateSet = async (params: updateSetParams) => {
     try {
-        const set = await baseFetch({
+        const data = await baseFetch({
             method: Method.POST,
             url: '/sets/update',
             params: params,
-        }) as Set
-        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: [set] })
-        return set;
+        }) as WorkoutSetResponse
+        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: data.sets.updated })
+        return data.sets.updated[0];
     } catch (error) {
         console.error(error);
         return undefined;
@@ -62,12 +63,10 @@ const createSet = async (params: createSetParams) => {
             method: Method.POST,
             url: '/sets/create',
             params: params,
-        })
-        const workout = data.workout as Workout;
-        const set = data.set as Set;
-        store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUT, payload: workout })
-        store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: [set] })
-        return set;
+        }) as WorkoutSetResponse
+        store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUTS, payload: data.workouts.updated })
+        store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: data.sets.created })
+        return data.sets.created[0];
     } catch (error) {
         console.error(error);
         return undefined;
@@ -85,10 +84,9 @@ const deleteSet = async (params: deleteSetParams) => {
             method: Method.DELETE,
             url: '/sets/delete',
             params: params,
-        })
-        const updated_sets = data.sets;
-        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: updated_sets })
-        return data;
+        }) as WorkoutSetResponse
+        store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: data.sets.updated })
+        return data.sets.deleted[0];
     } catch (error) {
         console.error(error);
         return undefined;
