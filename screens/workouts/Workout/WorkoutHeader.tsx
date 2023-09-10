@@ -26,6 +26,9 @@ import { Timer } from '../Timer';
 import {
     DeleteWorkoutModal
 } from './DeleteWorkoutModal';
+import {
+    FinishWorkoutModal
+} from './FinishWorkoutModal';
 import { NavigationProp } from '@react-navigation/native';
 import { EditWorkoutDateTimeModal } from './EditWorkoutDateTimeModal';
 
@@ -44,6 +47,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
     const previous = !props.workout.template && props.workout.endTimeMs !== 0;
 
     const [name, onChangeName] = useState(props.workout.name);
+    const [showFinishWorkoutModal, changeFinishWorkoutModal] = useState(false);
     const [showDeleteWorkoutModal, changeShowDeleteWorkoutModal] = useState(false);
     const [showEditWorkoutDateTimeModal, changeShowEditWorkoutDateTimeModal] = useState(false);
 
@@ -56,7 +60,7 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
         if (workoutUpdateWorkout) {
             if (workoutUpdateWorkout.endTimeMs !== 0) {
                 props.onLoadingFromHeader(false);
-                props.navigation.navigate(WORKOUTS);
+                changeFinishWorkoutModal(true);
             }
         }
         // create active workout from template
@@ -181,6 +185,15 @@ const WorkoutHeader = (props: WorkoutHeaderProps) => {
                         workout={props.workout}
                         onExit={() => {
                             changeShowEditWorkoutDateTimeModal(false)
+                        }}
+                    />
+                }
+                {
+                    showFinishWorkoutModal && <FinishWorkoutModal
+                        navigation={props.navigation}
+                        workout={props.workout}
+                        onExit={() => {
+                            props.navigation.navigate(WORKOUTS)
                         }}
                     />
                 }

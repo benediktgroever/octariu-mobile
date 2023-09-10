@@ -7,6 +7,7 @@ import { AnimatedProgressBar } from "./ProgressBar";
 import { CountDown } from "./CountDown";
 import { useSortExercisesWithinWorkoutRank } from "./hooks/useSortExercisesWithinWorkoutRank";
 import { usePreviousBestSets } from "./hooks/usePreviousBestSets";
+import { useWorkoutDiff } from "./hooks/useWorkoutDiff";
 export {
     Button,
     NavBar,
@@ -15,6 +16,7 @@ export {
     Dropdown,
     useSortExercisesWithinWorkoutRank,
     usePreviousBestSets,
+    useWorkoutDiff,
     AnimatedProgressBar,
     CountDown,
 }
