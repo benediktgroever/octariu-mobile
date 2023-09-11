@@ -19,7 +19,7 @@ import {
     EXERCISES,
 } from '../Routes';
 import { useRoute } from '@react-navigation/native';
-import { BACKGROUND_COLOR } from './constants';
+import { BACKGROUND_COLOR, NAVBAR_COLOR, NAVBAR_FOREGROUND_COLOR } from './constants';
 import { useListWorkoutsQuery } from "../store";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -28,21 +28,19 @@ type NavBarProps = {
     children: ReactNode
 }
 
-const FOREGROUND_COLOR = '#919090';
-const NAVBAR_COLOR = '#1f1d1a';
 
 function NavBar(props: NavBarProps) {
     const route = useRoute();
     const { workoutsPerformed } = useListWorkoutsQuery({});
 
     const workoutFill = WORKOUTS === route.name ?
-        BACKGROUND_COLOR : FOREGROUND_COLOR;
+        BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
     const historyFill = HISTORY === route.name ?
-        BACKGROUND_COLOR : FOREGROUND_COLOR;
+        BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
     const exercisesFill = EXERCISES === route.name ?
-        BACKGROUND_COLOR : FOREGROUND_COLOR;
+        BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
     const settingsFill = SETTINGS === route.name ?
-        BACKGROUND_COLOR : FOREGROUND_COLOR;
+        BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
 
     return (
         <GestureHandlerRootView style={styles.container}>
