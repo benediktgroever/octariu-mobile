@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text } from 'react-native';
 import { SocialAuthSignIn } from './SocialAuthSignIn';
+import { BACKGROUND_COLOR } from '../../common/constants';
 
 
 const LoginScreen = () => {
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+        backgroundColor: BACKGROUND_COLOR,
     },
 });
 

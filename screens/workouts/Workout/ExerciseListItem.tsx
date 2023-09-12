@@ -111,6 +111,8 @@ const styles = StyleSheet.create({
   },
   addExerciseButton: {
     borderRadius: 5,
+    height: 30,
+    marginVertical: 5,
   },
   hidden: {
     display: "none"

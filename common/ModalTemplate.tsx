@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: 'center',
         width: "95%",
+        maxHeight: '90%',
     },
 });
 

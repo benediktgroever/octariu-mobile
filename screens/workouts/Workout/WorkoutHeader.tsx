@@ -14,7 +14,8 @@ import {
     GestureResponderEvent
 } from 'react-native';
 import {
-    FOREGROUND_COLOR
+    BACKGROUND_COLOR,
+    FOREGROUND_COLOR,
 } from '../../../common/constants';
 import {
     Workout, useCreateWorkoutMutation, useUpdateWorkoutMutation
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     workoutHeader: {
-        backgroundColor: 'lightgrey',
+        backgroundColor: BACKGROUND_COLOR,
         textAlign: 'center',
     },
     button: {
@@ -259,7 +260,10 @@ const styles = StyleSheet.create({
         margin: 2,
     },
     buttonClose: {
-        backgroundColor: '#2196F3',
+        backgroundColor: FOREGROUND_COLOR,
+        borderRadius: 5,
+        height: 40,
+        paddingHorizontal: 20,
     },
     headerController: {
         display: 'flex',

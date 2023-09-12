@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 import { StyleType } from './types';
+import { BUTTON_COLOR } from './constants';
 
 type ButtonProps = {
     onClick: Function,
@@ -26,9 +27,7 @@ const Button = (props: ButtonProps) => {
 
 const styles = StyleSheet.create({
     button: {
-        padding: 5,
-        marginVertical: 8,
-        backgroundColor: 'lightgrey',
+        backgroundColor: BUTTON_COLOR,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

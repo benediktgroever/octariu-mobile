@@ -59,9 +59,10 @@ const styles = StyleSheet.create({
     changeExerciseButton: {
         backgroundColor: FOREGROUND_COLOR,
         width: '90%',
+        height: 45,
+        margin: 5,
     },
     controlls: {
-        paddingVertical: 10,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

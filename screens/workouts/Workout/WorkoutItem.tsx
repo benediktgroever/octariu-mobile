@@ -16,7 +16,7 @@ import {
 } from './WorkoutHeader';
 import { NavigationProp } from '@react-navigation/native';
 import {
-  BACKGROUND_COLOR, FOREGROUND_COLOR
+  WORKOUT_ITEM_BACKGROUND_COLOR, FOREGROUND_COLOR
 } from '../../../common/constants';
 import DraggableFlatList, { RenderItemParams, ShadowDecorator } from 'react-native-draggable-flatlist';
 
@@ -183,14 +183,14 @@ const WorkoutItem = (props: WorkoutProps) => {
 
 const styles = StyleSheet.create({
   centeredView: {
-    backgroundColor: BACKGROUND_COLOR,
+    backgroundColor: WORKOUT_ITEM_BACKGROUND_COLOR,
     display: 'flex',
     alignItems: 'center',
     flex: 1,
   },
   flatlist: {
     width: '95%',
-    backgroundColor: BACKGROUND_COLOR,
+    backgroundColor: WORKOUT_ITEM_BACKGROUND_COLOR,
   },
   activityIndicator: {
     display: 'flex',
@@ -199,6 +199,8 @@ const styles = StyleSheet.create({
   addExerciseButton: {
     borderRadius: 5,
     backgroundColor: FOREGROUND_COLOR,
+    height: 40,
+    marginVertical: 5,
   }
 });
 
