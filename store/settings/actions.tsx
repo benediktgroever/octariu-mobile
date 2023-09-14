@@ -3,7 +3,7 @@ import { SettingsActionType } from "./types";
 import {
     Vibration
 } from 'react-native';
-import notifee, { TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee, { TimestampTrigger, TriggerType, AndroidImportance } from '@notifee/react-native';
 
 const UNIQUE_RANDOM_NOTIFICATION_ID = 'some-random-id';
 
@@ -21,6 +21,9 @@ const createTimeOutNotification = async (countDownEndTime: number) => {
     const channelId = await notifee.createChannel({
         id: 'default',
         name: 'Default Channel',
+        importance: AndroidImportance.HIGH,
+        vibration: true,
+        sound: 'local.wav',
     });
 
     const trigger: TimestampTrigger = {
