@@ -1,7 +1,7 @@
 import Drag from './../../../assets/all-directions.svg';
 import UpArrow from './../../../assets/up-arrow.svg';
 import DownArrow from './../../../assets/down-arrow.svg';
-import { View, Text, StyleSheet, TouchableOpacity, GestureResponderEvent, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, GestureResponderEvent, Pressable, Vibration } from 'react-native';
 import { SetListItem } from './SetListItem';
 import { Button } from '../../../common';
 import {
@@ -60,7 +60,11 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
         <View style={{ display: 'flex', justifyContent: 'center' }}>
           <Pressable
             style={styles.dragButton}
-            onLongPress={props.drag}>
+            onLongPress={(e)=>{
+              Vibration.vibrate(100);
+              props.drag(e);
+            }}
+            >
             <Drag width={20} height={20} style={styles.icon} fill={'black'} />
           </Pressable>
         </View>
