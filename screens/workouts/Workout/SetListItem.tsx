@@ -77,7 +77,7 @@ const SetListItem = (props: SetProps) => {
             onChangeFinished(false);
             if (!previous) {
                 setCountDownTime({
-                    countDownEndTime: 0,
+                    cancel: true,
                     countDownSetId: props.set.setId
                 })
             }
@@ -89,7 +89,7 @@ const SetListItem = (props: SetProps) => {
             onChangeFinished(true)
             if (!previous) {
                 setCountDownTime({
-                    countDownEndTime: Date.now() + 120 * 1000,
+                    cancel: false,
                     countDownSetId: props.set.setId
                 })
             }

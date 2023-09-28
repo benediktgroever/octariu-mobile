@@ -34,7 +34,8 @@ export {
 } from './exercises/hooks'
 
 export {
-    useCountDownTimer
+    useCountDownTimer,
+    useListSettingsQuery,
 } from './settings/hooks'
 
 export {

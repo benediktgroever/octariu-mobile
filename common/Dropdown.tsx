@@ -3,7 +3,8 @@ import { Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { BACKGROUND_COLOR, FOREGROUND_COLOR } from './constants';
 
 type DropdownProps = {
-    label: string,
+    label?: string,
+    default?: string,
     data: Array<string>,
     onSelect: Function,
 }
@@ -17,7 +18,7 @@ const Dropdown = (props: DropdownProps) => {
         if (item === dropdownSelection) {
             item = "";
         }
-        if (item === props.label) {
+        if (props.label && item === props.label) {
             item = "";
         }
         changeDropdownSelection(item);
@@ -38,14 +39,16 @@ const Dropdown = (props: DropdownProps) => {
         changeDropdownVisible(!dropdownVisible);
     };
 
+    const label = (dropdownSelection || props.label) ? dropdownSelection || props.label : props.default;
+
     return (
         <TouchableOpacity
             style={styles.button}
             onPress={toggleDropdown}
         >
-            <Text style={styles.buttonText}>{dropdownSelection || props.label}</Text>
+            <Text style={styles.buttonText}>{label}</Text>
             {dropdownVisible && <FlatList
-                data={dropdownSelection ? [props.label, ...props.data] : props.data}
+                data={(dropdownSelection && props.label) ? [props.label, ...props.data] : props.data}
                 renderItem={renderDropdownItem}
                 keyExtractor={item => item}
                 style={styles.dropdown}

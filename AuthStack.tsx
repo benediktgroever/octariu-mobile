@@ -5,7 +5,7 @@ import {
   WorkoutsScreen,
   ExercisesScreen,
   HistoryScreen,
-  SettingsScreen,
+  ProfileScreen,
 } from './screens';
 
 import {
@@ -30,7 +30,7 @@ const AuthStack = () => {
         />
         <Stack.Screen
           name={SETTINGS}
-          component={SettingsScreen}
+          component={ProfileScreen}
         />
         <Stack.Screen
           name={EXERCISES}

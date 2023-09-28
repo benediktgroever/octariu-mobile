@@ -1,9 +1,19 @@
 import { Reducer } from "redux";
 
-import { SettingsActionType, settingsState } from "./types";
+import { SettingsActionType, settingsState, SettingsResponse } from "./types";
 
 export const initialState: settingsState = {
-    settings: { countDownEndTime: undefined, countDownSetId: undefined },
+    settings: {
+        countDownEndTime: undefined,
+        countDownSetId: undefined,
+        email: undefined,
+        emailVerified: undefined,
+        name: undefined,
+        photoURL: undefined,
+        timerInterval: undefined,
+        timerOn: undefined,
+        user: undefined,
+    },
     errors: undefined,
     isLoading: false,
 };
@@ -17,6 +27,18 @@ const settingsReducer: Reducer<settingsState> = (state = initialState, action) =
             return {
                 ...state,
                 isLoading: true
+            }
+        }
+        case SettingsActionType.GET_SETTINGS_RESPONSE: {
+            const settingsResponse = action.payload as SettingsResponse;
+            return {
+                settings: {
+                    ...state.settings,
+                    ...settingsResponse,
+                    countDownEndTime: settingsResponse.timerOn === false ? 0 : state.settings.countDownEndTime
+                },
+                isLoading: false,
+                errors: undefined,
             }
         }
         case SettingsActionType.UPDATE_COUNT_DOWN_TIMER: {

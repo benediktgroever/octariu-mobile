@@ -1,4 +1,6 @@
 import { useCountDownTimer } from "./useCountDownTimer";
+import { useListSettingsQuery } from "./useListSettingsQuery";
 export {
-    useCountDownTimer
+    useCountDownTimer,
+    useListSettingsQuery,
 }

@@ -1,15 +1,57 @@
-import { store } from "..";
-import { SettingsActionType } from "./types";
+import auth from '@react-native-firebase/auth';
+import { RootState, store } from "..";
+import { SettingsActionType, SettingsResponse } from "./types";
 import {
     Vibration
 } from 'react-native';
 import notifee, { TimestampTrigger, TriggerType, AndroidImportance } from '@notifee/react-native';
+import { Method, baseFetch } from '../baseFetch';
+import { useSelector } from 'react-redux';
 
 const UNIQUE_RANDOM_NOTIFICATION_ID = 'some-random-id';
 
-type paramsSetCountDownTime = {
-    countDownEndTime: number,
-    countDownSetId: string,
+const getSettings = async () => {
+    const name = await auth().currentUser?.displayName;
+    const email = await auth().currentUser?.email;
+    const photoURL = await auth().currentUser?.photoURL;
+    const emailVerified = await auth().currentUser?.emailVerified;
+    const settings = await baseFetch({
+        method: Method.GET,
+        url: '/settings/get',
+        params: {
+            name,
+            email,
+            photoURL,
+            emailVerified,
+        },
+    }) as SettingsResponse;
+    store.dispatch({ type: SettingsActionType.GET_SETTINGS_RESPONSE, payload: settings })
+    return settings;
+}
+
+type updateSettingsParams = {
+    timerInterval?: number,
+    timerOn?: number,
+}
+
+const updateSettings = async (params: updateSettingsParams) => {
+    const name = await auth().currentUser?.displayName;
+    const email = await auth().currentUser?.email;
+    const photoURL = await auth().currentUser?.photoURL;
+    const emailVerified = await auth().currentUser?.emailVerified;
+    const settings = await baseFetch({
+        method: Method.POST,
+        url: '/settings/update',
+        params: {
+            ...params,
+            name,
+            email,
+            photoURL,
+            emailVerified,
+        },
+    }) as SettingsResponse;
+    store.dispatch({ type: SettingsActionType.GET_SETTINGS_RESPONSE, payload: settings })
+    return settings;
 }
 
 const createTimeOutNotification = async (countDownEndTime: number) => {
@@ -53,22 +95,33 @@ const cancelTimeOutNotification = async () => {
     await notifee.cancelNotification(UNIQUE_RANDOM_NOTIFICATION_ID);
 }
 
+type paramsSetCountDownTime = {
+    cancel: boolean,
+    countDownSetId: string,
+}
+
 const setCountDownTime = async (params: paramsSetCountDownTime) => {
+    const settings = store.getState().settings.settings;
+    if(settings.timerOn === undefined || settings.timerOn === false){
+        return;
+    }
+
+    const countDownEndTime = settings.timerInterval ? Date.now() + settings.timerInterval * 1000 : 0;
+
     try {
-        const stateCountDownEndTime = store.getState().settings.settings.countDownEndTime;
-        if (stateCountDownEndTime === undefined) {
+        if (settings.countDownEndTime === undefined) {
             // No count down defined, acquire count down lock
-            store.dispatch({ type: SettingsActionType.UPDATE_COUNT_DOWN_TIMER, payload: { ...params } })
-            if (params.countDownEndTime !== 0) {
+            store.dispatch({ type: SettingsActionType.UPDATE_COUNT_DOWN_TIMER, payload: { ...params, countDownEndTime } })
+            if (params.cancel === false && settings.timerInterval) {
                 Vibration.vibrate();
-                await createTimeOutNotification(params.countDownEndTime);
+                await createTimeOutNotification(countDownEndTime);
             }
-        } else if (stateCountDownEndTime <= Date.now()) {
+        } else if (settings.countDownEndTime  <= Date.now()) {
             // Count down expired allow new set to acquire count down timer lock
-            store.dispatch({ type: SettingsActionType.UPDATE_COUNT_DOWN_TIMER, payload: { ...params } })
-            if (params.countDownEndTime !== 0) {
+            store.dispatch({ type: SettingsActionType.UPDATE_COUNT_DOWN_TIMER, payload: { ...params, countDownEndTime } })
+            if (params.cancel === false && settings.timerInterval) {
                 Vibration.vibrate();
-                await createTimeOutNotification(params.countDownEndTime);
+                await createTimeOutNotification(countDownEndTime);
             }
         } else if (store.getState().settings.settings.countDownSetId === params.countDownSetId) {
             // Current set with count down lock wants to update count down time
@@ -80,4 +133,8 @@ const setCountDownTime = async (params: paramsSetCountDownTime) => {
     }
 };
 
-export { setCountDownTime }
+export {
+    setCountDownTime,
+    getSettings,
+    updateSettings,
+}

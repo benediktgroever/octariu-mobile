@@ -10,7 +10,8 @@ import {
     View,
     StyleSheet,
     Pressable,
-    Text
+    Text,
+    Image,
 } from 'react-native';
 import {
     WORKOUTS,
@@ -20,7 +21,7 @@ import {
 } from '../Routes';
 import { useRoute } from '@react-navigation/native';
 import { BACKGROUND_COLOR, NAVBAR_COLOR, NAVBAR_FOREGROUND_COLOR } from './constants';
-import { useListWorkoutsQuery } from "../store";
+import { useListWorkoutsQuery, useListSettingsQuery } from "../store";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 type NavBarProps = {
@@ -31,7 +32,8 @@ type NavBarProps = {
 
 function NavBar(props: NavBarProps) {
     const route = useRoute();
-    const { workoutsPerformed } = useListWorkoutsQuery({});
+    const { workoutsPerformed } = useListWorkoutsQuery({doNotFetch: true});
+    const { settings } = useListSettingsQuery();
 
     const workoutFill = WORKOUTS === route.name ?
         BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
@@ -39,7 +41,7 @@ function NavBar(props: NavBarProps) {
         BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
     const exercisesFill = EXERCISES === route.name ?
         BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
-    const settingsFill = SETTINGS === route.name ?
+    const profileFill = SETTINGS === route.name ?
         BACKGROUND_COLOR : NAVBAR_FOREGROUND_COLOR;
 
     return (
@@ -90,9 +92,13 @@ function NavBar(props: NavBarProps) {
                 <Pressable
                     style={styles.button}
                     onPress={() => props.navigation.navigate(SETTINGS)}>
-                    <Settings width={23} height={23} fill={settingsFill} style={styles.icon} />
-                    <Text style={[styles.buttonText, { color: settingsFill }]}>
-                        Settings
+                    {
+                        settings.photoURL ?
+                            <Image style={[styles.profile, {'borderColor': profileFill}]} source={{uri: settings.photoURL}}/> :
+                            <Settings width={23} height={23} fill={profileFill} style={styles.icon} />
+                    }
+                    <Text style={[styles.buttonText, { color: profileFill }]}>
+                        Profile
                     </Text>
                 </Pressable>
             </View>
@@ -126,10 +132,17 @@ const styles = StyleSheet.create({
         width: 23,
         height: 23,
     },
+    profile: {
+        borderRadius: 28,
+        width: 28,
+        height: 28,
+        borderWidth: 2,
+    },
     button: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
+        flexDirection: 'column',
     },
     buttonText: {
         fontSize: 12,

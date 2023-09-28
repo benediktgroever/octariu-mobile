@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 type listWorkoutsQuery = {
     workoutId?: string,
+    doNotFetch?: boolean,
 }
 
 const useListWorkoutsQuery = (props: listWorkoutsQuery) => {
@@ -12,7 +13,9 @@ const useListWorkoutsQuery = (props: listWorkoutsQuery) => {
     const { isLoading, workouts } = useSelector((state: RootState) => state.workouts);
 
     useEffect(() => {
-        fetchWorkouts();
+        if(props.doNotFetch){
+            fetchWorkouts();
+        }
     }, [fetchWorkouts])
 
     const workoutsTemplates = workouts.filter((workout) => workout.template === true);
