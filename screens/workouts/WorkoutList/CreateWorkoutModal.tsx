@@ -47,7 +47,11 @@ const CreateWorkoutModal = (props: CreateWorkoutModalProps) => {
                     value={name}
                 />
             }
-            <Button onClick={createWorkoutTemplate} text={'Create new template'} />
+            <Button
+                style={{margin: 10, padding: 10}}
+                onClick={createWorkoutTemplate}
+                text={'Create new template'}
+            />
         </ModalTemplate>
     );
 };

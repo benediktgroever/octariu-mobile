@@ -74,9 +74,9 @@ const ProfileScreen = (props: ProfileScreenProps) => {
                         </Text>
                     </View>
                     <Switch
-                        trackColor={{false: FOREGROUND_COLOR, true: FOREGROUND_COLOR}}
+                        trackColor={{false: 'lightgrey', true: 'lightgrey'}}
                         thumbColor={settings.timerOn ? 'grey' : 'grey'}
-                        ios_backgroundColor={'white'}
+                        ios_backgroundColor={'lightgrey'}
                         onValueChange={toggleRestTimer}
                         value={settings.timerOn}
                     />

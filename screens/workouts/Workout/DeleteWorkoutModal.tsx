@@ -30,7 +30,7 @@ const DeleteWorkoutModal = (props: DeleteWorkoutModalProps) => {
     return (
         <ModalTemplate onExit={props.onExit}>
             <Text style={styles.textStyle}>Are you sure you want to delete the workout?</Text>
-            <Button onClick={onClickDeleteWorkout} text={'Delete workout'} />
+            <Button onClick={onClickDeleteWorkout} style={{margin: 10, padding: 10}} text={'Delete workout'} />
         </ModalTemplate>
     );
 };

@@ -114,16 +114,22 @@ const styles = StyleSheet.create({
   },
   container: {
     margin: 3,
-    borderWidth: 1,
     borderRadius: 5,
     padding: 4,
     backgroundColor: FOREGROUND_COLOR,
+    shadowColor: 'black',
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
   active: {
-    borderColor: 'red'
+    backgroundColor: '#ede4e4'
   },
   template: {
-    borderColor: 'blue'
+    backgroundColor: '#e6edf0'
   }
 });
 

@@ -84,6 +84,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     },
     faintTextStyle: {
         color: 'grey'

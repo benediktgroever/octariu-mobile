@@ -39,7 +39,14 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         backgroundColor: 'lightgrey',
         display: 'flex',
-        width: '100%'
+        width: '100%',
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     },
     muscleGroupText: {
         color: 'grey'

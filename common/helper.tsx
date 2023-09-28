@@ -1,4 +1,5 @@
 import { Set } from "../store";
-export const getOneMaxRep = (set: Set) => Math.round(
-    set.weight / ((1.0278) - (0.0278 * set.repCount))
+type getOneMaxRepInput = Set | {repCount: number, weight: number}
+export const getOneMaxRep = (input: getOneMaxRepInput) => Math.round(
+    input.weight / ((1.0278) - (0.0278 * input.repCount))
 );

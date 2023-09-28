@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Plus from '../../../assets/addition.svg'
-import { View, Text, StyleSheet, SectionList, ActivityIndicator, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, SectionList, ActivityIndicator, Pressable, } from 'react-native';
 import {
   WorkoutListItem,
 } from './WorkoutListItem';
@@ -73,7 +73,10 @@ const WorkoutList = (props: WorkoutListProps) => {
         />
       </View>
       {
-        showAddWorkoutModal && <CreateWorkoutModal onExit={() => changeShowAddWorkoutModal(false)} navigation={props.navigation} />
+        showAddWorkoutModal && <CreateWorkoutModal
+          onExit={() => changeShowAddWorkoutModal(false)}
+          navigation={props.navigation}
+        />
       }
     </View>
   );

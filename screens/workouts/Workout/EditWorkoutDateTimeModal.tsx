@@ -57,9 +57,9 @@ const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
             <View style={styles.container}>
                 <Text style={styles.header}>Edit start & end time</Text>
                 <Text style={styles.subheader}>Start time</Text>
-                <DatePicker date={startTime} onDateChange={changeStartTime} />
+                <DatePicker style={{height: 150}} date={startTime} onDateChange={changeStartTime} />
                 <Text style={styles.subheader}>End time</Text>
-                <DatePicker date={endTime} onDateChange={changeEndTime} />
+                <DatePicker style={{height: 150}} date={endTime} onDateChange={changeEndTime} />
                 {
                     warning && <Text style={styles.warning}> {warning}</Text>
                 }
@@ -67,6 +67,7 @@ const EditWorkoutDateTimeModal = (props: EditWorkoutDateTimeModalProps) => {
                     onClick={onClickUpdateWorkout}
                     text='Update workout'
                     isLoading={isLoading}
+                    style={{margin: 10, padding: 10}}
                 />
             </View>
         </ModalTemplate>

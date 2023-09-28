@@ -86,7 +86,11 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
         }
       </View>
       {
-        props.setsVisible && <Button text={'Add set'} onClick={onClickCreateSet} style={styles.addExerciseButton} />
+        props.setsVisible && <Button
+          text={'Add set'}
+          onClick={onClickCreateSet}
+          style={styles.addExerciseButton}
+        />
       }
     </View>
   );

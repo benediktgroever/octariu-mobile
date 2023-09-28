@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     },
     buttonText: {
         color: 'black'

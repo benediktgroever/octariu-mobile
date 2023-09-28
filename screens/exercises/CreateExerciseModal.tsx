@@ -35,7 +35,7 @@ const CreateExerciseModal = (props: CreateExerciseModalProps) => {
                     value={name}
                 />
             }
-            <Button onClick={onClickCreateExercise} text={'Request new exercise'} />
+            <Button style={{margin: 10, padding: 10}} onClick={onClickCreateExercise} text={'Request new exercise'} />
         </React.Fragment>
     )
 

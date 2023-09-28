@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     icon: {
         width: 16,
         height: 16,
+        padding: 12,
     },
     button: {
         display: 'flex',

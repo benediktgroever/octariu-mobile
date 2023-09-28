@@ -66,6 +66,13 @@ const styles = StyleSheet.create({
         width: '50%',
         zIndex: 1,
         margin: 5,
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     },
     buttonText: {
         flex: 1,
@@ -82,7 +89,14 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 2,
         backgroundColor: FOREGROUND_COLOR,
-        width: '100%'
+        width: '100%',
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
     },
     selected: {
         backgroundColor: 'lightblue'
