@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import {
     VictoryChart,
@@ -10,14 +11,26 @@ import {
     VictoryVoronoiContainer,
 } from "victory-native";
 import {
+    Set,
     useListSetsQuery
 } from '../../store/';
+import {
+    Controls
+} from '../../common/Controls';
 import { NavigationProp } from '@react-navigation/native';
 import { Exercise } from '../../store';
+import { getOneMaxRep } from "../../common/helper";
 
 type HistoryChartProps = {
     navigation: NavigationProp<any, any>
     exercise: Exercise
+}
+
+type DataEntry = {
+    weight: number,
+    completedAtMs: number,
+    reps: number,
+    onerpm: number
 }
 
 const HistoryChart = (props: HistoryChartProps) => {
@@ -26,6 +39,37 @@ const HistoryChart = (props: HistoryChartProps) => {
         exerciseId: props.exercise.exerciseId, template: false, completed: true
     })
 
+    const [yAxisMetric, changeYAxisMetric] = useState("Weight");
+
+    const data = sets.map((set: Set) => {
+        return {
+            "completedAtMs": set.completedAtMs,
+            "weight": set.weight,
+            "reps": set.repCount,
+            "onerpm": getOneMaxRep(set),
+        }
+    });
+
+    const selection2dataEntry = (yAxisMetric: string) => {
+        if(yAxisMetric === "Weight"){
+            return "weight";
+        } else if(yAxisMetric === "Reps"){
+            return "reps";
+        }else if(yAxisMetric === "1 RPM"){
+            return "onerpm";
+        }
+        return "weight";
+    }
+
+    const getYaxisValue = (entry: DataEntry) => {
+        if(yAxisMetric === "Reps"){
+            return entry.reps;
+        }else if(yAxisMetric === "1 RPM"){
+            return getOneMaxRep({repCount: entry.reps, weight: entry.weight});
+        }
+        return entry.weight;
+    }
+
     const optionsDate: Intl.DateTimeFormatOptions = {
         weekday: undefined,
         year: undefined,
@@ -33,15 +77,27 @@ const HistoryChart = (props: HistoryChartProps) => {
         day: '2-digit',
     };
 
-    const maxWeight = sets.reduce((maximum, set) => {
-        return (maximum = maximum > set.weight ? maximum : set.weight);
+    const getLabel = (entry: DataEntry) => {
+        const date = new Date(entry.completedAtMs).toLocaleDateString('en-US', optionsDate);
+        return `${date}, ${getYaxisValue(entry)}`;
+    }
+
+    const maxValue = data.reduce((maximum, entry) => {
+        return (maximum = maximum > getYaxisValue(entry) ? maximum : getYaxisValue(entry));
     }, 0) + 1;
 
     return (
         <View style={styles.chart}>
             <View style={styles.completedCount}>
-                <Text style={styles.completedCountDisplay}> {sets.length} </Text>
-                <Text style={styles.completedCount}> sets completed</Text>
+                <View style={styles.setCount}>
+                    <Text style={styles.completedCountDisplay}> {sets.length} </Text>
+                    <Text style={styles.completedCountDisplay}> sets completed</Text>
+                </View>
+                <Controls
+                    selected={yAxisMetric}
+                    selections={["Weight", "Reps", "1 RPM"]}
+                    onSelectionClick={changeYAxisMetric}
+                />
             </View>
             <VictoryChart
                 containerComponent={<VictoryVoronoiContainer />}
@@ -53,22 +109,22 @@ const HistoryChart = (props: HistoryChartProps) => {
                     parent: { border: "5px solid", width: "100%", fill: 'lightblue', position: 'static' },
                 }}>
                 <VictoryLine
-                    data={sets}
+                    data={data}
                     x="completedAtMs"
-                    y="weight"
+                    y={selection2dataEntry(yAxisMetric)}
                 />
                 <VictoryScatter
-                    data={sets}
-                    labels={({ datum }) => `${new Date(datum.completedAtMs).toLocaleDateString('en-US', optionsDate)}, ${datum.weight}`}
+                    data={data}
+                    labels={({ datum }: {datum: DataEntry}) => {return getLabel(datum)}}
                     labelComponent={<VictoryTooltip renderInPortal={false} />}
                     x="completedAtMs"
-                    y="weight"
+                    y={selection2dataEntry(yAxisMetric)}
                 />
                 <VictoryAxis dependentAxis
                     axisLabelComponent={<VictoryLabel dx={0} />}
                     style={{ axisLabel: { padding: 40 } }}
-                    label="Weight"
-                    domain={[0, maxWeight]}
+                    label={yAxisMetric}
+                    domain={[0, maxValue]}
                 />
                 <VictoryAxis
                     tickFormat={(t) => `${new Date(t).toLocaleDateString('en-US', optionsDate)}`}
@@ -82,10 +138,16 @@ const HistoryChart = (props: HistoryChartProps) => {
 };
 
 const styles = StyleSheet.create({
+    setCount: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
     completedCount: {
         display: 'flex',
         flexDirection: 'row',
-        width: '90%',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: "90%",
     },
     completedCountDisplay: {
         fontWeight: "200",
