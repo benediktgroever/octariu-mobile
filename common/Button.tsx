@@ -10,12 +10,18 @@ type ButtonProps = {
     style?: StyleType,
     isLoading?: boolean,
     backgroundColor?: string,
+    showShadow?: boolean,
 }
 
 const Button = (props: ButtonProps) => {
+    const { showShadow = true} = props;
+    const style = [styles.button, props.style];
+    if(showShadow){
+        style.push(styles.shadow);
+    }
     return (
         <TouchableOpacity
-            style={[styles.button, props.style, {backgroundColor: props.backgroundColor ? props.backgroundColor : FOREGROUND_COLOR}]}
+            style={[...style, {backgroundColor: props.backgroundColor ? props.backgroundColor : FOREGROUND_COLOR}]}
             onPress={() => props.onClick()}>
             {
                 props.isLoading ? <ActivityIndicator /> : (
@@ -32,6 +38,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    shadow: {
         shadowColor: 'black',
         shadowOpacity: 0.3,
         shadowRadius: 1,

@@ -90,6 +90,8 @@ const ExerciseListItem = (props: ExerciseListItemProps) => {
           text={'Add set'}
           onClick={onClickCreateSet}
           style={styles.addExerciseButton}
+          showShadow={false}
+          backgroundColor='lightgrey'
         />
       }
     </View>

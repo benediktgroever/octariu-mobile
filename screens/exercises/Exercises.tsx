@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Plus from '../../assets/addition.svg'
 import { NavBar, Dropdown } from '../../common';
-import { View, StyleSheet, Pressable, Image, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Pressable, Text, FlatList, ActivityIndicator, TextInput } from 'react-native';
 import {
     ExerciseListItem
 } from './ExerciseListItem';
@@ -12,6 +12,7 @@ import { NavigationProp } from '@react-navigation/native';
 import {
     useListExercisesQuery, Exercise
 } from '../../store';
+import { BACKGROUND_COLOR, FOREGROUND_COLOR } from '../../common/constants';
 
 type ExercisesScreenProps = {
     navigation: NavigationProp<any, any>
@@ -27,7 +28,12 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
         changeFilterEquipment
     } = useListExercisesQuery();
 
+    const [searchQuery, changeSearchQuery] = useState<undefined|string>(undefined);
     const [showCreateExerciseModal, changeShowCreateExerciseModal] = useState(false);
+
+    const filteredExercises = exercises.filter(exercise =>
+        searchQuery === undefined || exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) || searchQuery === ""
+    );
 
     const renderExercise = ({ item }: { item: Exercise }) => {
         return <ExerciseListItem key={item.exerciseId} exercise={item} />
@@ -53,15 +59,23 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
                         label={'Any muscle group'}
                         data={uniqueMuscleGroups}
                         onSelect={changeFilterMuscleGroup}
+                        backgroundColor={BACKGROUND_COLOR}
                     />
                     <Dropdown
                         label={'Any equipment'}
                         data={uniqueEquipments}
                         onSelect={changeFilterEquipment}
+                        backgroundColor={BACKGROUND_COLOR}
                     />
                 </View>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={changeSearchQuery}
+                    value={searchQuery}
+                    placeholder='Search exercises'
+                ></TextInput>
                 <FlatList
-                    data={exercises}
+                    data={filteredExercises}
                     renderItem={renderExercise}
                     keyExtractor={exercise => exercise.exerciseId}
                     style={styles.flatlist}
@@ -83,6 +97,21 @@ const ExercisesScreen = (props: ExercisesScreenProps) => {
 };
 
 const styles = StyleSheet.create({
+    input: {
+        backgroundColor: FOREGROUND_COLOR,
+        width: "95%",
+        padding: 10,
+        margin: 2,
+        borderRadius: 3,
+        zIndex: -1,
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
+    },
     icon: {
         width: 20,
         height: 20,

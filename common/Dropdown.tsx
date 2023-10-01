@@ -7,6 +7,7 @@ type DropdownProps = {
     default?: string,
     data: Array<string>,
     onSelect: Function,
+    backgroundColor: string,
 }
 
 const Dropdown = (props: DropdownProps) => {
@@ -51,7 +52,7 @@ const Dropdown = (props: DropdownProps) => {
                 data={(dropdownSelection && props.label) ? [props.label, ...props.data] : props.data}
                 renderItem={renderDropdownItem}
                 keyExtractor={item => item}
-                style={styles.dropdown}
+                style={[styles.dropdown, {backgroundColor: props.backgroundColor}]}
             />}
         </TouchableOpacity>
     );
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: FOREGROUND_COLOR,
-        height: 50,
+        height: 30,
         width: '50%',
         zIndex: 1,
         margin: 5,
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     dropdown: {
         position: 'absolute',
         backgroundColor: BACKGROUND_COLOR,
-        top: 50,
+        top: 30,
         zIndex: 100,
         width: '100%',
     },

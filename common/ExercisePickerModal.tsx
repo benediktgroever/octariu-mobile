@@ -10,6 +10,9 @@ import {
 import {
     usePreviousBestSets
 } from '../common';
+import { TextInput } from 'react-native-gesture-handler';
+import { useState } from 'react';
+import { FOREGROUND_COLOR } from './constants';
 
 type ExercisePickerModalProps = {
     onExit: Function
@@ -27,9 +30,14 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
         exerciseCount
     } = usePreviousBestSets({});
 
+    const [searchQuery, changeSearchQuery] = useState<undefined|string>(undefined);
     const includeExercisesSet = new Set(props.includeExercises ? props.includeExercises : [])
-    const filteredExercises = props.includeExercises ?
+    let filteredExercises = props.includeExercises ?
         exercises.filter(exercise => includeExercisesSet.has(exercise)) : exercises
+
+    filteredExercises = filteredExercises.filter(exercise =>
+        searchQuery == undefined || exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) || searchQuery == ""
+    );
 
     const renderExerciseSelector = ({ item }: { item: Exercise }) => {
         const { exerciseId, name } = item;
@@ -53,13 +61,21 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
                     label={'Any muscle group'}
                     data={uniqueMuscleGroups}
                     onSelect={changeFilterMuscleGroup}
+                    backgroundColor={'white'}
                 />
                 <Dropdown
                     label={'Any equipment'}
                     data={uniqueEquipments}
                     onSelect={changeFilterEquipment}
+                    backgroundColor={'white'}
                 />
             </View>
+            <TextInput
+                style={styles.input}
+                onChangeText={changeSearchQuery}
+                value={searchQuery}
+                placeholder='Search exercises'
+            ></TextInput>
             <FlatList
                 data={filteredExercises}
                 renderItem={renderExerciseSelector}
@@ -71,6 +87,21 @@ const ExercisePickerModal = (props: ExercisePickerModalProps) => {
 };
 
 const styles = StyleSheet.create({
+    input: {
+        backgroundColor: FOREGROUND_COLOR,
+        width: "95%",
+        padding: 10,
+        margin: 2,
+        borderRadius: 3,
+        zIndex: -1,
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowRadius: 1,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        }
+    },
     header: {
         paddingVertical: 8,
         fontSize: 15,
