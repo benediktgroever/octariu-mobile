@@ -1,7 +1,7 @@
 import Workouts from "../assets/to-do-list.svg";
 import Clock from "../assets/clock.svg";
 import Weights from "../assets/dumbbell.svg";
-import Settings from "../assets/settings.svg";
+import User from "../assets/user.svg";
 import { ReactNode } from 'react';
 import {
     CountDown
@@ -95,7 +95,7 @@ function NavBar(props: NavBarProps) {
                     {
                         settings.photoURL ?
                             <Image style={[styles.profile, {'borderColor': profileFill}]} source={{uri: settings.photoURL}}/> :
-                            <Settings width={23} height={23} fill={profileFill} style={styles.icon} />
+                            <User width={23} height={23} fill={profileFill} style={styles.icon} />
                     }
                     <Text style={[styles.buttonText, { color: profileFill }]}>
                         Profile
