@@ -4,12 +4,14 @@ import { SetActionTypes } from "./types";
 import { WorkoutActionTypes } from "../workouts/types";
 import { WorkoutSetResponse } from "../../common/types";
 
+const LAST_UPDATED = 5 * 60 * 1000 // 5 mints in milliseconds
+
 const fetchSets = async (force: boolean) => {
     try {
         if (store.getState().sets.isLoading) {
             return
         }
-        if (store.getState().sets.sets.length !== 0 && !force) {
+        if (new Date().getTime() - store.getState().sets.lastLoadedTimeMs < LAST_UPDATED && !force){
             return
         }
         store.dispatch({ type: SetActionTypes.IS_LOADING })

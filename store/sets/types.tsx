@@ -26,4 +26,5 @@ export interface setsState {
     readonly isLoading: boolean;
     readonly sets: Set[];
     readonly errors?: string;
+    readonly lastLoadedTimeMs: number;
 }

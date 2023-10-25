@@ -25,4 +25,5 @@ export interface exercisesState {
     readonly isLoading: boolean;
     readonly exercises: Exercise[];
     readonly errors?: string;
+    readonly lastLoadedTimeMs: number,
 }

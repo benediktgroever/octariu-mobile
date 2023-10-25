@@ -2,12 +2,14 @@ import { baseFetch, Method } from "../baseFetch";
 import { store } from "..";
 import { ExerciseActionTypes, ExerciseRequest } from "./types";
 
+const LAST_UPDATED = 5 * 60 * 1000
+
 const fetchExercises = async () => {
     try {
         if (store.getState().exercises.isLoading) {
             return
         }
-        if (store.getState().exercises.exercises.length !== 0) {
+        if (new Date().getTime() - store.getState().exercises.lastLoadedTimeMs < LAST_UPDATED){
             return
         }
         store.dispatch({ type: ExerciseActionTypes.IS_LOADING })

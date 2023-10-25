@@ -5,6 +5,7 @@ export const initialState: setsState = {
     sets: [],
     errors: undefined,
     isLoading: false,
+    lastLoadedTimeMs: 0,
 };
 
 const setsReducer: Reducer<setsState> = (state = initialState, action) => {
@@ -47,6 +48,7 @@ const setsReducer: Reducer<setsState> = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 sets: action.payload,
+                lastLoadedTimeMs: new Date().getTime(),
             };
         }
         case SetActionTypes.UPDATE_SETS: {

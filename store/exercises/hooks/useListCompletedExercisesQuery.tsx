@@ -4,7 +4,7 @@ import { useListSetsQuery } from "../..";
 
 const useListCompletedExercisesQuery = () => {
 
-    const { isLoading: isLoadingSets, sets } = useListSetsQuery({})
+    const { isLoading: isLoadingSets, sets } = useListSetsQuery({completed: true})
     const { isLoading: isLoadingExercises, exercises, uniqueEquipments,
         uniqueMuscleGroups, changeFilterEquipment, changeFilterMuscleGroup } = useListExercisesQuery()
 
