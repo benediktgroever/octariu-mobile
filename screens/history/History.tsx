@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavBar } from '../../common';
-import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
 import { NavigationProp } from '@react-navigation/native';
 import { HistoryChart } from './HistoryChart';
 import { ExercisePickerModal } from '../../common';
@@ -15,7 +15,7 @@ type HistoryScreenProps = {
 
 const HistoryScreen = (props: HistoryScreenProps) => {
 
-    const { exercises } = useListCompletedExercisesQuery();
+    const { isLoading, exercises } = useListCompletedExercisesQuery();
     const [showExercisePicker, changeShowExercisePicker] = useState(false);
     const [exercise, changeExercise] = useState<Exercise | undefined>(exercises.length ? exercises[0] : undefined);
     const onClickPickExercise = (exercise: Exercise) => {
@@ -36,6 +36,8 @@ const HistoryScreen = (props: HistoryScreenProps) => {
                 </View>
             </React.Fragment>
         )
+    }else if(!isLoading){
+        content = <Text>You have no completed exercises</Text>
     }
 
     return (
