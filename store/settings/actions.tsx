@@ -6,7 +6,8 @@ import {
 } from 'react-native';
 import notifee, { TimestampTrigger, TriggerType, AndroidImportance } from '@notifee/react-native';
 import { Method, baseFetch } from '../baseFetch';
-import { useSelector } from 'react-redux';
+import { SetActionTypes } from '../sets/types';
+import { WorkoutActionTypes } from '../workouts/types';
 
 const UNIQUE_RANDOM_NOTIFICATION_ID = 'some-random-id';
 
@@ -52,6 +53,16 @@ const updateSettings = async (params: updateSettingsParams) => {
     }) as SettingsResponse;
     store.dispatch({ type: SettingsActionType.GET_SETTINGS_RESPONSE, payload: settings })
     return settings;
+}
+
+const deleteUserAccount = async () => {
+    store.dispatch({ type: SetActionTypes.LISTS_SETS, payload: [] })
+    store.dispatch({ type: WorkoutActionTypes.LISTS_WORKOUTS, payload: [] })
+    await baseFetch({
+        method: Method.DELETE,
+        url: '/settings/delete',
+        params: {}
+    });
 }
 
 const createTimeOutNotification = async (countDownEndTime: number) => {
@@ -137,4 +148,5 @@ export {
     setCountDownTime,
     getSettings,
     updateSettings,
+    deleteUserAccount,
 }

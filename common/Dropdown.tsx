@@ -7,7 +7,7 @@ type DropdownProps = {
     default?: string,
     data: Array<string>,
     onSelect: Function,
-    backgroundColor: string,
+    backgroundColor?: string | undefined,
 }
 
 const Dropdown = (props: DropdownProps) => {
@@ -52,7 +52,7 @@ const Dropdown = (props: DropdownProps) => {
                 data={(dropdownSelection && props.label) ? [props.label, ...props.data] : props.data}
                 renderItem={renderDropdownItem}
                 keyExtractor={item => item}
-                style={[styles.dropdown, {backgroundColor: props.backgroundColor}]}
+                style={props.backgroundColor ? [styles.dropdown, {backgroundColor: props.backgroundColor}] : [styles.dropdown]}
             />}
         </TouchableOpacity>
     );

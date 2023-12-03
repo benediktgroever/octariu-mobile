@@ -2,7 +2,7 @@ import { RootState } from "../..";
 import { getSettings } from "../actions";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { updateSettings } from '../actions';
+import { updateSettings, deleteUserAccount } from '../actions';
 
 
 
@@ -19,6 +19,7 @@ const useListSettingsQuery = () => {
         isLoading,
         settings,
         updateSettings,
+        deleteUserAccount,
     }
 }
 

@@ -5,6 +5,7 @@ import { NavigationProp } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 import { FOREGROUND_COLOR } from '../../common/constants'
 import { useListSettingsQuery,  } from '../../store';
+import { DeleteAccountModal } from './DeleteAccountModal';
 
 type ProfileScreenProps = {
     navigation: NavigationProp<any, any>;
@@ -23,13 +24,19 @@ DEFAULT_TIMERS.set('5 min', 300)
 const ProfileScreen = (props: ProfileScreenProps) => {
 
     const [isLoading, changeIsLoading] = useState(false);
-    const { settings, updateSettings } = useListSettingsQuery();
+    const [isDeleteAccountModalVisible, changeIsDeleteAccountModalVisible] = useState(false);
+    const { settings, updateSettings, deleteUserAccount } = useListSettingsQuery();
 
     const handleLogout = () => {
         auth()
             .signOut()
             .then(() => console.log('User signed out!'));
         changeIsLoading(true);
+    }
+
+    const deleteAccount = async () => {
+        await deleteUserAccount()
+        handleLogout();
     }
 
     const toggleRestTimer = async () => {
@@ -93,12 +100,27 @@ const ProfileScreen = (props: ProfileScreenProps) => {
                         onSelect={changeRestTimer}
                     />
                 </View>
-                <Button
-                    text='Logout'
-                    onClick={handleLogout}
-                    isLoading={isLoading}
-                    style={styles.button}
-                />
+                <View style={styles.buttons}>
+                    <Button
+                        text='Logout'
+                        onClick={handleLogout}
+                        isLoading={isLoading}
+                        style={styles.button}
+                    />
+                    <Button
+                        text='Delete account'
+                        onClick={() => changeIsDeleteAccountModalVisible(true)}
+                        isLoading={isLoading}
+                        style={{...styles.button, ...{color: 'blue'}}}
+                    />
+                </View>
+                {
+                    isDeleteAccountModalVisible && <DeleteAccountModal
+                        onExit={() => changeIsDeleteAccountModalVisible(false)}
+                        onDeleteAccount={deleteAccount}
+                        navigation={props.navigation}
+                    />
+                }
             </View>
         </NavBar>
     );
@@ -145,6 +167,14 @@ const styles = StyleSheet.create({
         backgroundColor: FOREGROUND_COLOR,
         height: 50,
         zIndex: -1,
+        margin: 10,
+    },
+    buttons: {
+        width: '100%',
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     }
 });
 
