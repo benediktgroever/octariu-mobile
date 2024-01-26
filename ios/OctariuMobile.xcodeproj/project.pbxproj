@@ -13,7 +13,33 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		5BF53A08559DA069EA08DF85 /* Pods_OctariuMobile_OctariuMobileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 900E130B592BC6314A1F3EF8 /* Pods_OctariuMobile_OctariuMobileTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8E13A8582B58D5C2004A2F8A /* TimerDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13A8572B58D5C2004A2F8A /* TimerDetails.swift */; };
+		8E13A85A2B58F294004A2F8A /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13A8592B58F294004A2F8A /* HeartRateService.swift */; };
+		8E13A85C2B59AF49004A2F8A /* WorkoutDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13A85B2B59AF49004A2F8A /* WorkoutDetailSheet.swift */; };
+		8E14CB6C2B4DAD7D002F2776 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8E14CB6B2B4DAD7D002F2776 /* FirebaseAnalytics */; };
+		8E14CB6E2B4DAD7D002F2776 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8E14CB6D2B4DAD7D002F2776 /* FirebaseAnalyticsSwift */; };
+		8E14CB702B4DAD7D002F2776 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8E14CB6F2B4DAD7D002F2776 /* FirebaseAuth */; };
+		8E14CB762B4DBA60002F2776 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E14CB752B4DBA60002F2776 /* GoogleService-Info.plist */; };
+		8E6FEC412B3DB60A00EB4006 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6FEC402B3DB60A00EB4006 /* DataService.swift */; };
+		8E94DC452B4E306E003BA0FE /* PhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94DC442B4E306E003BA0FE /* PhoneConnector.swift */; };
+		8EA5A0E52B35338E00634F7D /* SetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5A0E42B35338D00634F7D /* SetService.swift */; };
+		8EA5A0E92B353D8800634F7D /* ExerciseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA5A0E82B353D8800634F7D /* ExerciseService.swift */; };
 		8ECC52162A54CF12000689FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8ECC52152A54CF11000689FF /* GoogleService-Info.plist */; };
+		8ECE27ED2B1D2ECD001CDF5A /* OcatriuWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE27EC2B1D2ECD001CDF5A /* OcatriuWatchApp.swift */; };
+		8ECE27EF2B1D2ECD001CDF5A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE27EE2B1D2ECD001CDF5A /* ContentView.swift */; };
+		8ECE27F12B1D2ED1001CDF5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ECE27F02B1D2ED1001CDF5A /* Assets.xcassets */; };
+		8ECE27F42B1D2ED1001CDF5A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8ECE27F32B1D2ED1001CDF5A /* Preview Assets.xcassets */; };
+		8ECE27F82B1D2ED1001CDF5A /* OcatriuWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 8ECE27EA2B1D2ECD001CDF5A /* OcatriuWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8ECE27FF2B1D518F001CDF5A /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE27FE2B1D518F001CDF5A /* Workout.swift */; };
+		8ECE28032B1D8ADA001CDF5A /* WorkoutSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE28022B1D8ADA001CDF5A /* WorkoutSelection.swift */; };
+		8ECE28072B1D946E001CDF5A /* Set.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE28062B1D946D001CDF5A /* Set.swift */; };
+		8ECE28092B1D9A27001CDF5A /* WorkoutDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE28082B1D9A27001CDF5A /* WorkoutDetail.swift */; };
+		8ECE280C2B1F8FAB001CDF5A /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE280B2B1F8FAB001CDF5A /* APIService.swift */; };
+		8ECE280E2B201DDA001CDF5A /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE280D2B201DDA001CDF5A /* WorkoutService.swift */; };
+		8ECE28102B203591001CDF5A /* WorkoutSetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE280F2B203591001CDF5A /* WorkoutSetResponse.swift */; };
+		8ECE281A2B227962001CDF5A /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE28192B227961001CDF5A /* Exercise.swift */; };
+		8ECE281E2B22CBA9001CDF5A /* SetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECE281D2B22CBA9001CDF5A /* SetDetails.swift */; };
+		8EEC3F012B4B180F00B4DA24 /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEC3F002B4B180F00B4DA24 /* Throttler.swift */; };
 		E8A77A8E98CF2B488745264F /* Pods_OctariuMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E718626B8657C70D940405 /* Pods_OctariuMobile.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +51,28 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = OctariuMobile;
 		};
+		8ECE27F52B1D2ED1001CDF5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8ECE27E92B1D2ECD001CDF5A;
+			remoteInfo = "OcatriuWatch Watch App";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8ECE27F72B1D2ED1001CDF5A /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				8ECE27F82B1D2ED1001CDF5A /* OcatriuWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* OctariuMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctariuMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,8 +89,31 @@
 		5B7EB9410499542E8C5724F5 /* Pods-OctariuMobile-OctariuMobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OctariuMobile-OctariuMobileTests.debug.xcconfig"; path = "Target Support Files/Pods-OctariuMobile-OctariuMobileTests/Pods-OctariuMobile-OctariuMobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = OctariuMobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-OctariuMobile-OctariuMobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OctariuMobile-OctariuMobileTests.release.xcconfig"; path = "Target Support Files/Pods-OctariuMobile-OctariuMobileTests/Pods-OctariuMobile-OctariuMobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		8E13A8572B58D5C2004A2F8A /* TimerDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDetails.swift; sourceTree = "<group>"; };
+		8E13A8592B58F294004A2F8A /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
+		8E13A85B2B59AF49004A2F8A /* WorkoutDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailSheet.swift; sourceTree = "<group>"; };
+		8E14CB752B4DBA60002F2776 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8E6FEC402B3DB60A00EB4006 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		8E94DC442B4E306E003BA0FE /* PhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhoneConnector.swift; path = "OcatriuWatch Watch App/Services/PhoneConnector.swift"; sourceTree = SOURCE_ROOT; };
+		8EA5A0E42B35338D00634F7D /* SetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetService.swift; sourceTree = "<group>"; };
+		8EA5A0E82B353D8800634F7D /* ExerciseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseService.swift; sourceTree = "<group>"; };
 		8EB02E3A2A54F67500CC4A63 /* OctariuMobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = OctariuMobile.entitlements; path = OctariuMobile/OctariuMobile.entitlements; sourceTree = "<group>"; };
 		8ECC52152A54CF11000689FF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8ECE27EA2B1D2ECD001CDF5A /* OcatriuWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OcatriuWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ECE27EC2B1D2ECD001CDF5A /* OcatriuWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OcatriuWatchApp.swift; sourceTree = "<group>"; };
+		8ECE27EE2B1D2ECD001CDF5A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8ECE27F02B1D2ED1001CDF5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8ECE27F32B1D2ED1001CDF5A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8ECE27FE2B1D518F001CDF5A /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		8ECE28022B1D8ADA001CDF5A /* WorkoutSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSelection.swift; sourceTree = "<group>"; };
+		8ECE28062B1D946D001CDF5A /* Set.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Set.swift; sourceTree = "<group>"; };
+		8ECE28082B1D9A27001CDF5A /* WorkoutDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetail.swift; sourceTree = "<group>"; };
+		8ECE280B2B1F8FAB001CDF5A /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		8ECE280D2B201DDA001CDF5A /* WorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
+		8ECE280F2B203591001CDF5A /* WorkoutSetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSetResponse.swift; sourceTree = "<group>"; };
+		8ECE28192B227961001CDF5A /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		8ECE281D2B22CBA9001CDF5A /* SetDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetails.swift; sourceTree = "<group>"; };
+		8EEC3F002B4B180F00B4DA24 /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		900E130B592BC6314A1F3EF8 /* Pods_OctariuMobile_OctariuMobileTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OctariuMobile_OctariuMobileTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F3E718626B8657C70D940405 /* Pods_OctariuMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OctariuMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +133,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8A77A8E98CF2B488745264F /* Pods_OctariuMobile.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8ECE27E72B1D2ECD001CDF5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E14CB6E2B4DAD7D002F2776 /* FirebaseAnalyticsSwift in Frameworks */,
+				8E14CB702B4DAD7D002F2776 /* FirebaseAuth in Frameworks */,
+				8E14CB6C2B4DAD7D002F2776 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +204,7 @@
 				13B07FAE1A68108700A75B9A /* OctariuMobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* OctariuMobileTests */,
+				8ECE27EB2B1D2ECD001CDF5A /* OcatriuWatch Watch App */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -138,8 +219,70 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* OctariuMobile.app */,
 				00E356EE1AD99517003FC87E /* OctariuMobileTests.xctest */,
+				8ECE27EA2B1D2ECD001CDF5A /* OcatriuWatch Watch App.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8ECE27EB2B1D2ECD001CDF5A /* OcatriuWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE280A2B1F8F87001CDF5A /* Services */,
+				8ECE28012B1D8A9C001CDF5A /* Views */,
+				8ECE28002B1D5231001CDF5A /* Models */,
+				8ECE27EC2B1D2ECD001CDF5A /* OcatriuWatchApp.swift */,
+				8ECE27EE2B1D2ECD001CDF5A /* ContentView.swift */,
+				8ECE27F02B1D2ED1001CDF5A /* Assets.xcassets */,
+				8E14CB752B4DBA60002F2776 /* GoogleService-Info.plist */,
+				8ECE27F22B1D2ED1001CDF5A /* Preview Content */,
+			);
+			path = "OcatriuWatch Watch App";
+			sourceTree = "<group>";
+		};
+		8ECE27F22B1D2ED1001CDF5A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE27F32B1D2ED1001CDF5A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8ECE28002B1D5231001CDF5A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE27FE2B1D518F001CDF5A /* Workout.swift */,
+				8ECE28062B1D946D001CDF5A /* Set.swift */,
+				8ECE280F2B203591001CDF5A /* WorkoutSetResponse.swift */,
+				8ECE28192B227961001CDF5A /* Exercise.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8ECE28012B1D8A9C001CDF5A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE28022B1D8ADA001CDF5A /* WorkoutSelection.swift */,
+				8ECE28082B1D9A27001CDF5A /* WorkoutDetail.swift */,
+				8ECE281D2B22CBA9001CDF5A /* SetDetails.swift */,
+				8E13A8572B58D5C2004A2F8A /* TimerDetails.swift */,
+				8E13A85B2B59AF49004A2F8A /* WorkoutDetailSheet.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8ECE280A2B1F8F87001CDF5A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8ECE280B2B1F8FAB001CDF5A /* APIService.swift */,
+				8ECE280D2B201DDA001CDF5A /* WorkoutService.swift */,
+				8EA5A0E82B353D8800634F7D /* ExerciseService.swift */,
+				8E94DC442B4E306E003BA0FE /* PhoneConnector.swift */,
+				8E6FEC402B3DB60A00EB4006 /* DataService.swift */,
+				8EA5A0E42B35338D00634F7D /* SetService.swift */,
+				8EEC3F002B4B180F00B4DA24 /* Throttler.swift */,
+				8E13A8592B58F294004A2F8A /* HeartRateService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -185,6 +328,7 @@
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				8ECE27F72B1D2ED1001CDF5A /* Embed Watch Content */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
@@ -194,10 +338,33 @@
 			buildRules = (
 			);
 			dependencies = (
+				8ECE27F62B1D2ED1001CDF5A /* PBXTargetDependency */,
 			);
 			name = OctariuMobile;
 			productName = OctariuMobile;
 			productReference = 13B07F961A680F5B00A75B9A /* OctariuMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8ECE27E92B1D2ECD001CDF5A /* OcatriuWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8ECE27FB2B1D2ED1001CDF5A /* Build configuration list for PBXNativeTarget "OcatriuWatch Watch App" */;
+			buildPhases = (
+				8ECE27E62B1D2ECD001CDF5A /* Sources */,
+				8ECE27E72B1D2ECD001CDF5A /* Frameworks */,
+				8ECE27E82B1D2ECD001CDF5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OcatriuWatch Watch App";
+			packageProductDependencies = (
+				8E14CB6B2B4DAD7D002F2776 /* FirebaseAnalytics */,
+				8E14CB6D2B4DAD7D002F2776 /* FirebaseAnalyticsSwift */,
+				8E14CB6F2B4DAD7D002F2776 /* FirebaseAuth */,
+			);
+			productName = "OcatriuWatch Watch App";
+			productReference = 8ECE27EA2B1D2ECD001CDF5A /* OcatriuWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -206,6 +373,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -214,6 +382,9 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
+					};
+					8ECE27E92B1D2ECD001CDF5A = {
+						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
 			};
@@ -226,12 +397,16 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				8E14CB6A2B4DAD7D002F2776 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* OctariuMobile */,
 				00E356ED1AD99517003FC87E /* OctariuMobileTests */,
+				8ECE27E92B1D2ECD001CDF5A /* OcatriuWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -251,6 +426,16 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				8ECC52162A54CF12000689FF /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8ECE27E82B1D2ECD001CDF5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8ECE27F42B1D2ED1001CDF5A /* Preview Assets.xcassets in Resources */,
+				8ECE27F12B1D2ED1001CDF5A /* Assets.xcassets in Resources */,
+				8E14CB762B4DBA60002F2776 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +622,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8ECE27E62B1D2ECD001CDF5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E13A8582B58D5C2004A2F8A /* TimerDetails.swift in Sources */,
+				8ECE28092B1D9A27001CDF5A /* WorkoutDetail.swift in Sources */,
+				8ECE28102B203591001CDF5A /* WorkoutSetResponse.swift in Sources */,
+				8EA5A0E92B353D8800634F7D /* ExerciseService.swift in Sources */,
+				8E13A85A2B58F294004A2F8A /* HeartRateService.swift in Sources */,
+				8ECE27EF2B1D2ECD001CDF5A /* ContentView.swift in Sources */,
+				8E94DC452B4E306E003BA0FE /* PhoneConnector.swift in Sources */,
+				8ECE27ED2B1D2ECD001CDF5A /* OcatriuWatchApp.swift in Sources */,
+				8EA5A0E52B35338E00634F7D /* SetService.swift in Sources */,
+				8ECE281A2B227962001CDF5A /* Exercise.swift in Sources */,
+				8ECE28072B1D946E001CDF5A /* Set.swift in Sources */,
+				8E6FEC412B3DB60A00EB4006 /* DataService.swift in Sources */,
+				8ECE28032B1D8ADA001CDF5A /* WorkoutSelection.swift in Sources */,
+				8ECE280E2B201DDA001CDF5A /* WorkoutService.swift in Sources */,
+				8EEC3F012B4B180F00B4DA24 /* Throttler.swift in Sources */,
+				8E13A85C2B59AF49004A2F8A /* WorkoutDetailSheet.swift in Sources */,
+				8ECE280C2B1F8FAB001CDF5A /* APIService.swift in Sources */,
+				8ECE281E2B22CBA9001CDF5A /* SetDetails.swift in Sources */,
+				8ECE27FF2B1D518F001CDF5A /* Workout.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -444,6 +655,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* OctariuMobile */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		8ECE27F62B1D2ED1001CDF5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8ECE27E92B1D2ECD001CDF5A /* OcatriuWatch Watch App */;
+			targetProxy = 8ECE27F52B1D2ED1001CDF5A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -503,6 +719,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-OctariuMobile.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OctariuMobile/OctariuMobile.entitlements;
@@ -532,6 +749,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-OctariuMobile.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OctariuMobile/OctariuMobile.entitlements;
@@ -710,6 +928,95 @@
 			};
 			name = Release;
 		};
+		8ECE27F92B1D2ED1001CDF5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"OcatriuWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = VGQ6FB9BV9;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = OcatriuWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = org.reactjs.native.example.OctariuMobile;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.OctariuMobile.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		8ECE27FA2B1D2ED1001CDF5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"OcatriuWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = VGQ6FB9BV9;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = OcatriuWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = org.reactjs.native.example.OctariuMobile;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.OctariuMobile.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -740,7 +1047,45 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8ECE27FB2B1D2ED1001CDF5A /* Build configuration list for PBXNativeTarget "OcatriuWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8ECE27F92B1D2ED1001CDF5A /* Debug */,
+				8ECE27FA2B1D2ED1001CDF5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8E14CB6A2B4DAD7D002F2776 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8E14CB6B2B4DAD7D002F2776 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8E14CB6A2B4DAD7D002F2776 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		8E14CB6D2B4DAD7D002F2776 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8E14CB6A2B4DAD7D002F2776 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		8E14CB6F2B4DAD7D002F2776 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8E14CB6A2B4DAD7D002F2776 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

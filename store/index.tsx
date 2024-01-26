@@ -42,6 +42,10 @@ export {
     setCountDownTime,
 } from './settings/actions';
 
+export {
+    processMessageFromIPhone
+} from './phoneConnector';
+
 export type {
     Set
 } from './sets/types';

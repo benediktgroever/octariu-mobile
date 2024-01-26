@@ -12,6 +12,9 @@ import {
   AuthStack
 } from './AuthStack';
 import { BACKGROUND_COLOR, NAVBAR_COLOR } from './common/constants';
+import { watchEvents } from 'react-native-watch-connectivity';
+import { processMessageFromIPhone } from './store';
+import { WorkoutSetResponse } from './common/types';
 
 export default function App() {
 
@@ -25,8 +28,15 @@ export default function App() {
     if (initializing) setInitializing(false);
   }
 
+  const messageListener = () => watchEvents.on('message', (message) => {
+    const data = message as WorkoutSetResponse
+    console.log("received", data)
+    processMessageFromIPhone(data);
+  })
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    messageListener()
     return subscriber; // unsubscribe on unmount
   }, []);
 

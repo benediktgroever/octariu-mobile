@@ -19,6 +19,7 @@ import {
   WORKOUT_ITEM_BACKGROUND_COLOR, FOREGROUND_COLOR
 } from '../../../common/constants';
 import DraggableFlatList, { RenderItemParams, ShadowDecorator } from 'react-native-draggable-flatlist';
+import { WORKOUTS } from '../../../Routes';
 
 type WorkoutProps = {
   workout: Workout,
@@ -65,6 +66,8 @@ const WorkoutItem = (props: WorkoutProps) => {
   useEffect(() => {
     if (workout) {
       setData(workout.workoutRanksOrder.map(workoutRank => ({ workoutRank: workoutRank })))
+    }else{
+      props.navigation.navigate(WORKOUTS)
     }
   }, [workout])
 

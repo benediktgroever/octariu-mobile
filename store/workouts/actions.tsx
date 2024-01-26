@@ -3,6 +3,7 @@ import { store } from "..";
 import { Workout, WorkoutActionTypes } from "./types";
 import { SetActionTypes } from "../sets/types";
 import { WorkoutSetResponse } from '../../common/types';
+import { sendMessageToIPhone } from "../phoneConnector";
 
 const fetchWorkouts = async () => {
     try {
@@ -43,6 +44,7 @@ const updateWorkout = async (params: updateWorkoutParams) => {
             url: '/workouts/update',
             params: params,
         }) as WorkoutSetResponse;
+        sendMessageToIPhone(data)
         store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUTS, payload: data.workouts.updated })
         store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: data.sets.updated })
         store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: data.sets.created })
@@ -71,6 +73,7 @@ const createWorkout = async (params: createWorkoutParams) => {
             url: '/workouts/create',
             params: params,
         }) as WorkoutSetResponse
+        sendMessageToIPhone(data)
         store.dispatch({ type: WorkoutActionTypes.CREATE_WORKOUTS, payload: data.workouts.created })
         store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: data.sets.created })
         return data.workouts.created[0]
@@ -94,6 +97,7 @@ const deleteWorkout = async (params: deleteWorkoutParams) => {
             url: '/workouts/delete',
             params: params,
         }) as WorkoutSetResponse
+        sendMessageToIPhone(data)
         return data.workouts.deleted[0] as Workout;
     } catch (error) {
         console.error(error);

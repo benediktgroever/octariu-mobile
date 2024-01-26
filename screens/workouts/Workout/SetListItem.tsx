@@ -65,7 +65,13 @@ const SetListItem = (props: SetProps) => {
         return () => {
             hideSubscription.remove();
         };
-    }, [weight, repCount]);
+    }, [weight, repCount, props.set]);
+
+    useEffect(()=>{
+        onChangeFinished(props.set.completedAtMs !== 0);
+        onChangeRepCount(Math.round(Number(props.set.repCount)).toString());
+        onChangeWeight((Math.round(Number(props.set.weight) * 10) / 10).toString())
+    }, [props.set])
 
     const submitEditingRepCount = () => {
         updateSet({ setId: props.set.setId, repCount: Math.round(Number(repCount)) });

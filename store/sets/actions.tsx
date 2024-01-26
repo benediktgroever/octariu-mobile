@@ -3,6 +3,7 @@ import { store } from "..";
 import { SetActionTypes } from "./types";
 import { WorkoutActionTypes } from "../workouts/types";
 import { WorkoutSetResponse } from "../../common/types";
+import { sendMessageToIPhone } from "../phoneConnector";
 
 const LAST_UPDATED = 5 * 60 * 1000 // 5 mints in milliseconds
 
@@ -41,6 +42,7 @@ const updateSet = async (params: updateSetParams) => {
             url: '/sets/update',
             params: params,
         }) as WorkoutSetResponse
+        await sendMessageToIPhone(data)
         store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: data.sets.updated })
         return data.sets.updated[0];
     } catch (error) {
@@ -66,6 +68,7 @@ const createSet = async (params: createSetParams) => {
             url: '/sets/create',
             params: params,
         }) as WorkoutSetResponse
+        sendMessageToIPhone(data)
         store.dispatch({ type: WorkoutActionTypes.UPDATE_WORKOUTS, payload: data.workouts.updated })
         store.dispatch({ type: SetActionTypes.CREATE_SETS, payload: data.sets.created })
         return data.sets.created[0];
@@ -87,6 +90,7 @@ const deleteSet = async (params: deleteSetParams) => {
             url: '/sets/delete',
             params: params,
         }) as WorkoutSetResponse
+        sendMessageToIPhone(data)
         store.dispatch({ type: SetActionTypes.UPDATE_SETS, payload: data.sets.updated })
         return data.sets.deleted[0];
     } catch (error) {
